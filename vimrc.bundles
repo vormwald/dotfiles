@@ -1,0 +1,23 @@
+set nocompatible   " be iMproved
+filetype off       " required!
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+
+" My bundles here:
+"
+Bundle 'kien/ctrlp.vim'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-rails.git'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'skalnik/vim-vroom'
+
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'flazz/vim-colorschemes'
+
+filetype on

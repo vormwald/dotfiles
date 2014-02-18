@@ -1,0 +1,30 @@
+[core]
+  quotepath = false
+  excludesfile = ~/.gitignore
+  editor = vim
+  pager = less -r
+[color]
+  ui = auto
+  interactive = auto
+[alias]
+  s = status
+  a = !git add . && git status
+  au = !git add -u . && git status
+  aa = !git add . && git add -u . && git status
+  c = commit
+  cm = commit -m
+  ac = !git add . && git commit
+  acm = !git add . && git commit -m
+  l = log --graph --all --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
+  ll =  log --stat --abbrev-commit
+  d = diff --color-words
+  dh = diff --color-words head
+  master = checkout master
+  alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
+[filter "media"]
+  clean = git-media-clean %f
+  smudge = git-media-smudge %f
+[include]
+  path = .gitconfig.local
+[commit]
+  template = ~/.gitmessage

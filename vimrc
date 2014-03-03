@@ -48,6 +48,11 @@ filetype plugin on    " Enable filetype-specific plugins
 au BufRead,BufNewFile *.md set filetype=markdown
 autocmd FileType markdown setlocal spell
 
+" reopen file at the same line
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
 colorscheme github  "solorized slate railscasts ron, murphy
 highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0

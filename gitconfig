@@ -19,8 +19,11 @@
   ll =  log --stat --abbrev-commit
   d = diff --color-words
   dh = diff --color-words head
+  br = branch
+  co = checkout
   master = checkout master
   alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
+	g = grep --break --heading --line-number
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
@@ -28,3 +31,6 @@
   path = .gitconfig.local
 [commit]
   template = ~/.gitmessage
+[grep]
+	extendRegexp = true
+	lineNumber = true

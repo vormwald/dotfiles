@@ -11,15 +11,14 @@ Bundle 'gmarik/vundle'
 " My bundles here:
 "
 Bundle 'kien/ctrlp.vim'
+Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-rails.git'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'skalnik/vim-vroom'
 Bundle 'airblade/vim-gitgutter'
-
-" Bundle "daylerees/colour-schemes", { "rtp": "vim-themes/" }
-Bundle 'altercation/vim-colors-solarized'
+Bundle 'rking/ag.vim'
 Bundle 'flazz/vim-colorschemes'
 
 filetype on

@@ -53,7 +53,7 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-colorscheme github  "solorized slate railscasts ron, murphy
+colorscheme smyck "github  solorized slate railscasts ron, murphy
 highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
 
@@ -96,6 +96,20 @@ runtime macros/matchit.vim
 
 " wrap git messages at 72
 autocmd Filetype gitcommit setlocal spell textwidth=72
+
+" Use The Silver Searcher instead of grep
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " Local config
 if filereadable($HOME . "/.vimrc.local")

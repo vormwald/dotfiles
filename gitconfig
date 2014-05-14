@@ -23,14 +23,19 @@
   co = checkout
   master = checkout master
   alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
-	g = grep --break --heading --line-number
+  g = grep --break --heading --line-number
+  tidy = "!git branch --merged | grep -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
+  prune = remote prune origin
+
 [filter "media"]
-	clean = git-media-clean %f
-	smudge = git-media-smudge %f
+  clean = git-media-clean %f
+  smudge = git-media-smudge %f
 [include]
   path = .gitconfig.local
 [commit]
   template = ~/.gitmessage
 [grep]
-	extendRegexp = true
-	lineNumber = true
+  extendRegexp = true
+  lineNumber = true
+[push]
+  default = simple

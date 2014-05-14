@@ -17,7 +17,7 @@ Install [rcm](https://github.com/thoughtbot/rcm):
 Install:
 
     # install the dotfiles
-    rcup -x README.md
+    rcup -x README.md -x Brewfile
     # setup vim vundle
     git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
     vim +BundleInstall +qall

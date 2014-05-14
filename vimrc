@@ -1,8 +1,36 @@
-" Assembled from http://blog.mojotech.com/post/68181056882/a-veterans-vimrc
+" vimrc examples
+" - http://blog.mojotech.com/post/68181056882/a-veterans-vimrc
 
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
+
+" use zsh as shell
+set shell=/bin/zsh
+
+" set t_kb
+fixdel
+
+" dont use backup files
+set nobackup
+set noswapfile
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp   " store swap files here
+
+" Setup term color support
+if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+  set t_Co=256
+endif
+
+set history=100     " Default history is only 20
+set undolevels=100  " Use more levels of undo
+
+syntax on             " Enable syntax highlighting
+filetype on           " Enable filetype detection
+filetype indent on    " Enable filetype-specific indenting
+filetype plugin on    " Enable filetype-specific plugins
+
+" Ruler on
+set ruler
 
 " Edit another file in the same directory as the current file
 " uses expression to extract path from current file's path
@@ -11,39 +39,27 @@ map <Leader>s :split <C-R>=expand("%:p:h") . '/'<CR>
 map <Leader>v :vnew <C-R>=expand("%:p:h") . '/'<CR>
 map <Leader>t :tabe <C-R>=expand("%:p:h") . '/'<CR>
 
+" go to file in tab / vertical split / split
+map tgf <C-w>gf
+map <Leader>gf :vertical <C-w>f
+map <Leader>sgf <C-w>f
+
+" easier save
 map <C-s>  <esc>:w<CR>
 imap <C-s> <esc>:w<CR>
-map <C-t>  <esc>:tabnew<CR>
 map <C-x>  <C-w>c
-
-
-" set t_kb
-fixdel
-
-" Setup term color support
-if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
-  set t_Co=256
-endif
-
-
-set history=100     " Default history is only 20
-set undolevels=100  " Use more levels of undo
-
-" Ruler on
-set ruler
 
 " Line numbers on
 set nu
-
-" dont use backup files
-set nobackup
-set noswapfile
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp   " store swap files here
-
-syntax on             " Enable syntax highlighting
-filetype on           " Enable filetype detection
-filetype indent on    " Enable filetype-specific indenting
-filetype plugin on    " Enable filetype-specific plugins
+" easy relative numbers toggle
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set norelativenumber
+  else
+    set relativenumber
+  endif
+endfunc
+nnoremap <Leader>n :silent call NumberToggle()<cr>
 
 " make markdown work with .md as well as .markdown
 au BufRead,BufNewFile *.md set filetype=markdown
@@ -134,8 +150,34 @@ else
 endif
 autocmd QuickFixCmdPost *grep* cwindow
 
-" use zsh as shell
-set shell=/bin/zsh
+" draw a line at column 80
+set textwidth=80
+let &colorcolumn=join(range(80,80),",")
+highlight ColorColumn ctermbg=235 guibg=#2c2d27
+
+" set custom cursor -- vertical bar in insert mode (iTerm2)
+" from http://www.iterm2.com/#/section/documentation/escape_codes
+if !has("gui")
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+
+" Surround.vim
+" leader-a then a thing will surround the current word with that thing
+map <Leader>a ysiw
+
+" NERDtree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" CtrlP + ctags
+nnoremap <leader>p :CtrlPTag<cr>
+
+" WindowSwap settings
+let g:windowswap_map_keys = 0 "prevent default bindings
+nnoremap <silent> <leader>yw :call WindowSwap#MarkWindowSwap()<CR>
+nnoremap <silent> <leader>pw :call WindowSwap#DoWindowSwap()<CR>
+
+let g:airline_powerline_fonts = 1
 
 " Local config
 if filereadable($HOME . "/.vimrc.local")

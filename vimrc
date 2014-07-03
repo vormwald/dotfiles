@@ -65,14 +65,16 @@ nnoremap <Leader>n :silent call NumberToggle()<cr>
 au BufRead,BufNewFile *.md set filetype=markdown
 autocmd FileType markdown setlocal spell
 let g:markdown_github_languages = ['ruby', 'erb=eruby', 'javascript']
+" add jbuilder syntax highlighting
+au BufNewFile,BufRead *.json.jbuilder set ft=ruby
 
 " reopen file at the same line
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-" F5 removes all trailing whitespace
-:nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+" remove whitespace on save
+autocmd BufWritePre * :%s/\s\+$//e
 
 colorscheme smyck "github  solorized slate railscasts ron, murphy
 highlight NonText guibg=#060606
@@ -162,6 +164,12 @@ if !has("gui")
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
+" Close the quickfix when it's the last thing open
+aug QFClose
+  au!
+  au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
+aug END
+
 " Surround.vim
 " leader-a then a thing will surround the current word with that thing
 map <Leader>a ysiw
@@ -170,7 +178,7 @@ map <Leader>a ysiw
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " CtrlP + ctags
-nnoremap <leader>p :CtrlPTag<cr>
+nnoremap <leader>p :CtrlPTag<CR>
 
 " WindowSwap settings
 let g:windowswap_map_keys = 0 "prevent default bindings

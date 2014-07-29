@@ -10,6 +10,9 @@ set shell=/bin/zsh
 
 " set t_kb
 fixdel
+" TODO, this is a workaround for iterm2 2.0 ?
+set backspace=indent,eol,start
+set t_kD=^[[3~
 
 " dont use backup files
 set nobackup
@@ -36,13 +39,13 @@ set ruler
 " uses expression to extract path from current file's path
 map <Leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
 map <Leader>s :split <C-R>=expand("%:p:h") . '/'<CR>
-map <Leader>v :vnew <C-R>=expand("%:p:h") . '/'<CR>
+map <Leader>v :vsplit <C-R>=expand("%:p:h") . '/'<CR>
 map <Leader>t :tabe <C-R>=expand("%:p:h") . '/'<CR>
 
 " go to file in tab / vertical split / split
-map tgf <C-w>gf
-map <Leader>gf :vertical <C-w>f
+map <Leader>tgf <C-w>gf
 map <Leader>sgf <C-w>f
+nnoremap <silent> <Leader>gf :vertical botright wincmd f<CR>
 
 " easier save
 map <C-s>  <esc>:w<CR>
@@ -61,6 +64,9 @@ function! NumberToggle()
 endfunc
 nnoremap <Leader>n :silent call NumberToggle()<cr>
 
+" Minimal number of screen lines to keep above and below the cursor
+set scrolloff=3
+
 " make markdown work with .md as well as .markdown
 au BufRead,BufNewFile *.md set filetype=markdown
 autocmd FileType markdown setlocal spell
@@ -76,7 +82,7 @@ endif
 " remove whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 
-colorscheme smyck "github  solorized slate railscasts ron, murphy
+colorscheme jellybeans "smyck solorized slate railscasts ron, murphy
 highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
 set cursorline
@@ -86,6 +92,7 @@ set incsearch   " show search matches as you type
 set ignorecase  " case insensitive search
 set smartcase   " If a capital letter is included in search, make it case-sensitive
 set nohlsearch  " dont highlight search results
+set hlsearch
 
 " make regexp search not suck by default -
 nnoremap / /\v
@@ -134,6 +141,11 @@ runtime macros/matchit.vim
 " wrap git messages at 72
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
+" source $MYVIMRC reloads the saved $MYVIMRC
+:nmap <Leader>S :source $MYVIMRC<CR><CR>
+" opens $MYVIMRC for editing
+:nmap <Leader>E :e $MYVIMRC<CR><CR>
+
 " Use The Silver Searcher instead of grep
 if executable('ag')
   " Use ag over grep
@@ -162,6 +174,14 @@ highlight ColorColumn ctermbg=235 guibg=#2c2d27
 if !has("gui")
   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+
+" if using iterm and my light profile, lighten things up
+if $ITERM_PROFILE == 'Light'
+  colorscheme github
+  highlight ColorColumn ctermbg=255 guibg=#121212
+  " copied this line from above
+  hi CursorLine cterm=none
 endif
 
 " Close the quickfix when it's the last thing open

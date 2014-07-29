@@ -3,11 +3,12 @@ alias ...='../..'
 alias rials="rails"
 alias zrc="vim ~/.zshrc"
 alias vrc="vim ~/.vimrc"
+alias vrc="viml ~/.vimrc.local"
 alias hosts="sudo vim /private/etc/hosts"
-alias flow="cat ~/Dropbox/3PH/GithubFlow.md" 
 alias applog="grc powder applog"
 alias ws="ruby -run -e httpd . -p8000"
 alias vim="stty stop '' -ixoff; vim"
+alias vi="stty stop '' -ixoff; vim"
 alias vinstall="vim +PluginInstall +qall"
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local

@@ -160,7 +160,7 @@ else
   let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
   let g:ctrlp_use_caching = 0
   " bind K to grep word under cursor
-  "nnoremap K :Ggrep <C-R>=expand("<cword>")<CR><CR>
+  nnoremap K :Ggrep <C-R>=expand("<cword>")<CR><CR>
 endif
 autocmd QuickFixCmdPost *grep* cwindow
 
@@ -199,6 +199,8 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 
 " CtrlP + ctags
 nnoremap <leader>p :CtrlPTag<CR>
+" search in current, ancestor, root
+let g:ctrlp_working_path_mode = 'car'
 
 " WindowSwap settings
 let g:windowswap_map_keys = 0 "prevent default bindings

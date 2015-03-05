@@ -88,7 +88,9 @@ set incsearch   " show search matches as you type
 set ignorecase  " case insensitive search
 set smartcase   " If a capital letter is included in search, make it case-sensitive
 set nohlsearch  " dont highlight search results
-set hlsearch
+" toggle search highlighting mapped to \h
+" http://stackoverflow.com/a/26504944/209064
+:nnoremap <silent><expr> <Leader>h (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 
 " make regexp search not suck by default -
 nnoremap / /\v

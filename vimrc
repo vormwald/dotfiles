@@ -165,6 +165,9 @@ else
 endif
 autocmd QuickFixCmdPost *grep* cwindow
 
+" Disable man lookup
+noremap K <nop>
+
 " draw a line at column 80
 set textwidth=80
 let &colorcolumn=join(range(80,80),",")

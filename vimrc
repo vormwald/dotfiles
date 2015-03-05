@@ -153,6 +153,8 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
+  nnoremap \| :Ag<SPACE>
+  nnoremap <Leader>\| :Ag<SPACE><C-r><C-w><CR><CR>
 else
   " use git grep
   set grepprg=git\ grep\ --no-color

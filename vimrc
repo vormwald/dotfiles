@@ -66,6 +66,7 @@ set scrolloff=3
 au BufRead,BufNewFile *.md set filetype=markdown
 autocmd FileType markdown setlocal spell
 let g:markdown_github_languages = ['ruby', 'erb=eruby', 'javascript']
+
 " add jbuilder syntax highlighting
 au BufNewFile,BufRead *.json.jbuilder set ft=ruby
 
@@ -97,7 +98,7 @@ vnoremap / /\v
 cnoreabbrev W w
 cnoreabbrev Q q
 
-" remap'd keys
+" remap split navigation keys
 map <c-j> <c-w>j
 map <c-k> <c-w>k
 map <c-l> <c-w>l
@@ -108,7 +109,9 @@ set smartindent
 set tabstop=2
 set expandtab
 set shiftwidth=2
-set autowrite " Automatically :write before running commands
+
+" Automatically :write before running commands
+set autowrite
 
 " Wrapping
 set nowrap
@@ -126,7 +129,8 @@ set list listchars=tab:»·,trail:·
 set splitbelow
 set splitright
 
-set laststatus=2  " Always show status line.
+" Always show status line.
+set laststatus=2
 
 " match ruby blocks on %
 runtime macros/matchit.vim

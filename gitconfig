@@ -40,5 +40,7 @@
   lineNumber = true
 [push]
   default = simple
+[include]
+  path = ~/.gitconfig.local
 [init]
 	templatedir = ~/.git_template

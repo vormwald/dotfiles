@@ -42,11 +42,6 @@ map <Leader>s :split <C-R>=expand("%:p:h") . '/'<CR>
 map <Leader>v :vsplit <C-R>=expand("%:p:h") . '/'<CR>
 map <Leader>t :tabe <C-R>=expand("%:p:h") . '/'<CR>
 
-" go to file in tab / vertical split / split
-map <Leader>tgf <C-w>gf
-map <Leader>sgf <C-w>f
-nnoremap <silent> <Leader>gf :vertical botright wincmd f<CR>
-
 " easier save
 map <C-s>  <esc>:w<CR>
 imap <C-s> <esc>:w<CR>
@@ -107,8 +102,6 @@ map <c-j> <c-w>j
 map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
-
-map <Tab><Tab> <C-W>w
 
 " Softtabs, 2 spaces
 set smartindent

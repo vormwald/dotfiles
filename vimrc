@@ -203,15 +203,25 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 
 " CtrlP + ctags
 nnoremap <leader>p :CtrlPTag<CR>
+" CtrlP + buffers
+nnoremap <C-b> :CtrlPBuffer<CR>
 " search in current, ancestor, root
 let g:ctrlp_working_path_mode = 'car'
 
-" WindowSwap settings
-let g:windowswap_map_keys = 0 "prevent default bindings
-nnoremap <silent> <leader>yw :call WindowSwap#MarkWindowSwap()<CR>
-nnoremap <silent> <leader>pw :call WindowSwap#DoWindowSwap()<CR>
+" VimVroom for running specs
+if filereadable('./bin/spring')
+  let g:vroom_use_spring = 1
+  let g:vroom_use_binstub = 1
+elseif filereadable('./Gemfile')
+  let g:vroom_use_bundle_exec = 1
+endif
 
+" Airline
 let g:airline_powerline_fonts = 1
+
+"Writing
+autocmd User GoyoEnter Limelight
+autocmd User GoyoLeave Limelight!
 
 " Local config
 if filereadable($HOME . "/.vimrc.local")

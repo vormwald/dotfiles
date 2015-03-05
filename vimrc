@@ -78,7 +78,7 @@ endif
 " remove whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 
-colorscheme jellybeans "smyck solorized slate railscasts ron, murphy
+colorscheme tomorrow-night-eighties
 highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
 set cursorline

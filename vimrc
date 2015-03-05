@@ -76,7 +76,15 @@ if has("autocmd")
 endif
 
 " remove whitespace on save
-autocmd BufWritePre * :%s/\s\+$//e
+fun! StripTrailingWhitespace()
+    " Only strip if the b:noStripeWhitespace variable isn't set
+    if exists('b:noStripWhitespace')
+        return
+    endif
+    %s/\s\+$//e
+endfun
+autocmd BufWritePre * call StripTrailingWhitespace()
+autocmd FileType markdown let b:noStripWhitespace=1
 
 colorscheme tomorrow-night-eighties
 highlight NonText guibg=#060606

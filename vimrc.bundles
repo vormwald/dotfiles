@@ -27,6 +27,7 @@ Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-rails.git'
 Bundle 'tpope/vim-rbenv'
 Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-unimpaired'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'vim-scripts/tComment'
 

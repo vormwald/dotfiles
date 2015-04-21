@@ -202,6 +202,9 @@ aug QFClose
   au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
 aug END
 
+" Leader Ctrl-] to open ctag in vsplit
+map <leader><C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
 " Surround.vim
 " leader-a then a thing will surround the current word with that thing
 map <Leader>a ysiw

@@ -24,10 +24,10 @@ Install:
 
 This creates the symlinks for all files stored in .dotfiles
 
-Software I'm using
+Additional Software (Install these before dotfiles on a fresh install)
 ------------------
 
 - [prezto](https://github.com/sorin-ionescu/prezto) as a ZSH framework
-- [rbenv](https://github.com/sstephenson/rbenv) for the rubies
-- [pow](http://pow.cx/index.html) and the [powder gem](https://github.com/Rodreegez/powder) for running rack apps
+- [rbenv](https://github.com/sstephenson/rbenv) for the rubies on mac
+- [The Silver Searcher](https://github.com/ggreer/the_silver_searcher) fast file search
 

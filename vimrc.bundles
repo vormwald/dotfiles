@@ -12,6 +12,7 @@ Bundle 'gmarik/vundle'
 
 
 Bundle 'airblade/vim-gitgutter'
+Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
 Bundle 'danro/rename.vim'
 Bundle 'kchmck/vim-coffee-script'

@@ -86,6 +86,7 @@ endfun
 autocmd BufWritePre * call StripTrailingWhitespace()
 autocmd FileType markdown let b:noStripWhitespace=1
 
+set background=dark
 colorscheme tomorrow-night-eighties
 highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
@@ -113,6 +114,10 @@ map <c-j> <c-w>j
 map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
+
+" easier tab navigation
+map <leader>[ gT
+map <leader>] gt
 
 " Softtabs, 2 spaces
 set smartindent
@@ -189,12 +194,20 @@ if !has("gui")
 endif
 
 " if using iterm and my light profile, lighten things up
-if $ITERM_PROFILE == 'Light'
-  colorscheme github
+if $ITERM_PROFILE =~ 'Light'
+  colorscheme Tomorrow
+  set background=light
   highlight ColorColumn ctermbg=255 guibg=#121212
   " copied this line from above
   hi CursorLine cterm=none
 endif
+if $ITERM_PROFILE =~ 'Solarized.*'
+  colorscheme solarized
+endif
+if $ITERM_PROFILE == 'Solarized Dark'
+  set background=dark
+endif
+
 
 " Close the quickfix when it's the last thing open
 aug QFClose
@@ -210,6 +223,7 @@ map <leader><C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 map <Leader>a ysiw
 
 " NERDtree
+" close if last buffer
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " CtrlP + ctags
@@ -229,6 +243,12 @@ endif
 
 " Airline
 let g:airline_powerline_fonts = 1
+
+" Syntastic
+let g:syntastic_auto_loc_list = 1 " Close the location-list when errors are gone
+let g:syntastic_check_on_open = 0
+let g:syntastic_loc_list_height = 5
+let g:syntastic_auto_jump = 0
 
 "Writing
 autocmd User GoyoEnter Limelight

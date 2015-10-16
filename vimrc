@@ -47,6 +47,9 @@ map <C-s>  <esc>:w<CR>
 imap <C-s> <esc>:w<CR>
 map <C-x>  <C-w>c
 
+" sudo save
+cmap w!! w !sudo tee % >/dev/null
+
 " Line numbers on
 set nu
 " easy relative numbers toggle
@@ -63,7 +66,7 @@ nnoremap <Leader>n :silent call NumberToggle()<cr>
 set scrolloff=3
 
 " make markdown work with .md as well as .markdown
-au BufRead,BufNewFile *.md set filetype=markdown
+au BufRead,BufNewFile *.md,*.markerb set filetype=markdown
 autocmd FileType markdown setlocal spell
 let g:markdown_github_languages = ['ruby', 'erb=eruby', 'javascript']
 
@@ -118,6 +121,9 @@ map <c-h> <c-w>h
 " easier tab navigation
 map <leader>[ gT
 map <leader>] gt
+
+" open new tab
+map <leader>T :tabe<CR>
 
 " Softtabs, 2 spaces
 set smartindent

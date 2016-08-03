@@ -76,6 +76,8 @@ au BufNewFile,BufRead *.json.jbuilder set ft=ruby
 " reopen file at the same line
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+  " But don't do that if it's a git commit message
+  au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 endif
 
 " remove whitespace on save

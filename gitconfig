@@ -26,6 +26,7 @@
   g = grep --break --heading --line-number
   tidy = "!git branch --merged | grep -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
   prune = remote prune origin
+  pf = push --force-with-lease
 
 [filter "media"]
 	required = true

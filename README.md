@@ -12,7 +12,14 @@ Clone down this repo
 
 Install [rcm](https://github.com/thoughtbot/rcm):
 
+    # Mac
     brew bundle
+    
+    # CentOS (other linux distros, here: https://github.com/thoughtbot/rcm)
+    cd /etc/yum.repos.d/
+    sudo wget http://download.opensuse.org/repositories/utilities/CentOS_6/utilities.repo
+    sudo yum install rcm
+    
 
 Install:
 

@@ -13,7 +13,9 @@ Clone down this repo
 Install [rcm](https://github.com/thoughtbot/rcm):
 
     # Mac
-    brew bundle
+    # Using [Homebrew](http://brew.sh)
+    brew tap thoughtbot/formulae
+    brew install rcm
     
     # CentOS (other linux distros, here: https://github.com/thoughtbot/rcm)
     cd /etc/yum.repos.d/

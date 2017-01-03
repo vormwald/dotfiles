@@ -11,7 +11,7 @@
   a = !git add . && git status
   au = !git add -u . && git status
   aa = !git add . && git add -u . && git status
-  c = commit
+  c = commit -v
   cm = commit -m
   ac = !git add . && git commit
   acm = !git add . && git commit -m
@@ -27,6 +27,8 @@
   tidy = "!git branch --merged | grep -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
   prune = remote prune origin
   pf = push --force-with-lease
+  dc = diff --cached
+  wip = !git add . && git commit -m "WIP"
 
 [filter "media"]
 	required = true
@@ -41,8 +43,6 @@
   lineNumber = true
 [push]
   default = simple
-[include]
-  path = ~/.gitconfig.local
 [init]
 	templatedir = ~/.git_template
 [filter "lfs"]

@@ -45,4 +45,6 @@ Bundle 'junegunn/limelight.vim'
 " Bundle 'terryma/vim-multiple-cursors'
 " Bundle 'skwp/greplace'
 Bundle 'chriskempson/vim-tomorrow-theme'
+Bundle 'mhallendal/spacedust-theme', {'rtp': 'Vim'}
+
 filetype on

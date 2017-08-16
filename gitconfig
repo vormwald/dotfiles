@@ -28,6 +28,17 @@
   prune = remote prune origin
   pf = push --force-with-lease
 
+  # branch commands from https://gist.github.com/robmiller/6018582
+  # Get the current branch name (not so useful in itself, but used in
+  # other aliases)
+  branch-name = "!git rev-parse --abbrev-ref HEAD"
+  # Push the current branch to the remote "origin", and set it to track
+  # the upstream branch
+  publish = "!git push -u origin $(git branch-name)"
+  # Delete the remote version of the current branch
+  unpublish = "!git push origin :$(git branch-name)"
+
+
 [filter "media"]
 	required = true
 	clean = git media clean %f

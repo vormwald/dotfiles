@@ -1,48 +1,43 @@
-set nocompatible   " be iMproved
-filetype off       " required!
+"set nocompatible   " be iMproved
+"filetype off       " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" let Vundle manage Vundle
-" required!
-Bundle 'gmarik/vundle'
+" Use https://github.com/junegunn/vim-plug for plugin mgmt
+call plug#begin()
 
 " My bundles here:
-
-
-Bundle 'airblade/vim-gitgutter'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'bling/vim-airline'
-Bundle 'danro/rename.vim'
-Bundle 'elixir-lang/vim-elixir'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'kien/ctrlp.vim'
-Bundle 'mustache/vim-mustache-handlebars'
-Bundle 'rking/ag.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'skalnik/vim-vroom'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-rails.git'
-Bundle 'tpope/vim-rbenv'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'vim-scripts/tComment'
+Plug 'airblade/vim-gitgutter'
+Plug 'altercation/vim-colors-solarized'
+Plug 'ayu-theme/ayu-vim'
+Plug 'bling/vim-airline'
+Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'dracula/vim'
+Plug 'danro/rename.vim'
+Plug 'elixir-lang/vim-elixir'
+Plug 'flazz/vim-colorschemes'
+Plug 'kien/ctrlp.vim'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'rking/ag.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'skalnik/vim-vroom'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-ruby/vim-ruby'
+Plug 'vim-scripts/tComment'
 
 " Writing
-Bundle 'tpope/vim-markdown'
-Bundle 'reedes/vim-pencil'
-Bundle 'junegunn/goyo.vim'
-Bundle 'reedes/vim-wordy'
-Bundle 'junegunn/limelight.vim'
-"
-" Bundle 'wesQ3/vim-windowswap'
-" Bundle 'ervandew/supertab'
-" Bundle 'terryma/vim-multiple-cursors'
-" Bundle 'skwp/greplace'
-Bundle 'chriskempson/vim-tomorrow-theme'
-filetype on
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'reedes/vim-pencil'
+Plug 'reedes/vim-wordy'
+Plug 'tpope/vim-markdown'
+
+" Initialize plugin system
+call plug#end()
+
+"filetype on

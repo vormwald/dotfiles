@@ -20,9 +20,7 @@ set noswapfile
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp   " store swap files here
 
 " Setup term color support
-if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
-  set t_Co=256
-endif
+set t_Co=256
 
 set history=100     " Default history is only 20
 set undolevels=100  " Use more levels of undo
@@ -51,16 +49,7 @@ map <C-x>  <C-w>c
 cmap w!! w !sudo tee % >/dev/null
 
 " Line numbers on
-set nu
-" easy relative numbers toggle
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set norelativenumber
-  else
-    set relativenumber
-  endif
-endfunc
-nnoremap <Leader>n :silent call NumberToggle()<cr>
+" set nu
 
 " Minimal number of screen lines to keep above and below the cursor
 set scrolloff=3
@@ -92,10 +81,19 @@ autocmd BufWritePre * call StripTrailingWhitespace()
 autocmd FileType markdown let b:noStripWhitespace=1
 
 set background=dark
-colorscheme Tomorrow-Night-Eighties
+highlight Normal ctermfg=grey ctermbg=black
+" set termguicolors     " enable true colors support
+"  let ayucolor="light"  " for light version of theme
+" let ayucolor="mirage" " for mirage version of theme
+"  let ayucolor="dark"   " for dark version of theme
+" colorscheme ayu
+" colorscheme jellybeans
+" colorscheme Tomorrow-Night-Eighties
+colorscheme dracula
+
 highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
-set cursorline
+set nocursorline
 
 " Search Settings
 set incsearch   " show search matches as you type
@@ -191,8 +189,6 @@ noremap K <nop>
 
 " draw a line at column 80
 set textwidth=80
-let &colorcolumn=join(range(80,80),",")
-highlight ColorColumn ctermbg=235 guibg=#2c2d27
 
 " set custom cursor -- vertical bar in insert mode (iTerm2)
 " from http://www.iterm2.com/#/section/documentation/escape_codes
@@ -205,7 +201,7 @@ endif
 if $ITERM_PROFILE =~ 'Light'
   colorscheme Tomorrow
   set background=light
-  highlight ColorColumn ctermbg=255 guibg=#121212
+  highlight ColorColumn ctermbg=7
   " copied this line from above
   hi CursorLine cterm=none
 endif
@@ -251,6 +247,16 @@ endif
 
 " Airline
 let g:airline_powerline_fonts = 1
+let g:airline_skip_empty_sections = 1
+let g:airline_section_z = '%3p%% %3l/%L:%3v'
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+let g:airline#extensions#hunks#enabled = 0
+let g:airline#extensions#hunks#non_zero_only = 0
+" let g:airline_theme='bubblegum'
+" let g:airline_theme='monochrome'
+" let g:airline_theme='lucius'
+" let g:airline_theme='minimalist'
+let g:airline_theme='dracula'
 
 " Syntastic
 let g:syntastic_auto_loc_list = 1 " Close the location-list when errors are gone
@@ -258,7 +264,7 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_loc_list_height = 5
 let g:syntastic_auto_jump = 0
 
-"Writing
+" Writing
 autocmd User GoyoEnter Limelight
 autocmd User GoyoLeave Limelight!
 

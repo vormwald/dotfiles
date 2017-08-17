@@ -7,9 +7,11 @@ alias c="./bin/rails console"
 alias zrc="vim ~/.zshrc"
 alias vrc="vim ~/.vimrc"
 alias ws="ruby -run -e httpd . -p8000"
+alias tmux="tmux -2"
 alias vim="stty stop '' -ixoff; vim"
 alias vi="stty stop '' -ixoff; vim"
 alias vinstall="vim +PluginInstall +qall"
+alias gh='git config --get remote.origin.url | ruby -ne "puts %{https://github.com/#{\$_.split(/.com[\:\/]/)[-1].gsub(%{.git},%{})}}"| xargs open'
 alias :q="exit"
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local

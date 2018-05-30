@@ -50,3 +50,10 @@ fkill() {
 }
 
 
+#########################################################
+# OSX
+
+# Open file in QuickLook
+ql () {
+  qlmanage -p "$*" >& /dev/null;
+}

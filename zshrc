@@ -6,6 +6,8 @@ fi
 # Customize to your needs...
 export PATH=~/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
+export VIMCONFIG=~/.config/nvim
+export VIMDATA=~/.local/share/nvim
 # aliases
 [[ -f ~/.aliases ]] && source ~/.aliases
 

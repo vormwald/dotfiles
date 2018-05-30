@@ -8,6 +8,9 @@ call minpac#add('k-takata/minpac', {'type': 'opt'})
 command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
 
+" Leader
+let mapleader = " "
+
 " Edit another file in the same directory as the current file
 " uses expression to extract path from current file's path
 map <Leader>e :e <C-R>=expand("%:p:h") . '/'<CR>

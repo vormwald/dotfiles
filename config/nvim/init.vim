@@ -1,14 +1,33 @@
+""
+"" Plugin config
+""
+
 " Manage plugins with minpac
 packadd minpac
 call minpac#init()
-
-call minpac#add('tpope/vim-unimpaired')
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 
+" plugins
+call minpac#add('tpope/vim-unimpaired') " bracket mappings for common actions
+call minpac#add('junegunn/fzf') " fuzzy finding basics
+call minpac#add('junegunn/fzf.vim') " fuzzy finding ++
+
+" pack update / clean commands
 command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
 
-" Leader
+
+" FZF
+nnoremap <C-p> :<C-u>FZF<CR>
+nnoremap <C-b> :<C-u>Buffers<CR>
+nnoremap <C-g> :<C-u>GFiles?<CR>
+
+
+""
+"" Regular config
+""
+
+" Leader is spacebar
 let mapleader = " "
 
 " Edit another file in the same directory as the current file

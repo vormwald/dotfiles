@@ -8,6 +8,10 @@ export PATH=~/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
 export VIMCONFIG=~/.config/nvim
 export VIMDATA=~/.local/share/nvim
+
+# enable Autojump
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
 # aliases
 [[ -f ~/.aliases ]] && source ~/.aliases
 

@@ -6,6 +6,8 @@ fi
 # Customize to your needs...
 export PATH=~/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
+export VISUAL='nvim'
+export EDITOR="$VISUAL"
 export VIMCONFIG=~/.config/nvim
 export VIMDATA=~/.local/share/nvim
 

@@ -2,29 +2,28 @@
 "" Plugin config
 ""
 
-" Manage plugins with minpac
-packadd minpac
+packadd minpac " Manage plugins with minpac
 call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 
 " Plugins
-call minpac#add('airblade/vim-gitgutter') " Display git changes
+call minpac#add('airblade/vim-gitgutter') " display git changes
 call minpac#add('chriskempson/base16-vim') " colorschemes
-call minpac#add('janko-m/vim-test') " Knows lots of test configs
+call minpac#add('janko-m/vim-test') " knows lots of test configs
 call minpac#add('junegunn/fzf') " fuzzy finding basics
 call minpac#add('junegunn/fzf.vim') " fuzzy finding ++
 call minpac#add('mhinz/vim-grepper') " search files
 call minpac#add('milkypostman/vim-togglelist') " toggle quickfix/loc list
 call minpac#add('radenling/vim-dispatch-neovim') "neovim terminal for dispatch commands
 call minpac#add('tpope/vim-dispatch') " async compiler actions
-call minpac#add('tpope/vim-endwise') " Add ends to do/if in ruby
+call minpac#add('tpope/vim-endwise') " add ends to do/if in ruby
 call minpac#add('tpope/vim-fugitive') " git actions
 call minpac#add('tpope/vim-rails') " projectionist setting for rails
-call minpac#add('tpope/vim-rhubarb') " Gbrowse to view file on github
+call minpac#add('tpope/vim-rhubarb') " :Gbrowse to view file on github
 call minpac#add('tpope/vim-unimpaired') " bracket mappings for common actions
-call minpac#add('vim-airline/vim-airline')
-call minpac#add('vim-airline/vim-airline-themes')
-call minpac#add('w0rp/ale') " Async Linting Engine
+call minpac#add('vim-airline/vim-airline') "pretty statusbar
+call minpac#add('vim-airline/vim-airline-themes') "pretty statusbar themes
+call minpac#add('w0rp/ale') " async Linting Engine
 "goyo.vim
 "rename.vim
 

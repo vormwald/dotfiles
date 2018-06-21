@@ -34,6 +34,7 @@ command! PackClean call minpac#clean()
 
 """""""""""
 " FZF setup
+"
 nnoremap <C-p> :<C-u>FZF<CR>
 nnoremap <C-b> :<C-u>Buffers<CR>
 nnoremap <C-g> :<C-u>GFiles?<CR>
@@ -45,11 +46,9 @@ autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
-
 """""""""""
 " ALE setup
-
-" pack update / clean commands
+"
 nmap <silent> [W <Plug>(ale_first)
 nmap <silent> [w <Plug>(ale_previous)
 nmap <silent> ]w <Plug>(ale_next)
@@ -57,7 +56,7 @@ nmap <silent> ]W <Plug>(ale_last)
 
 """""""""""
 " Grepper setup
-
+"
 let g:grepper       = {}
 let g:grepper.tools = ['grep', 'git', 'rg']
 let g:grepper.simple_prompt = 1
@@ -80,16 +79,19 @@ xmap gs <plug>(GrepperOperator)
 "
 let g:airline_theme='base16_eighties' " also good,'bubblegum', 'dracula'
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#hunks#enabled = 0
-let g:airline#extensions#hunks#non_zero_only = 1
+let g:airline#extensions#hunks#enabled = 0 " disable git hunk count
+"let g:airline#extensions#hunks#non_zero_only = 1
 let g:airline_section_z = '%3p%% %3l/%L:%3v'
 let g:airline_skip_empty_sections = 1
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-let g:airline#parts#ffenc#skip_expected_string='[unix]'
+"let g:airline#parts#ffenc#skip_expected_string='[unix]'
 
 """"""""
 " Git Gutter Setup
+"
 let g:gitgutter_map_keys = 0
+let g:gitgutter_override_sign_column_highlight = 0
+
 
 
 
@@ -97,7 +99,7 @@ let g:gitgutter_map_keys = 0
 "" Regular config
 ""
 
-" Leader is spacebar
+" leader is spacebar
 let mapleader = " "
 
 " Softtabs, 2 spaces
@@ -105,6 +107,26 @@ set smartindent
 set tabstop=2
 set expandtab
 set shiftwidth=2
+
+set nu          " show linenumbers
+set scrolloff=1 " always display a line above/below cursor
+
+" dont use backup files
+set nobackup
+set noswapfile
+
+" setup undo
+set undodir=$VIMDATA/undo
+autocmd BufWritePre /tmp/* setlocal noundofile " dont track /tmp
+if !has('nvim')
+  set undodir=~/.vim/undo
+endif
+augroup vimrc
+  autocmd!
+  autocmd BufWritePre /tmp/* setlocal noundofile
+augroup END
+set history=100     " Default history is only 20
+set undolevels=100  " Use more levels of undo
 
 " more normal splits
 set splitbelow
@@ -115,6 +137,16 @@ map <c-j> <c-w>j
 map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
+
+" search Settings
+set ignorecase  " case insensitive search
+set smartcase   " If a capital letter is included in search, make it case-sensitive
+" make regexp search better
+nnoremap / /\v
+vnoremap / /\v
+" global replace by default
+set gdefault
+
 
 " Colors
 set termguicolors

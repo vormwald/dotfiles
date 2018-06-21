@@ -30,6 +30,8 @@
   pf = push --force-with-lease
   dc = diff --cached
   wip = !git add . && git commit -m "WIP"
+  # open branch in github in compare mode
+  hub = !open $(git config remote.origin.url | sed 's/git@\\(.*\\):\\(.*\\).git/https:\\/\\/\\1\\/\\2/')/compare/$(git branch-name)
 
   # branch commands from https://gist.github.com/robmiller/6018582
   # Get the current branch name (not so useful in itself, but used in

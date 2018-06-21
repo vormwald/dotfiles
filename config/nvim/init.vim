@@ -116,11 +116,34 @@ map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 
+" Colors
 set termguicolors
+set t_Co=256 " Setup term color support
 let base16colorspace=256  " Access colors present in 256 colorspace
-colorscheme base16-eighties
 
-" Edit another file in the same directory as the current file
+if $ITERM_PROFILE =~ 'Light'
+  colorscheme base16-google-light
+else
+  colorscheme base16-eighties
+endif
+
+highlight LineNr guibg=NONE " no background for number column
+" clear background color for gutter
+highlight SignColumn guibg=NONE
+highlight GitGutterAdd guibg=NONE
+highlight GitGutterChange guibg=NONE
+highlight GitGutterDelete guibg=NONE
+highlight GitGutterChangeDelete guibg=NONE
+
+
+"" Terminal config
+" escape terminal mode with ESC
+tnoremap <Esc> <C-\><C-n>
+" highlight cursor nicely
+highlight! link TermCursor Cursor
+highlight! TermCursorNC guibg=lightgreen guifg=white ctermbg=1 ctermfg=15
+
+" edit another file in the same directory as the current file
 " uses expression to extract path from current file's path
 map <Leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
 map <Leader>s :split <C-R>=expand("%:p:h") . '/'<CR>

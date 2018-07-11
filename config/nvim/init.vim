@@ -1,3 +1,6 @@
+" leader is spacebar
+let mapleader = " "
+
 ""
 "" Plugin config
 ""
@@ -73,6 +76,31 @@ nnoremap \| :Grepper -tool rg<CR>
 nmap gs <plug>(GrepperOperator)
 xmap gs <plug>(GrepperOperator)
 
+""""""""
+" Test Setup
+"
+let test#strategy = {
+  \ 'nearest': 'neovim',
+  \ 'file':    'dispatch',
+  \ 'suite':   'dispatch',
+  \}
+let test#ruby#rspec#options = {
+\ 'nearest': '--backtrace',
+\ 'file':    '--format documentation',
+\ 'suite':   '--fail-fast',
+\}
+
+nmap <Leader>tt :TestNearest<CR>
+nmap <Leader>tl :TestLast<CR>
+nmap <Leader>tf :TestFile<CR>
+nmap <Leader>ff :TestFile --fail-fast<CR>
+nmap <Leader>ts :TestSuite<CR>
+nmap <Leader>tg :TestVisit<CR> " go to the last test run
+
+""""""""
+" Dispatch Setup
+"
+let g:dispatch_quickfix_height=14
 
 """"""""
 " Airline Setup
@@ -98,9 +126,6 @@ let g:gitgutter_override_sign_column_highlight = 0
 ""
 "" Regular config
 ""
-
-" leader is spacebar
-let mapleader = " "
 
 " Softtabs, 2 spaces
 set smartindent
@@ -180,7 +205,6 @@ highlight! TermCursorNC guibg=lightgreen guifg=white ctermbg=1 ctermfg=15
 map <Leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
 map <Leader>s :split <C-R>=expand("%:p:h") . '/'<CR>
 map <Leader>v :vsplit <C-R>=expand("%:p:h") . '/'<CR>
-map <Leader>t :tabe <C-R>=expand("%:p:h") . '/'<CR>
 
 " easier save
 map <C-s>  <esc>:w<CR>

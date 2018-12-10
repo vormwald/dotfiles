@@ -3,8 +3,10 @@
 
 # Shortcuts
 alias rials="rails"
-alias s="./bin/rails server"
+alias s="git status"
+alias b="gbr"
 alias c="./bin/rails console"
+alias r="./bin/rspec"
 alias ws="ruby -run -e httpd . -p8000"
 alias tmux="tmux -2"
 alias vi="nvim"
@@ -13,6 +15,7 @@ alias vinstall="vim +PluginInstall +qall"
 alias gh='git config --get remote.origin.url | ruby -ne "puts %{https://github.com/#{\$_.split(/.com[\:\/]/)[-1].gsub(%{.git},%{})}}"| xargs open'
 alias rg3="rg --context 3"
 alias :q="exit"
+alias dc="docker-compose"
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
 

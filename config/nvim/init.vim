@@ -9,26 +9,46 @@ packadd minpac " Manage plugins with minpac
 call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 
-" Plugins
+" Plugin Essentials
 call minpac#add('airblade/vim-gitgutter') " display git changes
 call minpac#add('chriskempson/base16-vim') " colorschemes
+call minpac#add('danro/rename.vim') " easily rename file with :Rename
 call minpac#add('janko-m/vim-test') " knows lots of test configs
 call minpac#add('junegunn/fzf') " fuzzy finding basics
 call minpac#add('junegunn/fzf.vim') " fuzzy finding ++
 call minpac#add('mhinz/vim-grepper') " search files
 call minpac#add('milkypostman/vim-togglelist') " toggle quickfix/loc list
-call minpac#add('radenling/vim-dispatch-neovim') "neovim terminal for dispatch commands
+call minpac#add('radenling/vim-dispatch-neovim') " neovim terminal for dispatch commands
 call minpac#add('tpope/vim-dispatch') " async compiler actions
-call minpac#add('tpope/vim-endwise') " add ends to do/if in ruby
 call minpac#add('tpope/vim-fugitive') " git actions
-call minpac#add('tpope/vim-rails') " projectionist setting for rails
 call minpac#add('tpope/vim-rhubarb') " :Gbrowse to view file on github
 call minpac#add('tpope/vim-unimpaired') " bracket mappings for common actions
-call minpac#add('vim-airline/vim-airline') "pretty statusbar
-call minpac#add('vim-airline/vim-airline-themes') "pretty statusbar themes
+call minpac#add('vim-airline/vim-airline') " pretty statusbar
+call minpac#add('vim-airline/vim-airline-themes') " pretty statusbar themes
+
 call minpac#add('w0rp/ale') " async Linting Engine
+
+" Ruby/Rails plugins
+call minpac#add('tpope/vim-endwise') " add ends to do/if in ruby
+call minpac#add('tpope/vim-rails') " projectionist setting for rails
+
+" JS / React work
+call minpac#add('mxw/vim-jsx') " JSX syntax
+call minpac#add('pangloss/vim-javascript') " javascript syntax
+call minpac#add('styled-components/vim-styled-components') " I guess we use styled components
+
+
+" Trying out
+"https://drivy.engineering/setting-up-vim-for-react/
+call minpac#add('mattn/emmet-vim') " Expand html like %h2#tagline.hero-text<Tab>
+let g:user_emmet_leader_key='<Tab>'
+let g:user_emmet_settings = {
+  \  'javascript.jsx' : {
+    \      'extends' : 'jsx',
+    \  },
+  \}
+
 "goyo.vim
-"rename.vim
 
 " Plugin commands
 command! PackUpdate call minpac#update()
@@ -52,10 +72,17 @@ autocmd  FileType fzf set laststatus=0 noshowmode noruler
 """""""""""
 " ALE setup
 "
-nmap <silent> [W <Plug>(ale_first)
-nmap <silent> [w <Plug>(ale_previous)
-nmap <silent> ]w <Plug>(ale_next)
-nmap <silent> ]W <Plug>(ale_last)
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '●'
+let g:airline#extensions#ale#error_symbol = '● '
+let g:ale_sign_warning = '○'
+let g:airline#extensions#ale#warning_symbol = '○ '
+nmap <silent> [A <Plug>(ale_first)
+nmap <silent> [a <Plug>(ale_previous)
+nmap <silent> ]a <Plug>(ale_next)
+nmap <silent> ]A <Plug>(ale_last)
+highlight ALEErrorSign ctermfg=1 ctermbg=7
+highlight ALEWarningSign ctermfg=3 ctermbg=7
 
 """""""""""
 " Grepper setup
@@ -86,16 +113,18 @@ let test#strategy = {
   \}
 let test#ruby#rspec#options = {
 \ 'nearest': '--backtrace',
-\ 'file':    '--format documentation',
+\ 'file':    '--format progress',
 \ 'suite':   '--fail-fast',
 \}
 
 nmap <Leader>tt :TestNearest<CR>
 nmap <Leader>tl :TestLast<CR>
 nmap <Leader>tf :TestFile<CR>
+nmap <Leader>T :TestFile<CR>
 nmap <Leader>ff :TestFile --fail-fast<CR>
 nmap <Leader>ts :TestSuite<CR>
 nmap <Leader>tg :TestVisit<CR> " go to the last test run
+set autowrite " save buffers before leaving or running tests
 
 """"""""
 " Dispatch Setup
@@ -105,7 +134,7 @@ let g:dispatch_quickfix_height=14
 """"""""
 " Airline Setup
 "
-let g:airline_theme='base16_eighties' " also good,'bubblegum', 'dracula'
+let g:airline_theme='base16' " also good,'bubblegum', 'dracula'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#hunks#enabled = 0 " disable git hunk count
 "let g:airline#extensions#hunks#non_zero_only = 1
@@ -133,7 +162,7 @@ set tabstop=2
 set expandtab
 set shiftwidth=2
 
-set nu          " show linenumbers
+set nonu          " don't show linenumbers
 set scrolloff=1 " always display a line above/below cursor
 
 " dont use backup files
@@ -172,6 +201,8 @@ vnoremap / /\v
 " global replace by default
 set gdefault
 
+" mouse is useful sometimes
+set mouse=a
 
 " Colors
 set termguicolors
@@ -181,7 +212,7 @@ let base16colorspace=256  " Access colors present in 256 colorspace
 if $ITERM_PROFILE =~ 'Light'
   colorscheme base16-google-light
 else
-  colorscheme base16-eighties
+  colorscheme base16-oceanicnext
 endif
 
 highlight LineNr guibg=NONE " no background for number column

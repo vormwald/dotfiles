@@ -18,6 +18,7 @@ call minpac#add('junegunn/fzf') " fuzzy finding basics
 call minpac#add('junegunn/fzf.vim') " fuzzy finding ++
 call minpac#add('mhinz/vim-grepper') " search files
 call minpac#add('milkypostman/vim-togglelist') " toggle quickfix/loc list
+call minpac#add('mustache/vim-mustache-handlebars') " syntax highlighting for handlebars templates
 call minpac#add('radenling/vim-dispatch-neovim') " neovim terminal for dispatch commands
 call minpac#add('tpope/vim-dispatch') " async compiler actions
 call minpac#add('tpope/vim-fugitive') " git actions
@@ -37,18 +38,10 @@ call minpac#add('mxw/vim-jsx') " JSX syntax
 call minpac#add('pangloss/vim-javascript') " javascript syntax
 call minpac#add('styled-components/vim-styled-components') " I guess we use styled components
 
+" Writing
+call minpac#add('junegunn/goyo.vim') " Distraction free writing
+call minpac#add('junegunn/limelight.vim') " Focused writing
 
-" Trying out
-"https://drivy.engineering/setting-up-vim-for-react/
-call minpac#add('mattn/emmet-vim') " Expand html like %h2#tagline.hero-text<Tab>
-let g:user_emmet_leader_key='<Tab>'
-let g:user_emmet_settings = {
-  \  'javascript.jsx' : {
-    \      'extends' : 'jsx',
-    \  },
-  \}
-
-"goyo.vim
 
 " Plugin commands
 command! PackUpdate call minpac#update()
@@ -90,9 +83,7 @@ highlight ALEWarningSign ctermfg=3 ctermbg=7
 let g:grepper       = {}
 let g:grepper.tools = ['grep', 'git', 'rg']
 let g:grepper.simple_prompt = 1
-"runtime plugin/grepper.vim
 let g:grepper.rg = { 'grepprg': 'rg -H --no-heading --vimgrep --sort-files' }
-"let g:grepper.quickfix      = 0
 
 " Search for the current word
 nnoremap <Leader>* :Grepper -tool rg -cword -noprompt<CR>
@@ -150,6 +141,11 @@ let g:gitgutter_map_keys = 0
 let g:gitgutter_override_sign_column_highlight = 0
 
 
+""""""""
+" Writing
+"
+autocmd User GoyoEnter Limelight
+autocmd User GoyoLeave Limelight!
 
 
 ""
@@ -162,7 +158,7 @@ set tabstop=2
 set expandtab
 set shiftwidth=2
 
-set nonu          " don't show linenumbers
+set nonu " don't show linenumbers
 set scrolloff=1 " always display a line above/below cursor
 
 " dont use backup files

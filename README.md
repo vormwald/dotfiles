@@ -17,16 +17,16 @@ Install [rcm](https://github.com/thoughtbot/rcm):
     brew tap thoughtbot/formulae
     brew install rcm
     
-    # CentOS (other linux distros, here: https://github.com/thoughtbot/rcm)
-    cd /etc/yum.repos.d/
-    sudo wget http://download.opensuse.org/repositories/utilities/CentOS_6/utilities.repo
-    sudo yum install rcm
+    # Ubuntu (other linux distros, here: https://github.com/thoughtbot/rcm)
+    sudo add-apt-repository ppa:martin-frost/thoughtbot-rcm
+    sudo apt-get update
+    sudo apt-get install rcm
     
 
 Install:
 
     # install the dotfiles
-    rcup -x README.md
+    rcup -x README.md -x Brewfile
     # setup vim vundle
     git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
     vim +BundleInstall +qall

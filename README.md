@@ -27,9 +27,11 @@ Install:
 
     # install the dotfiles
     rcup -x README.md -x Brewfile
-    # setup vim vundle
-    git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-    vim +BundleInstall +qall
+    # setup minpac for plugins
+    git clone https://github.com/k-takata/minpac.git \
+      ~/.config/nvim/pack/minpac/opt/minpac
+    # open nvim and run 
+    :PackUpdate
 
 This creates the symlinks for all files stored in .dotfiles
 

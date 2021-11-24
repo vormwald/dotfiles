@@ -12,7 +12,6 @@ alias tmux="tmux -2"
 alias vi="nvim"
 alias vim="nvim"
 alias vinstall="vim +PluginInstall +qall"
-alias gh='git config --get remote.origin.url | ruby -ne "puts %{https://github.com/#{\$_.split(/.com[\:\/]/)[-1].gsub(%{.git},%{})}}"| xargs open'
 alias rg3="rg --context 3"
 alias :q="exit"
 alias dc="docker-compose"

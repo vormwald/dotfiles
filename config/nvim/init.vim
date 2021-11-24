@@ -73,10 +73,12 @@ autocmd  FileType fzf set laststatus=0 noshowmode noruler
 " ALE setup
 "
 let g:ale_sign_column_always = 1
-nmap <silent> [A <Plug>(ale_first)
-nmap <silent> [a <Plug>(ale_previous)
-nmap <silent> ]a <Plug>(ale_next)
-nmap <silent> ]A <Plug>(ale_last)
+let g:ale_linters = { 'javascript': ['eslint'], 'typescript': ['tslint'], 'ruby': ['standardrb'] }
+let g:ale_fixers = { 'javascript': ['prettier'], 'ruby': ['standardrb'] }
+
+" default to fix on save, but add a toggle
+let g:ale_fix_on_save = 1
+nnoremap <C-f> :let g:ale_fix_on_save = !g:ale_fix_on_save<CR>
 
 """""""""""
 " Grepper setup
@@ -145,7 +147,7 @@ let g:gitgutter_override_sign_column_highlight = 0
 """"""""
 " Writing
 "
-autocmd User GoyoEnter Limelight
+"autocmd User GoyoEnter Limelight
 autocmd User GoyoLeave Limelight!
 
 
@@ -159,8 +161,9 @@ set tabstop=2
 set expandtab
 set shiftwidth=2
 
-set nonu " don't show linenumbers
+set nu " show linenumbers
 set scrolloff=1 " always display a line above/below cursor
+set nowrap " dont wrap lines
 
 " dont use backup files
 set nobackup
@@ -241,6 +244,8 @@ imap <C-s> <esc>:w<CR>
 " easier tab navigation
 map \[ gT
 map \] gt
+
+runtime macros/matchit.vim
 
 " reopen file at the same line
 if has("autocmd")

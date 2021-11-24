@@ -23,6 +23,7 @@ call minpac#add('radenling/vim-dispatch-neovim') " neovim terminal for dispatch 
 call minpac#add('tpope/vim-dispatch') " async compiler actions
 call minpac#add('tpope/vim-fugitive') " git actions
 call minpac#add('tpope/vim-rhubarb') " :Gbrowse to view file on github
+call minpac#add('tpope/vim-vinegar') " improve netrw
 call minpac#add('tpope/vim-unimpaired') " bracket mappings for common actions
 call minpac#add('vim-airline/vim-airline') " pretty statusbar
 call minpac#add('vim-airline/vim-airline-themes') " pretty statusbar themes
@@ -32,6 +33,9 @@ call minpac#add('w0rp/ale') " async Linting Engine
 " Ruby/Rails plugins
 call minpac#add('tpope/vim-endwise') " add ends to do/if in ruby
 call minpac#add('tpope/vim-rails') " projectionist setting for rails
+call minpac#add('kana/vim-textobj-user') " add custom text objects
+call minpac#add('nelstrom/vim-textobj-rubyblock') " text object for ruby blocks
+
 
 " JS / React work
 call minpac#add('mxw/vim-jsx') " JSX syntax
@@ -41,6 +45,9 @@ call minpac#add('styled-components/vim-styled-components') " I guess we use styl
 " Writing
 call minpac#add('junegunn/goyo.vim') " Distraction free writing
 call minpac#add('junegunn/limelight.vim') " Focused writing
+
+" quality of life improvements
+call minpac#add('zorab47/procfile.vim') " Procfile syntax highlighting
 
 
 " Plugin commands

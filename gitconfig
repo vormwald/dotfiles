@@ -1,7 +1,7 @@
 [core]
   quotepath = false
   excludesfile = ~/.gitignore
-  editor = vim
+  editor = nvim
   pager = less -r
 [color]
   ui = auto
@@ -11,27 +11,20 @@
   a = !git add . && git status
   au = !git add -u . && git status
   aa = !git add . && git add -u . && git status
-  c = commit -v
-  cm = commit -m
-  ac = !git add . && git commit
-  acm = !git add . && git commit -m
   l = log --graph --all --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
   ll =  log --stat --abbrev-commit
-  d = diff --color-words
-  dh = diff --color-words head
   br = branch
   co = checkout
   master = checkout master
+  main = checkout main
   alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
   g = grep --break --heading --line-number
   recent = branch --sort=-committerdate  --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(authorname) (%(committerdate:relative))' --no-merged
-  tidy = "!git branch --merged | grep -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
+  tidy = "!git branch --merged | grep -v '\\*\\|master\\|develop\\|main' | xargs -n 1 git branch -d"
   prune = remote prune origin
   pf = push --force-with-lease
   dc = diff --cached
   wip = !git add . && git commit -m "WIP"
-  # open branch in github in compare mode
-  hub = !open $(git config remote.origin.url | sed 's/git@\\(.*\\):\\(.*\\).git/https:\\/\\/\\1\\/\\2/')/compare/$(git branch-name)
 
   # branch commands from https://gist.github.com/robmiller/6018582
   # Get the current branch name (not so useful in itself, but used in
@@ -52,6 +45,7 @@
   path = .gitconfig.local
 [commit]
   template = ~/.gitmessage
+	verbose = true
 [grep]
   extendRegexp = true
   lineNumber = true
@@ -63,3 +57,8 @@
 	clean = git lfs clean %f
 	smudge = git lfs smudge %f
 	required = true
+[user]
+	email = mvormwald@gmail.com
+	name = Mike Vormwald
+[pull]
+	ff = only

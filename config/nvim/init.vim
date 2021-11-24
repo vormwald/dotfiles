@@ -73,16 +73,10 @@ autocmd  FileType fzf set laststatus=0 noshowmode noruler
 " ALE setup
 "
 let g:ale_sign_column_always = 1
-let g:ale_sign_error = '●'
-let g:airline#extensions#ale#error_symbol = '● '
-let g:ale_sign_warning = '○'
-let g:airline#extensions#ale#warning_symbol = '○ '
 nmap <silent> [A <Plug>(ale_first)
 nmap <silent> [a <Plug>(ale_previous)
 nmap <silent> ]a <Plug>(ale_next)
 nmap <silent> ]A <Plug>(ale_last)
-highlight ALEErrorSign ctermfg=1 ctermbg=7
-highlight ALEWarningSign ctermfg=3 ctermbg=7
 
 """""""""""
 " Grepper setup

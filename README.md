@@ -27,6 +27,8 @@ Install:
 
     # install the dotfiles
     rcup -x README.md -x Brewfile
+    # install the brews
+    brew bundle
     # setup minpac for plugins
     git clone https://github.com/k-takata/minpac.git \
       ~/.config/nvim/pack/minpac/opt/minpac
@@ -40,5 +42,5 @@ Additional Software (Install these before dotfiles on a fresh install)
 
 - [prezto](https://github.com/sorin-ionescu/prezto) as a ZSH framework
 - [rbenv](https://github.com/sstephenson/rbenv) for the rubies on mac
-- [The Silver Searcher](https://github.com/ggreer/the_silver_searcher) fast file search
+
 

@@ -15,6 +15,7 @@ alias vinstall="vim +PluginInstall +qall"
 alias rg3="rg --context 3"
 alias :q="exit"
 alias dc="docker-compose"
+alias history="history 1" # all history since forever
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
 
@@ -22,8 +23,17 @@ alias dc="docker-compose"
 #########################################################
 # FZF
 
+is_in_git_repo() {
+  git rev-parse HEAD > /dev/null 2>&1
+}
+
+fzf-down() {
+  fzf --height 80% --min-height 20 --border --bind ctrl-/:toggle-preview "$@"
+}
+
 # checkout local git branches
 gbr() {
+  is_in_git_repo || return
   local branches branch
   branches=$(git for-each-ref --count=15 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
   branch=$(echo "$branches" |
@@ -32,13 +42,21 @@ gbr() {
 }
 
 # git checkout (with remote branches)
-fco() {
+gco() {
   git fetch origin --prune
   local branches branch
   branches=$(git branch --all | grep -v HEAD) &&
   branch=$(echo "$branches" |
            fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+
+gs() {
+  is_in_git_repo || return
+  git -c color.status=always status --short |
+  fzf-down -m --ansi --nth 2..,.. \
+    --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1})' |
+  cut -c4- | sed 's/.* -> //'
 }
 
 # kill process
@@ -52,6 +70,32 @@ fkill() {
   fi
 }
 
+function cd() {
+    if [[ "$#" != 0 ]]; then
+        builtin cd "$@";
+        return
+    fi
+
+    local lsd=$(echo ".." && ls -p | grep '/$' | sed 's;/$;;')
+    local dir="$(printf '%s\n' "${lsd[@]}" |
+        fzf --reverse --preview '
+            __cd_nxt="$(echo {})";
+            __cd_path="$(echo $(pwd)/${__cd_nxt} | sed "s;//;/;")";
+            echo $__cd_path;
+            echo;
+            ls -p -G "${__cd_path}";
+    ')"
+    [[ ${#dir} != 0 ]] || return 0
+    builtin cd "$dir" &> /dev/null
+}
+
+j() {
+    if [[ "$#" -ne 0 ]]; then
+        cd $(autojump $@)
+        return
+    fi
+    cd "$(autojump -s | sort -k1gr | awk '$1 ~ /[0-9]:/ && $2 ~ /^\// { for (i=2; i<=NF; i++) { print $(i) } }' |  fzf --height 40% --reverse --inline-info)"
+}
 
 #########################################################
 # OSX

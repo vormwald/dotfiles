@@ -11,8 +11,9 @@ call minpac#add('k-takata/minpac', {'type': 'opt'})
 
 " Plugin Essentials
 call minpac#add('airblade/vim-gitgutter') " display git changes
-call minpac#add('chriskempson/base16-vim') " colorschemes
+call minpac#add('NLKNguyen/papercolor-theme') " colorschemes
 call minpac#add('danro/rename.vim') " easily rename file with :Rename
+call minpac#add('github/copilot.vim') " lets get nuts
 call minpac#add('janko-m/vim-test') " knows lots of test configs
 call minpac#add('junegunn/fzf') " fuzzy finding basics
 call minpac#add('junegunn/fzf.vim') " fuzzy finding ++
@@ -128,7 +129,7 @@ let g:dispatch_quickfix_height=14
 """"""""
 " Airline Setup
 "
-let g:airline_theme='base16' " also good,'bubblegum', 'dracula'
+let g:airline_theme="papercolor" " also good,'bubblegum', 'dracula'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#hunks#enabled = 0 " disable git hunk count
 "let g:airline#extensions#hunks#non_zero_only = 1
@@ -205,15 +206,22 @@ set gdefault
 set mouse=a
 
 " Colors
-set termguicolors
-set t_Co=256 " Setup term color support
-let base16colorspace=256  " Access colors present in 256 colorspace
+ set termguicolors
+ set t_Co=256 " Setup term color support
+ let base16colorspace=256  " Access colors present in 256 colorspace
 
-if $ITERM_PROFILE =~ 'Light'
-  colorscheme base16-google-light
-else
-  colorscheme base16-oceanicnext
-endif
+colorscheme papercolor
+let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default.light': {
+  \       'transparent_background': 0,
+  \       'override' : {
+  \         'color00' : ['#ffffff', '15'],
+  \         'linenumber_bg' : ['#ffffff', '15']
+  \       }
+  \     }
+  \   }
+  \ }
 
 highlight LineNr guibg=NONE " no background for number column
 " clear background color for gutter

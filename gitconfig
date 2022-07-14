@@ -49,6 +49,7 @@
   lineNumber = true
 [push]
   default = simple
+	autoSetupRemote = true
 [init]
 	templatedir = ~/.git_template
 [filter "lfs"]

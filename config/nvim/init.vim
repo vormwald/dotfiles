@@ -27,7 +27,8 @@ call minpac#add('tpope/vim-rhubarb') " :Gbrowse to view file on github
 call minpac#add('tpope/vim-vinegar') " improve netrw
 call minpac#add('tpope/vim-unimpaired') " bracket mappings for common actions
 call minpac#add('vim-airline/vim-airline') " pretty statusbar
-call minpac#add('vim-airline/vim-airline-themes') " pretty statusbar themes
+call minpac#add('vim-airline/vim-airline-themes') " pretty statusbar themes.
+call minpac#add('jeffkreeftmeijer/vim-dim') " pretty statusbar themes.
 
 call minpac#add('w0rp/ale') " async Linting Engine
 
@@ -210,7 +211,8 @@ set mouse=a
  set t_Co=256 " Setup term color support
  let base16colorspace=256  " Access colors present in 256 colorspace
 
-colorscheme papercolor
+ "colorscheme dim
+ colorscheme papercolor
 let g:PaperColor_Theme_Options = {
   \   'theme': {
   \     'default.light': {

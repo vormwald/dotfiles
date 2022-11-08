@@ -32,7 +32,7 @@ fzf-down() {
 }
 
 # checkout local git branches
-gbr() {
+function gbr() {
   is_in_git_repo || return
   local branches branch
   branches=$(git for-each-ref --count=15 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
@@ -42,7 +42,7 @@ gbr() {
 }
 
 # git checkout (with remote branches)
-gco() {
+function gco() {
   git fetch origin --prune
   local branches branch
   branches=$(git branch --all | grep -v HEAD) &&
@@ -51,7 +51,7 @@ gco() {
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
-gs() {
+function gs() {
   is_in_git_repo || return
   git -c color.status=always status --short |
   fzf-down -m --ansi --nth 2..,.. \
@@ -60,7 +60,7 @@ gs() {
 }
 
 # kill process
-fkill() {
+function fkill() {
   local pid
   pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
 

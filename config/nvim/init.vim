@@ -215,6 +215,12 @@ set mouse=a
  colorscheme papercolor
 let g:PaperColor_Theme_Options = {
   \   'theme': {
+  \     'default.dark': {
+  \       'override' : {
+  \         'color00' : ['#080808', '232'],
+  \         'linenumber_bg' : ['#080808', '232']
+  \       }
+  \     },
   \     'default.light': {
   \       'transparent_background': 0,
   \       'override' : {
@@ -224,6 +230,22 @@ let g:PaperColor_Theme_Options = {
   \     }
   \   }
   \ }
+
+  " MacBackground(): Set color scheme for macOS
+  function! MacBackground()
+    if !system("defaults read -g AppleInterfaceStyle") =~ "^Dark"
+      set background=light
+    else
+      set background=dark
+    endif
+  endfunction
+
+  let system_name = substitute(system('uname'), '\n', '', '') " Reserve for later
+  if system_name ==# "Darwin"
+    if has('nvim')
+      call MacBackground()
+    endif
+  endif
 
 highlight LineNr guibg=NONE " no background for number column
 " clear background color for gutter

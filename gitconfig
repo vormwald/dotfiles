@@ -23,6 +23,7 @@
   dc = diff --cached
   wip = !git add . && git commit -m "WIP"
   amend = commit --amend --no-edit
+  unstage = restore --staged
 
   # branch commands from https://gist.github.com/robmiller/6018582
   # Get the current branch name (not so useful in itself, but used in
@@ -52,6 +53,7 @@
 	autoSetupRemote = true
 [init]
 	templatedir = ~/.git_template
+	defaultBranch = main
 [filter "lfs"]
 	clean = git lfs clean %f
 	smudge = git lfs smudge %f

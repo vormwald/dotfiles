@@ -19,3 +19,5 @@ export VIMDATA=~/.local/share/nvim
 
 # Local config
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
+. /opt/homebrew/opt/asdf/libexec/asdf.sh

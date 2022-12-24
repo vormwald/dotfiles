@@ -15,6 +15,8 @@ alias vinstall="vim +PluginInstall +qall"
 alias rg3="rg --context 3"
 alias :q="exit"
 alias dc="docker-compose"
+alias prs="gh prs list"
+alias pr="gh prs checkout"
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
 
@@ -23,7 +25,7 @@ alias dc="docker-compose"
 # FZF
 
 # checkout local git branches
-gbr() {
+function gbr() {
   local branches branch
   branches=$(git for-each-ref --count=15 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
   branch=$(echo "$branches" |
@@ -32,7 +34,7 @@ gbr() {
 }
 
 # git checkout (with remote branches)
-fco() {
+function fco() {
   git fetch origin --prune
   local branches branch
   branches=$(git branch --all | grep -v HEAD) &&
@@ -42,7 +44,7 @@ fco() {
 }
 
 # kill process
-fkill() {
+function fkill() {
   local pid
   pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
 
@@ -57,6 +59,6 @@ fkill() {
 # OSX
 
 # Open file in QuickLook
-ql () {
+function ql () {
   qlmanage -p "$*" >& /dev/null;
 }

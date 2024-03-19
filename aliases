@@ -3,7 +3,7 @@
 
 # Shortcuts
 alias rials="rails"
-alias s="git status"
+alias s="git status -s"
 alias b="gbr"
 alias c="./bin/rails console"
 alias r="./bin/rspec"
@@ -15,8 +15,8 @@ alias vinstall="vim +PluginInstall +qall"
 alias rg3="rg --context 3"
 alias :q="exit"
 alias dc="docker-compose"
-alias prs="gh prs list"
-alias pr="gh prs checkout"
+alias prs="gh pr list"
+alias pr="gh pr checkout"
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
 

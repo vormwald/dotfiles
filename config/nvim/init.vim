@@ -54,6 +54,23 @@ call minpac#add('zorab47/procfile.vim') " Procfile syntax highlighting
 command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
 
+"""""""""""
+" Windows setup
+"
+
+let g:clipboard = {
+            \   'name': 'WslClipboard',
+            \   'copy': {
+            \      '+': 'clip.exe',
+            \      '*': 'clip.exe',
+            \    },
+            \   'paste': {
+            \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+            \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+            \   },
+            \   'cache_enabled': 0,
+            \ }
+
 
 """""""""""
 " FZF setup
@@ -63,6 +80,7 @@ nnoremap <C-b> :<C-u>Buffers<CR>
 nnoremap <C-g> :<C-u>GFiles?<CR>
 
 let g:fzf_layout = { 'down': '~35%' }
+let $FZF_DEFAULT_COMMAND='find . \( -name node_modules -o -name .git \) -prune -o -print'
 
 " hide status bar when fuzzy finding
 autocmd! FileType fzf

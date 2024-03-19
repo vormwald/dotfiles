@@ -53,6 +53,7 @@
   default = simple
 [init]
 	templatedir = ~/.git_template
+	defaultBranch = main
 [filter "lfs"]
 	clean = git lfs clean %f
 	smudge = git lfs smudge %f
@@ -62,3 +63,9 @@
 	name = Mike Vormwald
 [pull]
 	ff = only
+[credential "https://github.com"]
+	helper =
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential

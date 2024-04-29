@@ -31,8 +31,8 @@ Install:
     brew bundle
     # setup minpac for plugins
     git clone https://github.com/k-takata/minpac.git \
-      ~/.config/nvim/pack/minpac/opt/minpac
-    # open nvim and run 
+      ~/.vim/pack/minpac/opt/minpac
+    # open vim and run 
     :PackUpdate
 
 This creates the symlinks for all files stored in .dotfiles

@@ -1,66 +1,285 @@
-" vimrc examples
-" - http://blog.mojotech.com/post/68181056882/a-veterans-vimrc
+" leader is spacebar
+let mapleader = " "
 
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
-endif
+""
+"" Plugin config
+""
 
-" use zsh as shell
-set shell=/bin/zsh
+packadd minpac " Manage plugins with minpac
+call minpac#init()
+call minpac#add('k-takata/minpac', {'type': 'opt'})
 
-" set t_kb
-fixdel
-" TODO, this is a workaround for iterm2 2.0 ?
-set backspace=indent,eol,start
-set t_kD=^[[3~
+" Plugin Essentials
+call minpac#add('airblade/vim-gitgutter') " display git changes
+call minpac#add('NLKNguyen/papercolor-theme') " colorschemes
+call minpac#add('danro/rename.vim') " easily rename file with :Rename
+call minpac#add('vim-test/vim-test') " knows lots of test configs
+call minpac#add('junegunn/fzf') " fuzzy finding basics
+call minpac#add('junegunn/fzf.vim') " fuzzy finding ++
+call minpac#add('mhinz/vim-grepper') " search files
+call minpac#add('milkypostman/vim-togglelist') " toggle quickfix/loc list
+call minpac#add('mustache/vim-mustache-handlebars') " syntax highlighting for handlebars templates
+call minpac#add('tpope/vim-dispatch') " async compiler actions
+call minpac#add('tpope/vim-fugitive') " git actions
+call minpac#add('tpope/vim-rhubarb') " :Gbrowse to view file on github
+call minpac#add('tpope/vim-vinegar') " improve netrw
+call minpac#add('tpope/vim-unimpaired') " bracket mappings for common actions
+call minpac#add('vim-airline/vim-airline') " pretty statusbar
+call minpac#add('vim-airline/vim-airline-themes') " pretty statusbar themes.
+call minpac#add('jeffkreeftmeijer/vim-dim') " pretty statusbar themes.
+
+call minpac#add('w0rp/ale') " async Linting Engine
+
+" Ruby/Rails plugins
+call minpac#add('tpope/vim-endwise') " add ends to do/if in ruby
+call minpac#add('tpope/vim-rails') " projectionist setting for rails
+call minpac#add('kana/vim-textobj-user') " add custom text objects
+call minpac#add('nelstrom/vim-textobj-rubyblock') " text object for ruby blocks
+
+
+" JS / React work
+call minpac#add('mxw/vim-jsx') " JSX syntax
+call minpac#add('pangloss/vim-javascript') " javascript syntax
+call minpac#add('styled-components/vim-styled-components') " I guess we use styled components
+
+" Writing
+call minpac#add('junegunn/goyo.vim') " Distraction free writing
+call minpac#add('junegunn/limelight.vim') " Focused writing
+
+" quality of life improvements
+call minpac#add('zorab47/procfile.vim') " Procfile syntax highlighting
+
+
+" Plugin commands
+command! PackUpdate call minpac#update()
+command! PackClean call minpac#clean()
+
+
+"""""""""""
+" FZF setup
+"
+nnoremap <C-p> :<C-u>FZF<CR>
+nnoremap <C-b> :<C-u>Buffers<CR>
+nnoremap <C-g> :<C-u>GFiles?<CR>
+
+let g:fzf_layout = { 'down': '~35%' }
+
+" hide status bar when fuzzy finding
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+"""""""""""
+" ALE setup
+"
+let g:ale_sign_column_always = 1
+let g:ale_linters = { 'javascript': ['eslint'], 'typescript': ['tslint'], 'ruby': ['standardrb'] }
+let g:ale_fixers = { 'javascript': ['prettier'], 'ruby': ['standardrb'] }
+
+" default to fix on save, but add a toggle
+let g:ale_fix_on_save = 1
+nnoremap <C-f> :let g:ale_fix_on_save = !g:ale_fix_on_save<CR>
+
+"""""""""""
+" Grepper setup
+"
+let g:grepper       = {}
+let g:grepper.tools = ['grep', 'git', 'rg']
+let g:grepper.simple_prompt = 1
+let g:grepper.rg = { 'grepprg': 'rg -H --no-heading --vimgrep --sort-files' }
+
+" Search for the current word
+nnoremap <Leader>* :Grepper -tool rg -cword -noprompt<CR>
+" backwards compatible from my old setup
+nnoremap \| :Grepper -tool rg<CR>
+
+" Search for the current selection
+nmap gs <plug>(GrepperOperator)
+xmap gs <plug>(GrepperOperator)
+
+""""""""
+" Test Setup
+"
+let test#strategy = {
+  \ 'nearest': 'neovim',
+  \ 'file':    'dispatch',
+  \ 'suite':   'dispatch',
+  \}
+let test#ruby#rspec#options = {
+\ 'nearest': '--backtrace',
+\ 'file':    '--format progress',
+\ 'suite':   '--fail-fast',
+\}
+let test#ruby#rspec#executable = 'bundle exec rspec'
+
+nmap <Leader>tt :TestNearest<CR>
+nmap <Leader>tl :TestLast<CR>
+nmap <Leader>tf :TestFile<CR>
+nmap <Leader>T :TestFile<CR>
+nmap <Leader>ff :TestFile --fail-fast<CR>
+nmap <Leader>ts :TestSuite<CR>
+nmap <Leader>tg :TestVisit<CR> " go to the last test run
+set autowrite " save buffers before leaving or running tests
+
+""""""""
+" Dispatch Setup
+"
+let g:dispatch_quickfix_height=14
+
+""""""""
+" Airline Setup
+"
+let g:airline_theme="papercolor" " also good,'bubblegum', 'dracula'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#hunks#enabled = 0 " disable git hunk count
+"let g:airline#extensions#hunks#non_zero_only = 1
+let g:airline_section_z = '%3p%% %3l/%L:%3v'
+let g:airline_skip_empty_sections = 1
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+"let g:airline#parts#ffenc#skip_expected_string='[unix]'
+
+""""""""
+" Git Gutter Setup
+"
+let g:gitgutter_map_keys = 0
+let g:gitgutter_override_sign_column_highlight = 0
+
+
+""""""""
+" Writing
+"
+"autocmd User GoyoEnter Limelight
+autocmd User GoyoLeave Limelight!
+
+
+""
+"" Regular config
+""
+
+syntax on
+set hlsearch
+
+" Softtabs, 2 spaces
+set smartindent
+set tabstop=2
+set expandtab
+set shiftwidth=2
+
+set nu " show linenumbers
+set scrolloff=1 " always display a line above/below cursor
+set nowrap " dont wrap lines
 
 " dont use backup files
 set nobackup
 set noswapfile
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp   " store swap files here
 
-" Setup term color support
-set t_Co=256
-
+" setup undo
+set undodir=$VIMDATA/undo
+autocmd BufWritePre /tmp/* setlocal noundofile " dont track /tmp
+if !has('nvim')
+  set undodir=~/.vim/undo
+endif
+augroup vimrc
+  autocmd!
+  autocmd BufWritePre /tmp/* setlocal noundofile
+augroup END
 set history=100     " Default history is only 20
 set undolevels=100  " Use more levels of undo
 
-syntax on             " Enable syntax highlighting
-filetype on           " Enable filetype detection
-filetype indent on    " Enable filetype-specific indenting
-filetype plugin on    " Enable filetype-specific plugins
+" more normal splits
+set splitbelow
+set splitright
 
-" Ruler on
-set ruler
+" remap split navigation keys
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+map <c-l> <c-w>l
+map <c-h> <c-w>h
 
-" Edit another file in the same directory as the current file
+" search Settings
+set ignorecase  " case insensitive search
+set smartcase   " If a capital letter is included in search, make it case-sensitive
+" make regexp search better
+nnoremap / /\v
+vnoremap / /\v
+" global replace by default
+set gdefault
+
+" mouse is useful sometimes
+set mouse=a
+
+" Colors
+ set termguicolors
+ set t_Co=256 " Setup term color support
+ let base16colorspace=256  " Access colors present in 256 colorspace
+
+ "colorscheme dim
+ colorscheme papercolor
+let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default.dark': {
+  \       'override' : {
+  \         'color00' : ['#080808', '232'],
+  \         'linenumber_bg' : ['#080808', '232']
+  \       }
+  \     },
+  \     'default.light': {
+  \       'transparent_background': 0,
+  \       'override' : {
+  \         'color00' : ['#ffffff', '15'],
+  \         'linenumber_bg' : ['#ffffff', '15']
+  \       }
+  \     }
+  \   }
+  \ }
+
+  " MacBackground(): Set color scheme for macOS
+  function! MacBackground()
+    if !system("defaults read -g AppleInterfaceStyle") =~ "^Dark"
+      set background=light
+    else
+      set background=dark
+    endif
+  endfunction
+
+  let system_name = substitute(system('uname'), '\n', '', '') " Reserve for later
+  if system_name ==# "Darwin"
+    if has('nvim')
+      call MacBackground()
+    endif
+  endif
+
+highlight LineNr guibg=NONE " no background for number column
+" clear background color for gutter
+highlight SignColumn guibg=NONE
+highlight GitGutterAdd guibg=NONE
+highlight GitGutterChange guibg=NONE
+highlight GitGutterDelete guibg=NONE
+highlight GitGutterChangeDelete guibg=NONE
+
+
+"" Terminal config
+" escape terminal mode with ESC
+tnoremap <Esc> <C-\><C-n>
+" highlight cursor nicely
+highlight! link TermCursor Cursor
+highlight! TermCursorNC guibg=lightgreen guifg=white ctermbg=1 ctermfg=15
+
+" edit another file in the same directory as the current file
 " uses expression to extract path from current file's path
 map <Leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
 map <Leader>s :split <C-R>=expand("%:p:h") . '/'<CR>
 map <Leader>v :vsplit <C-R>=expand("%:p:h") . '/'<CR>
-map <Leader>t :tabe <C-R>=expand("%:p:h") . '/'<CR>
 
 " easier save
 map <C-s>  <esc>:w<CR>
 imap <C-s> <esc>:w<CR>
-map <C-x>  <C-w>c
 
-" sudo save
-cmap w!! w !sudo tee % >/dev/null
+" easier tab navigation
+map \[ gT
+map \] gt
 
-" Line numbers on
-" set nu
-
-" Minimal number of screen lines to keep above and below the cursor
-set scrolloff=3
-
-" make markdown work with .md as well as .markdown
-au BufRead,BufNewFile *.md,*.markerb set filetype=markdown
-autocmd FileType markdown setlocal spell
-let g:markdown_github_languages = ['ruby', 'erb=eruby', 'javascript']
-
-" add jbuilder syntax highlighting
-au BufNewFile,BufRead *.json.jbuilder set ft=ruby
+runtime macros/matchit.vim
 
 " reopen file at the same line
 if has("autocmd")
@@ -79,197 +298,3 @@ fun! StripTrailingWhitespace()
 endfun
 autocmd BufWritePre * call StripTrailingWhitespace()
 autocmd FileType markdown let b:noStripWhitespace=1
-
-set background=dark
-highlight Normal ctermfg=grey ctermbg=black
-" set termguicolors     " enable true colors support
-"  let ayucolor="light"  " for light version of theme
-" let ayucolor="mirage" " for mirage version of theme
-"  let ayucolor="dark"   " for dark version of theme
-" colorscheme ayu
-" colorscheme jellybeans
-" colorscheme Tomorrow-Night-Eighties
-colorscheme dracula
-
-highlight NonText guibg=#060606
-highlight Folded  guibg=#0A0A0A guifg=#9090D0
-set nocursorline
-
-" Search Settings
-set incsearch   " show search matches as you type
-set ignorecase  " case insensitive search
-set smartcase   " If a capital letter is included in search, make it case-sensitive
-set nohlsearch  " dont highlight search results
-" toggle search highlighting mapped to \h
-" http://stackoverflow.com/a/26504944/209064
-:nnoremap <silent><expr> <Leader>h (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
-
-" make regexp search not suck by default -
-nnoremap / /\v
-vnoremap / /\v
-
-" make capital w/q actually write/quit
-cnoreabbrev W w
-cnoreabbrev Q q
-
-" remap split navigation keys
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-l> <c-w>l
-map <c-h> <c-w>h
-
-" easier tab navigation
-map <leader>[ gT
-map <leader>] gt
-
-" open new tab
-map <leader>T :tabe<CR>
-
-" Softtabs, 2 spaces
-set smartindent
-set tabstop=2
-set expandtab
-set shiftwidth=2
-
-" Automatically :write before running commands
-set autowrite
-
-" Wrapping
-set nowrap
-set linebreak
-" :Wrap command to turn on wrapping mapped to \w
-command! -nargs=* Wrap set wrap! nolist! wrap?
-nnoremap <Leader>w :Wrap<CR>
-" Make wrapped lines easier to read
-let &showbreak=repeat(' ', 14)
-
-" Display extra whitespace
-set list listchars=tab:»·,trail:·
-
-" more normal splits
-set splitbelow
-set splitright
-
-" Always show status line.
-set laststatus=2
-
-" match ruby blocks on %
-runtime macros/matchit.vim
-
-" wrap git messages at 72
-autocmd Filetype gitcommit setlocal spell textwidth=72
-
-" source $MYVIMRC reloads the saved $MYVIMRC
-:nmap <Leader>S :source $MYVIMRC<CR><CR>
-" opens $MYVIMRC for editing
-:nmap <Leader>E :e $MYVIMRC<CR><CR>
-
-" Use The Silver Searcher instead of grep
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-  nnoremap \| :Ag<SPACE>
-  nnoremap <Leader>\| :Ag<SPACE><C-r><C-w><CR><CR>
-else
-  " use git grep
-  set grepprg=git\ grep\ --no-color
-  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-  let g:ctrlp_use_caching = 0
-  " bind K to grep word under cursor
-  nnoremap K :Ggrep <C-R>=expand("<cword>")<CR><CR>
-endif
-autocmd QuickFixCmdPost *grep* cwindow
-
-" Disable man lookup
-noremap K <nop>
-
-" draw a line at column 80
-set textwidth=80
-
-" set custom cursor -- vertical bar in insert mode (iTerm2)
-" from http://www.iterm2.com/#/section/documentation/escape_codes
-if !has("gui")
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
-
-" if using iterm and my light profile, lighten things up
-if $ITERM_PROFILE =~ 'Light'
-  colorscheme Tomorrow
-  set background=light
-  highlight ColorColumn ctermbg=7
-  " copied this line from above
-  hi CursorLine cterm=none
-endif
-if $ITERM_PROFILE =~ 'Solarized.*'
-  colorscheme solarized
-endif
-if $ITERM_PROFILE == 'Solarized Dark'
-  set background=dark
-endif
-
-
-" Close the quickfix when it's the last thing open
-aug QFClose
-  au!
-  au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
-aug END
-
-" Leader Ctrl-] to open ctag in vsplit
-map <leader><C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-
-" Surround.vim
-" leader-a then a thing will surround the current word with that thing
-map <Leader>a ysiw
-
-" NERDtree
-" close if last buffer
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-" CtrlP + ctags
-nnoremap <leader>p :CtrlPTag<CR>
-" CtrlP + buffers
-nnoremap <C-b> :CtrlPBuffer<CR>
-" search in current, ancestor, root
-let g:ctrlp_working_path_mode = 'car'
-
-" VimVroom for running specs
-if filereadable('./bin/spring')
-  let g:vroom_use_spring = 1
-  let g:vroom_use_binstub = 1
-elseif filereadable('./Gemfile')
-  let g:vroom_use_bundle_exec = 1
-endif
-
-" Airline
-let g:airline_powerline_fonts = 1
-let g:airline_skip_empty_sections = 1
-let g:airline_section_z = '%3p%% %3l/%L:%3v'
-let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-let g:airline#extensions#hunks#enabled = 0
-let g:airline#extensions#hunks#non_zero_only = 0
-" let g:airline_theme='bubblegum'
-" let g:airline_theme='monochrome'
-" let g:airline_theme='lucius'
-" let g:airline_theme='minimalist'
-let g:airline_theme='dracula'
-
-" Syntastic
-let g:syntastic_auto_loc_list = 1 " Close the location-list when errors are gone
-let g:syntastic_check_on_open = 0
-let g:syntastic_loc_list_height = 5
-let g:syntastic_auto_jump = 0
-
-" Writing
-autocmd User GoyoEnter Limelight
-autocmd User GoyoLeave Limelight!
-
-" Local config
-if filereadable($HOME . "/.vimrc.local")
-  source ~/.vimrc.local
-endif
-

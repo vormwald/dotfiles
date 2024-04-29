@@ -9,13 +9,14 @@ alias c="./bin/rails console"
 alias r="./bin/rspec"
 alias ws="ruby -run -e httpd . -p8000"
 alias tmux="tmux -2"
-alias vi="nvim"
-alias vim="nvim"
-alias vinstall="vim +PluginInstall +qall"
 alias rg3="rg --context 3"
 alias :q="exit"
 alias dc="docker-compose"
 alias history="history 1" # all history since forever
+alias python='python3'
+alias python2='python3'
+alias vsc='code-insiders .'
+
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
 
@@ -89,7 +90,7 @@ function cd() {
     builtin cd "$dir" &> /dev/null
 }
 
-j() {
+function j() {
     if [[ "$#" -ne 0 ]]; then
         cd $(autojump $@)
         return
@@ -101,6 +102,6 @@ j() {
 # OSX
 
 # Open file in QuickLook
-ql () {
+function ql () {
   qlmanage -p "$*" >& /dev/null;
 }

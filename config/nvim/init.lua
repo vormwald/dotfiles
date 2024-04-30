@@ -104,6 +104,34 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+--
+-- Mike's config changes
+--
+
+-- Keybinds from my old vimrc
+vim.api.nvim_set_keymap('n', '<Leader>e', ':e ' .. vim.fn.expand '%:p:h' .. '/', { noremap = true, silent = false })
+vim.api.nvim_set_keymap('n', '<Leader>s', ':split ' .. vim.fn.expand '%:p:h' .. '/', { noremap = true, silent = false })
+vim.api.nvim_set_keymap('n', '<Leader>v', ':vsplit ' .. vim.fn.expand '%:p:h' .. '/', { noremap = true, silent = false })
+vim.api.nvim_set_keymap('n', '<Leader>t', ':tabe ' .. vim.fn.expand '%:p:h' .. '/', { noremap = true, silent = false })
+
+-- Easier saving
+-- nnoremap <C-S> :update<CR> -- Normal mode mapping
+-- inoremap <C-S> <Esc>:update<CR>gi -- Insert mode mapping
+
+local diagnostics_active = true
+local toggle_diagnostics = function()
+  diagnostics_active = not diagnostics_active
+  if diagnostics_active then
+    vim.diagnostic.show()
+  else
+    vim.diagnostic.hide()
+  end
+end
+
+vim.keymap.set('n', '<leader>d', toggle_diagnostics)
+
+-- end Mike's config changes
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -572,6 +600,7 @@ require('lazy').setup({
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
         -- javascript = { { "prettierd", "prettier" } },
+        ruby = { 'standardrb' },
       },
     },
   },
@@ -706,7 +735,12 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  {
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = { signs = false },
+  },
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
@@ -777,7 +811,6 @@ require('lazy').setup({
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
   },
-
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
@@ -799,7 +832,7 @@ require('lazy').setup({
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the

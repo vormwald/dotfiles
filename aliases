@@ -16,6 +16,8 @@ alias history="history 1" # all history since forever
 alias python='python3'
 alias python2='python3'
 alias vsc='code-insiders .'
+alias pr='gh pr checkout'
+alias chx='gh pr checks'
 
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local

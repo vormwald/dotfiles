@@ -12,7 +12,10 @@ export VIMCONFIG=~/.config/nvim
 export VIMDATA=~/.local/share/nvim
 
 # enable Autojump
+[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+# wsl
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
 
 # aliases
 [[ -f ~/.aliases ]] && source ~/.aliases
@@ -21,3 +24,8 @@ export VIMDATA=~/.local/share/nvim
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

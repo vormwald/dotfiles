@@ -39,8 +39,10 @@ call minpac#add('nelstrom/vim-textobj-rubyblock') " text object for ruby blocks
 
 
 " JS / React work
-call minpac#add('mxw/vim-jsx') " JSX syntax
 call minpac#add('pangloss/vim-javascript') " javascript syntax
+call minpac#add('MaxMEllon/vim-jsx-pretty') " JSX syntax
+call minpac#add('peitalin/vim-jsx-typescript') " JSX syntax
+call minpac#add('jparise/vim-graphql') " JSX syntax
 call minpac#add('styled-components/vim-styled-components') " I guess we use styled components
 
 " Writing
@@ -148,6 +150,13 @@ let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 "
 let g:gitgutter_map_keys = 0
 let g:gitgutter_override_sign_column_highlight = 0
+
+""""""""
+" React syntax can get out of wack
+" https://thoughtbot.com/blog/modern-typescript-and-react-development-in-vim#highlighting-for-large-files
+"
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
 
 """"""""

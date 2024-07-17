@@ -108,8 +108,8 @@ xmap gs <plug>(GrepperOperator)
 " Test Setup
 "
 let test#strategy = {
-  \ 'nearest': 'neovim',
-  \ 'file':    'dispatch',
+  \ 'nearest': 'vimterminal',
+  \ 'file':    'vimterminal',
   \ 'suite':   'dispatch',
   \}
 let test#ruby#rspec#options = {
@@ -192,13 +192,12 @@ set noswapfile
 " setup undo
 set undodir=$VIMDATA/undo
 autocmd BufWritePre /tmp/* setlocal noundofile " dont track /tmp
-if !has('nvim')
-  set undodir=~/.vim/undo
-endif
+set undodir=~/.vim/undo
 augroup vimrc
   autocmd!
   autocmd BufWritePre /tmp/* setlocal noundofile
 augroup END
+
 set history=100     " Default history is only 20
 set undolevels=100  " Use more levels of undo
 
@@ -273,6 +272,12 @@ if system_name =~ 'microsoft'
         \   'cache_enabled': 0,
         \ }
   endif
+endfunction
+
+let system_name = substitute(system('uname'), '\n', '', '') " Reserve for later
+if system_name ==# "Darwin"
+  call MacBackground()
+endif
 
   if exists("$WSLENV")
     " clipboard doesn't quite work in WSL in terminal mode

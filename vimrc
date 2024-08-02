@@ -68,6 +68,9 @@ let g:fzf_layout = { 'down': '~35%' }
 autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+" Load FZF
+set runtimepath+=/usr/bin/fzf
+runtime plugin/fzf.vim
 
 """""""""""
 " ALE setup
@@ -214,13 +217,14 @@ set mouse=a
  let base16colorspace=256  " Access colors present in 256 colorspace
 
  "colorscheme dim
- colorscheme papercolor
+ colorscheme PaperColor
 let g:PaperColor_Theme_Options = {
   \   'theme': {
   \     'default.dark': {
   \       'override' : {
   \         'color00' : ['#080808', '232'],
-  \         'linenumber_bg' : ['#080808', '232']
+  \         'linenumber_bg' : ['#080808', '232'],
+  \       'transparent_background': 1,
   \       }
   \     },
   \     'default.light': {
@@ -235,10 +239,10 @@ let g:PaperColor_Theme_Options = {
 
   " MacBackground(): Set color scheme for macOS
   function! MacBackground()
-    if !system("defaults read -g AppleInterfaceStyle") =~ "^Dark"
-      set background=light
-    else
+    if system("defaults read -g AppleInterfaceStyle") =~ "^Dark"
       set background=dark
+    else
+      set background=light
     endif
   endfunction
 
@@ -247,6 +251,9 @@ let g:PaperColor_Theme_Options = {
     if has('nvim')
       call MacBackground()
     endif
+  else
+   " not mac
+    set background=dark
   endif
 
 highlight LineNr guibg=NONE " no background for number column

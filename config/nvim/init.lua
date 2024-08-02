@@ -124,8 +124,8 @@ vim.api.nvim_set_keymap(
 )
 
 -- Easier saving
--- nnoremap <C-S> :update<CR> -- Normal mode mapping
--- inoremap <C-S> <Esc>:update<CR>gi -- Insert mode mapping
+vim.api.nvim_set_keymap("n", "<C-s>", ":update<CR>", { noremap = true, silent = true }) -- Normal mode mapping
+vim.api.nvim_set_keymap("i", "<C-s>", "<Esc>:update<CR>gi", { noremap = true, silent = true }) -- Insert mode mapping
 
 local diagnostics_active = true
 local toggle_diagnostics = function()
@@ -158,7 +158,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
 	vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
 end ---@diagnostic disable-next-line: undefined-field
@@ -379,7 +379,17 @@ require("lazy").setup({
 
 			-- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
 			-- used for completion, annotations and signatures of Neovim apis
-			{ "folke/neodev.nvim", opts = {} },
+			{
+				"folke/lazydev.nvim",
+				ft = "lua",
+				opts = {
+					library = {
+						-- Load luvit types when the `vim.uv` word is found
+						{ path = "luvit-meta/library", words = { "vim%.uv" } },
+					},
+				},
+			},
+			{ "Bilal2453/luvit-meta", lazy = true },
 		},
 		config = function()
 			-- Brief aside: **What is LSP?**
@@ -589,7 +599,8 @@ require("lazy").setup({
 
 	{ -- Autoformat
 		"stevearc/conform.nvim",
-		lazy = false,
+		event = { "BufWritePre" },
+		cmd = { "ConformInfo" },
 		keys = {
 			{
 				"<leader>f",
@@ -619,8 +630,8 @@ require("lazy").setup({
 				--
 				-- You can use a sub-list to tell conform to run *until* a formatter
 				-- is found.
-				-- javascript = { { "prettierd", "prettier" } },
-				ruby = { "standardrb" },
+				javascript = { { "prettierd", "prettier" } },
+				ruby = { { "standardrb", "rubocop" } },
 			},
 		},
 	},
@@ -803,7 +814,19 @@ require("lazy").setup({
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		opts = {
-			ensure_installed = { "bash", "c", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
+			ensure_installed = {
+				"bash",
+				"c",
+				"diff",
+				"html",
+				"lua",
+				"luadoc",
+				"markdown",
+				"markdown_inline",
+				"query",
+				"vim",
+				"vimdoc",
+			},
 			-- Autoinstall languages that are not installed
 			auto_install = true,
 			highlight = {

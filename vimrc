@@ -15,7 +15,7 @@ call minpac#add('NLKNguyen/papercolor-theme') " colorschemes
 call minpac#add('danro/rename.vim') " easily rename file with :Rename
 call minpac#add('vim-test/vim-test') " knows lots of test configs
 call minpac#add('github/copilot.vim') " lets get nuts
-call minpac#add('junegunn/fzf') " fuzzy finding basics
+call minpac#add('junegunn/fzf', { 'do': { -> fzf#install() } }) " fuzzy finding basics
 call minpac#add('junegunn/fzf.vim') " fuzzy finding ++
 call minpac#add('mhinz/vim-grepper') " search files
 call minpac#add('milkypostman/vim-togglelist') " toggle quickfix/loc list

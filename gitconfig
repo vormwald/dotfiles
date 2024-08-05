@@ -35,7 +35,8 @@
 [color]
   ui = auto
 [credential "https://github.com"]
-	helper = !/usr/bin/gh auth git-credential
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
 [alias]
   s = status
   a = !git add . && git status
@@ -67,3 +68,6 @@
   publish = "!git push -u origin $(git branch-name)"
   # Delete the remote version of the current branch
   unpublish = "!git push origin :$(git branch-name)"
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential

@@ -14,6 +14,7 @@ call minpac#add('airblade/vim-gitgutter') " display git changes
 call minpac#add('NLKNguyen/papercolor-theme') " colorschemes
 call minpac#add('danro/rename.vim') " easily rename file with :Rename
 call minpac#add('vim-test/vim-test') " knows lots of test configs
+call minpac#add('github/copilot.vim') " lets get nuts
 call minpac#add('junegunn/fzf') " fuzzy finding basics
 call minpac#add('junegunn/fzf.vim') " fuzzy finding ++
 call minpac#add('mhinz/vim-grepper') " search files
@@ -63,6 +64,7 @@ nnoremap <C-b> :<C-u>Buffers<CR>
 nnoremap <C-g> :<C-u>GFiles?<CR>
 
 let g:fzf_layout = { 'down': '~35%' }
+let $FZF_DEFAULT_COMMAND='find . \( -name node_modules -o -name .git \) -prune -o -print'
 
 " hide status bar when fuzzy finding
 autocmd! FileType fzf
@@ -155,12 +157,14 @@ let g:gitgutter_override_sign_column_highlight = 0
 autocmd User GoyoLeave Limelight!
 
 
+
 ""
 "" Regular config
 ""
 
 syntax on
 set hlsearch
+set belloff=all
 
 " Softtabs, 2 spaces
 set smartindent
@@ -212,15 +216,14 @@ set gdefault
 set mouse=a
 
 " Colors
- set termguicolors
- set t_Co=256 " Setup term color support
- let base16colorspace=256  " Access colors present in 256 colorspace
+set termguicolors
+set t_Co=256 " Setup term color support
+let base16colorspace=256  " Access colors present in 256 colorspace
 
- "colorscheme dim
- colorscheme PaperColor
 let g:PaperColor_Theme_Options = {
   \   'theme': {
   \     'default.dark': {
+  \       'transparent_background': 1,
   \       'override' : {
   \         'color00' : ['#080808', '232'],
   \         'linenumber_bg' : ['#080808', '232'],
@@ -236,25 +239,58 @@ let g:PaperColor_Theme_Options = {
   \     }
   \   }
   \ }
+colorscheme PaperColor
+set background=dark
 
-  " MacBackground(): Set color scheme for macOS
-  function! MacBackground()
-    if system("defaults read -g AppleInterfaceStyle") =~ "^Dark"
-      set background=dark
-    else
-      set background=light
-    endif
-  endfunction
+map <Leader>y :call system("clip.exe", getreg("0"))<CR>
+   "set clipboard+=unnamedplus
 
-  let system_name = substitute(system('uname'), '\n', '', '') " Reserve for later
-  if system_name ==# "Darwin"
-    if has('nvim')
-      call MacBackground()
-    endif
-  else
-   " not mac
-    set background=dark
+""""""""
+" WSL
+"
+let system_name = system('uname -r')
+if system_name =~ 'microsoft'
+  if has('nvim')
+    let g:clipboard = {
+        \   'name': 'WslClipboard',
+        \   'copy': {
+        \      '+': 'clip.exe',
+        \      '*': 'clip.exe',
+        \    },
+        \   'paste': {
+        \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+        \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+        \   },
+        \   'cache_enabled': 0,
+        \ }
   endif
+
+  if exists("$WSLENV")
+    " clipboard doesn't quite work in WSL in terminal mode
+    augroup Yank
+      autocmd!
+      autocmd TextYankPost * :call system('/mnt/c/Windows/SysWOW64/clip.exe',@")
+    augroup END
+  endif
+endif
+
+""""""""
+" Mac
+"
+function! MacBackground()
+  if system("defaults read -g AppleInterfaceStyle") =~ "^Dark"
+    set background=dark
+  else
+    set background=light
+  endif
+endfunction
+
+let system_name = substitute(system('uname'), '\n', '', '') " Reserve for later
+if system_name ==# "Darwin"
+  call MacBackground()
+else
+  set background=dark
+endif
 
 highlight LineNr guibg=NONE " no background for number column
 " clear background color for gutter
@@ -263,7 +299,6 @@ highlight GitGutterAdd guibg=NONE
 highlight GitGutterChange guibg=NONE
 highlight GitGutterDelete guibg=NONE
 highlight GitGutterChangeDelete guibg=NONE
-
 
 "" Terminal config
 " escape terminal mode with ESC

@@ -3,6 +3,42 @@
   excludesfile = ~/.gitignore
   editor = vim
   pager = less -r
+
+[alias]
+  s = status
+  a = !git add . && git status
+  au = !git add -u . && git status
+  aa = !git add . && git add -u . && git status
+  l = log --graph --all --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
+  ll =  log --stat --abbrev-commit
+  br = branch
+  co = checkout
+  chp = cherry-pick
+  master = checkout master
+  main = checkout main
+  alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
+  g = grep --break --heading --line-number
+  tidy = "!git branch --merged | grep -v '\\*\\|master\\|develop\\|main' | xargs -n 1 git branch -d"
+  prune = remote prune origin
+  pf = push --force-with-lease
+  dc = diff --cached
+  wip = !git add . && git commit -m "WIP"
+  amend = commit --amend --no-edit
+  unstage = restore --staged
+  # https://spin.atomicobject.com/fuzzy-find-git-add/
+  fza = "!git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add"
+
+  # branch commands from https://gist.github.com/robmiller/6018582
+  # Get the current branch name (not so useful in itself, but used in
+  # other aliases)
+  branch-name = "!git rev-parse --abbrev-ref HEAD"
+  # Push the current branch to the remote "origin", and set it to track
+  # the upstream branch
+  publish = "!git push -u origin $(git branch-name)"
+  # Delete the remote version of the current branch
+  unpublish = "!git push origin :$(git branch-name)"
+
+
 [filter "media"]
 	required = true
 	clean = git media clean %f
@@ -36,34 +72,3 @@
   ui = auto
 [credential "https://github.com"]
 	helper = !/usr/bin/gh auth git-credential
-[alias]
-  s = status
-  a = !git add . && git status
-  au = !git add -u . && git status
-  aa = !git add . && git add -u . && git status
-  l = log --graph --all --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
-  ll =  log --stat --abbrev-commit
-  br = branch
-  co = checkout
-  chp = cherry-pick
-  master = checkout master
-  main = checkout main
-  alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
-  g = grep --break --heading --line-number
-  tidy = "!git branch --merged | grep -v '\\*\\|master\\|develop\\|main' | xargs -n 1 git branch -d"
-  prune = remote prune origin
-  pf = push --force-with-lease
-  dc = diff --cached
-  wip = !git add . && git commit -m "WIP"
-  amend = commit --amend --no-edit
-  unstage = restore --staged
-
-  # branch commands from https://gist.github.com/robmiller/6018582
-  # Get the current branch name (not so useful in itself, but used in
-  # other aliases)
-  branch-name = "!git rev-parse --abbrev-ref HEAD"
-  # Push the current branch to the remote "origin", and set it to track
-  # the upstream branch
-  publish = "!git push -u origin $(git branch-name)"
-  # Delete the remote version of the current branch
-  unpublish = "!git push origin :$(git branch-name)"

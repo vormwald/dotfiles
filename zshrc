@@ -4,17 +4,30 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
-export PATH=~/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=~/bin:/usr/local/bin:/usr/local/sbin:~/.bin:$PATH
 
 export VISUAL='vim'
 export EDITOR="$VISUAL"
-# export VIMCONFIG=~/.config/nvim
-# export VIMDATA=~/.local/share/nvim
+
+eval "$(gh copilot alias -- zsh)"
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
 
 # enable Autojump
 [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
 # wsl
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+[ -f /usr/share/autojump/autojump.sh ] && . /usr/share/autojump/autojump.sh
+
+# FZF
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# ASDF
+[ -f /opt/homebrew/opt/asdf/libexec/asdf.sh ]  && . /opt/homebrew/opt/asdf/libexec/asdf.sh
+[ -f ~/.asdf/asdf.sh ] && . "$HOME/.asdf/asdf.sh"
 
 # aliases
 [[ -f ~/.aliases ]] && source ~/.aliases
@@ -22,10 +35,3 @@ export EDITOR="$VISUAL"
 # Local config
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
-# we using asdf?
-[[ -f /opt/homebrew/opt/asdf/libexec/asdf.sh ]] && source /opt/homebrew/opt/asdf/libexec/asdf.sh
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

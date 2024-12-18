@@ -30,6 +30,7 @@
 	name = Mike Vormwald
 [pull]
 	ff = only
+	rebase = true
 [help]
 	autocorrect = prompt
 [color]
@@ -43,8 +44,8 @@
   aa = !git add . && git add -u . && git status
   l = log --graph --all --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
   ll =  log --stat --abbrev-commit
-  br = branch
-  co = checkout
+	br = branch
+	co = checkout
   chp = cherry-pick
   master = checkout master
   main = checkout main
@@ -67,3 +68,5 @@
   publish = "!git push -u origin $(git branch-name)"
   # Delete the remote version of the current branch
   unpublish = "!git push origin :$(git branch-name)"
+	ci = commit
+	st = status

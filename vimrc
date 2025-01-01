@@ -5,6 +5,7 @@ let mapleader = " "
 "" Plugin config
 ""
 
+
 packadd minpac " Manage plugins with minpac
 call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})

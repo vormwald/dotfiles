@@ -4,5 +4,7 @@ return {
   { import = "plugins.lsp" },
   { import = "plugins.completion" },
   { import = "plugins.git" },
+  { import = "plugins.which-key" },
   { import = "plugins.editor" },
+  { import = "plugins.themes" },
 }

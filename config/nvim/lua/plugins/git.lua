@@ -1,11 +1,16 @@
--- Adds git related signs to the gutter, as well as utilities for managing changes
--- NOTE: gitsigns is already included in init.lua but contains only the base
--- config. This will add also the recommended keymaps.
-
 return {
+  { -- Git related plugins
+    "tpope/vim-rhubarb",
+  },
   {
-    'lewis6991/gitsigns.nvim',
+    "lewis6991/gitsigns.nvim",
     opts = {
+      signs = {
+        add = { text = "+" },
+        change = { text = "~" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
       on_attach = function(bufnr)
         local gitsigns = require 'gitsigns'
 
@@ -56,6 +61,7 @@ return {
         map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
         map('n', '<leader>tD', gitsigns.toggle_deleted, { desc = '[T]oggle git show [D]eleted' })
       end,
+      },
     },
-  },
+  }
 }

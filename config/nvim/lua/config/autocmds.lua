@@ -39,4 +39,5 @@ autocmd("Filetype", {
 --     "yaml", "lua"
 --   },
 --   command = "setlocal shiftwidth=2 tabstop=2"
--- }) 
+-- })
+

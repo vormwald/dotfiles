@@ -62,7 +62,6 @@ vim.opt.breakindent = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = "split"
 
@@ -96,5 +95,5 @@ vim.api.nvim_set_keymap(
 )
 
 -- Easier saving
-vim.api.nvim_set_keymap("n", "<C-s>", ":update<CR>", { noremap = true, silent = true }) -- Normal mode mapping
+vim.api.nvim_set_keymap("n", "<C-s>", ":update<CR>", { noremap = true, silent = true })        -- Normal mode mapping
 vim.api.nvim_set_keymap("i", "<C-s>", "<Esc>:update<CR>gi", { noremap = true, silent = true }) -- Insert mode mapping

@@ -51,3 +51,6 @@ keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 -- Easier saving
 vim.keymap.set('n', '<C-s>', '<cmd>update<CR>', { desc = 'Save file' })
 vim.keymap.set('i', '<C-s>', '<cmd>update<CR><Esc>a', { desc = 'Save file and stay in insert mode' })
+
+-- rename a file
+vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename)

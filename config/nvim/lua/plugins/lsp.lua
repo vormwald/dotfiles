@@ -93,7 +93,7 @@ return {
 			},
 			formatters_by_ft = {
 				lua = { "stylua" },
-				ruby = { { "standardrb", "rubocop" } },
+				ruby = { "rubyfmt" },
 			},
 		},
 	},

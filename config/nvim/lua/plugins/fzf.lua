@@ -73,14 +73,15 @@ return {
 			map("n", "<leader>/", "<cmd>FzfLua live_grep<cr>", "Live Grep")
 			map("n", "<leader><space>", "<cmd>FzfLua files<cr>", "Find Files")
 			map("n", "<leader>ff", "<cmd>FzfLua files<cr>", "Find Files")
-			map("n", "<leader>fg", "<cmd>FzfLua git_files<cr>", "Git Files")
 			map("n", "<leader>fr", "<cmd>FzfLua oldfiles<cr>", "Recent Files")
+			map("n", "<leader>fg", "<cmd>FzfLua git_status<cr>", "Git Status")
 
 			-- Search
 			map("n", "<leader>sb", "<cmd>FzfLua grep_curbuf<cr>", "Search Buffer")
 			map("n", "<leader>sg", "<cmd>FzfLua live_grep<cr>", "Grep")
 			map("n", "<leader>sh", "<cmd>FzfLua help_tags<cr>", "Help Pages")
 			map("n", "<leader>sm", "<cmd>FzfLua marks<cr>", "Jump to Mark")
+			map("n", "<leader>*", "<cmd>FzfLua grep_cword<cr>", "Search Word Under Cursor")
 
 			-- LSP
 			map(
@@ -121,7 +122,6 @@ return {
 			)
 		end,
 	},
-
 	{
 		"folke/todo-comments.nvim",
 		optional = true,

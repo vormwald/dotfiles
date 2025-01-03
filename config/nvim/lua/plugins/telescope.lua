@@ -1,107 +1,145 @@
 return {
 	{
-		"nvim-telescope/telescope.nvim",
-		event = "VimEnter",
-		branch = "0.1.x",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			{
-				"nvim-telescope/telescope-fzf-native.nvim",
-				build = "make",
-				cond = function()
-					return vim.fn.executable("make") == 1
-				end,
-			},
-			"nvim-telescope/telescope-ui-select.nvim",
-			{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
-		},
+		"ibhagwan/fzf-lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
-			-- Telescope is a fuzzy finder that comes with a lot of different things that
-			-- it can fuzzy find! It's more than just a "file finder", it can search
-			-- many different aspects of Neovim, your workspace, LSP, and more!
-			--
-			-- The easiest way to use Telescope, is to start by doing something like:
-			--  :Telescope help_tags
-			--
-			-- After running this command, a window will open up and you're able to
-			-- type in the prompt window. You'll see a list of `help_tags` options and
-			-- a corresponding preview of the help.
-			--
-			-- Two important keymaps to use while in Telescope are:
-			--  - Insert mode: <c-/>
-			--  - Normal mode: ?
-			--
-			-- This opens a window that shows you all of the keymaps for the current
-			-- Telescope picker. This is really useful to discover what Telescope can
-			-- do as well as how to actually do it!
+			local fzf = require("fzf-lua")
+			local actions = require("fzf-lua.actions")
+			local config = require("fzf-lua.config")
 
-			-- [[ Configure Telescope ]]
-			-- See `:help telescope` and `:help telescope.setup()`
-			require("telescope").setup({
-				-- You can put your default mappings / updates / etc. in here
-				--  All the info you're looking for is in `:help telescope.setup()`
-				--
-				-- defaults = {
-				--   mappings = {
-				--     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-				--   },
-				-- },
-				-- pickers = {}
-				extensions = {
-					["ui-select"] = {
-						require("telescope.themes").get_dropdown(),
+			-- Core FZF keymaps
+			config.defaults.keymap.fzf["ctrl-q"] = "select-all+accept"
+			config.defaults.keymap.fzf["ctrl-u"] = "half-page-up"
+			config.defaults.keymap.fzf["ctrl-d"] = "half-page-down"
+			config.defaults.keymap.fzf["ctrl-x"] = "jump"
+			config.defaults.keymap.fzf["ctrl-f"] = "preview-page-down"
+			config.defaults.keymap.fzf["ctrl-b"] = "preview-page-up"
+
+			-- Setup core configuration
+			fzf.setup({
+				fzf_colors = true,
+				fzf_opts = {
+					["--no-scrollbar"] = true,
+				},
+				defaults = {
+					-- formatter = "path.filename_first",
+					formatter = "path.dirname_first",
+				},
+				winopts = {
+					width = 0.8,
+					height = 0.8,
+					row = 0.5,
+					col = 0.5,
+					preview = {
+						scrollchars = { "┃", "" },
+					},
+				},
+				files = {
+					cwd_prompt = false,
+					actions = {
+						["alt-i"] = { actions.toggle_ignore },
+						["alt-h"] = { actions.toggle_hidden },
+					},
+				},
+				grep = {
+					actions = {
+						["alt-i"] = { actions.toggle_ignore },
+						["alt-h"] = { actions.toggle_hidden },
+					},
+				},
+				lsp = {
+					symbols = {
+						symbol_hl = function(s)
+							return "TroubleIcon" .. s
+						end,
+						symbol_fmt = function(s)
+							return s:lower() .. "\t"
+						end,
+						child_prefix = false,
+					},
+					code_actions = {
+						previewer = vim.fn.executable("delta") == 1 and "codeaction_native" or nil,
 					},
 				},
 			})
-			-- Enable Telescope extensions if they are installed
-			pcall(require("telescope").load_extension, "fzf")
-			pcall(require("telescope").load_extension, "ui-select")
 
-			-- See `:help telescope.builtin`
-			local builtin = require("telescope.builtin")
+			-- Essential keymaps
+			local function map(mode, lhs, rhs, desc)
+				vim.keymap.set(mode, lhs, rhs, { silent = true, desc = desc })
+			end
 
-			vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
-			vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
-			vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
-			vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
-			vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
-			vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
-			vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
-			vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
-			vim.keymap.set("n", "<leader>s.", builtin.oldfiles,
-				{ desc = '[S]earch Recent Files ("." for repeat)' })
-			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+			-- Files and buffers
+			map("n", "<leader>,", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", "Switch Buffer")
+			map("n", "<leader>/", "<cmd>FzfLua live_grep<cr>", "Live Grep")
+			map("n", "<leader><space>", "<cmd>FzfLua files<cr>", "Find Files")
+			map("n", "<leader>ff", "<cmd>FzfLua files<cr>", "Find Files")
+			map("n", "<leader>fg", "<cmd>FzfLua git_files<cr>", "Git Files")
+			map("n", "<leader>fr", "<cmd>FzfLua oldfiles<cr>", "Recent Files")
 
-			vim.keymap.set("n", "<C-p>", builtin.find_files, { desc = "[C-p] Search Files" })
-			vim.keymap.set("n", "<C-b>", builtin.buffers, { desc = "[C-b] Find existing buffers" })
-			vim.keymap.set("n", "<C-g>", builtin.git_status, { desc = "[C-g] Find git files" })
-			vim.keymap.set("n", "<leader>p", builtin.find_files, { desc = "[Leader-p] Search Files" })
-			vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "[C-b] Find existing buffers" })
-			vim.keymap.set("n", "<leader>g", builtin.git_status, { desc = "[C-g] Find git files" })
-			vim.keymap.set("n", "<leader>|", builtin.live_grep, { desc = "[S]earch [F]iles" })
-			vim.keymap.set("n", "<leader>*", builtin.grep_string, { desc = "[S]earch current [W]ord" })
-			-- Slightly advanced example of overriding default behavior and theme
-			vim.keymap.set("n", "<leader>/", function()
-				-- You can pass additional configuration to Telescope to change the theme, layout, etc.
-				builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-					winblend = 10,
-					previewer = false,
-				}))
-			end, { desc = "[/] Fuzzily search in current buffer" })
+			-- Search
+			map("n", "<leader>sb", "<cmd>FzfLua grep_curbuf<cr>", "Search Buffer")
+			map("n", "<leader>sg", "<cmd>FzfLua live_grep<cr>", "Grep")
+			map("n", "<leader>sh", "<cmd>FzfLua help_tags<cr>", "Help Pages")
+			map("n", "<leader>sm", "<cmd>FzfLua marks<cr>", "Jump to Mark")
 
-			-- It's also possible to pass additional configuration options.
-			--  See `:help telescope.builtin.live_grep()` for information about particular keys
-			vim.keymap.set("n", "<leader>s/", function()
-				builtin.live_grep({
-					grep_open_files = true,
-					prompt_title = "Live Grep in Open Files",
-				})
-			end, { desc = "[S]earch [/] in Open Files" })
-
-			-- Shortcut for searching your Neovim configuration files
-			vim.keymap.set("n", "<leader>sn", function()
-				builtin.find_files({ cwd = vim.fn.stdpath("config") })
-			end, { desc = "[S]earch [N]eovim files" })
+			-- LSP
+			map(
+				"n",
+				"gd",
+				"<cmd>FzfLua lsp_definitions jump_to_single_result=true ignore_current_line=true<cr>",
+				"Goto Definition"
+			)
+			map(
+				"n",
+				"gr",
+				"<cmd>FzfLua lsp_references jump_to_single_result=true ignore_current_line=true<cr>",
+				"Goto References"
+			)
+			map(
+				"n",
+				"gI",
+				"<cmd>FzfLua lsp_implementations jump_to_single_result=true ignore_current_line=true<cr>",
+				"Goto Implementation"
+			)
+			map(
+				"n",
+				"gy",
+				"<cmd>FzfLua lsp_typedefs jump_to_single_result=true ignore_current_line=true<cr>",
+				"Goto Type Definition"
+			)
+			map(
+				"n",
+				"ds",
+				"<cmd>FzfLua lsp_document_symbols jump_to_single_result=true ignore_current_line=true<cr>",
+				"Document Symbols"
+			)
+			map(
+				"n",
+				"ws",
+				"<cmd>FzfLua lsp_workspace_symbols jump_to_single_result=true ignore_current_line=true<cr>",
+				"Workspace Symbols"
+			)
 		end,
+	},
+
+	{
+		"folke/todo-comments.nvim",
+		optional = true,
+		keys = {
+			{
+				"<leader>st",
+				function()
+					require("todo-comments.fzf").todo()
+				end,
+				desc = "Todo",
+			},
+			{
+				"<leader>sT",
+				function()
+					require("todo-comments.fzf").todo({ keywords = { "TODO", "FIX", "FIXME" } })
+				end,
+				desc = "Todo/Fix/Fixme",
+			},
+		},
 	},
 }

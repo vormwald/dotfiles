@@ -26,21 +26,17 @@ opt.incsearch = true
 -- Appearance
 opt.termguicolors = true
 opt.signcolumn = "yes"
-opt.cmdheight = 1
 opt.scrolloff = 8
 opt.completeopt = "menuone,noselect"
 
 -- Behavior
 opt.hidden = true
-opt.errorbells = false
 opt.swapfile = false
 opt.backup = false
 opt.undofile = true
 opt.backspace = "indent,eol,start"
 opt.splitright = true
 opt.splitbelow = true
-opt.autochdir = false
-opt.iskeyword:append("-")
 opt.mouse:append('a')
 -- opt.clipboard:append("unnamedplus")
 opt.modifiable = true

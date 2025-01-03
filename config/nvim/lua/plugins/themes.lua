@@ -20,12 +20,22 @@ return {
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-
+		init = function()
+			-- Remove previous settings that didn't work
+			-- Add autocommand to quit when last buffer is closed
+			vim.api.nvim_create_autocmd("BufEnter", {
+				callback = function()
+					if #vim.fn.getbufinfo({ buflisted = 1 }) == 0 then
+						vim.cmd("quit")
+					end
+				end,
+			})
+		end,
 		config = function()
 			--  plucking from https://tailwindcss.com/docs/customizing-colors
 			local colors = {
 				red = "#dc2626", -- red-600
-				grey = "#d4d4d4", -- neutral-300
+				grey = "#4b5563", -- gray-600
 				black = "#09090b", -- zinc-950
 				white = "#f3f3f3",
 				light_green = "#a3e635",
@@ -39,12 +49,12 @@ return {
 			local theme = {
 				normal = {
 					a = { fg = colors.black, bg = colors.light_blue },
-					b = { fg = colors.black, bg = colors.grey },
-					c = { fg = colors.black, bg = colors.white },
-					z = { fg = colors.black, bg = colors.grey },
+					b = { fg = colors.white, bg = colors.grey },
+					c = { fg = colors.white, bg = colors.white },
+					z = { fg = colors.white, bg = colors.grey },
 				},
 				insert = { a = { fg = colors.black, bg = colors.light_green } },
-				visual = { a = { fg = colors.black, bg = colors.orange } },
+				visual = { a = { fg = colors.black, bg = colors.white } },
 				replace = { a = { fg = colors.black, bg = colors.green } },
 			}
 

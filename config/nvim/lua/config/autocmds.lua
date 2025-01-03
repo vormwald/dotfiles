@@ -32,12 +32,29 @@ autocmd("Filetype", {
 })
 
 -- Set indentation to 2 spaces
--- augroup("setIndent", { clear = true })
--- autocmd("Filetype", {
---   group = "setIndent",
---   pattern = { "xml", "html", "xhtml", "css", "scss", "javascript", "typescript",
---     "yaml", "lua"
---   },
---   command = "setlocal shiftwidth=2 tabstop=2"
--- })
+augroup("setIndent", { clear = true })
+autocmd("Filetype", {
+  group = "setIndent",
+  pattern = { "xml", "html", "xhtml", "css", "scss", "javascript", "typescript",
+    "yaml", "lua"
+  },
+  command = "setlocal shiftwidth=2 tabstop=2"
+})
 
+-- Restore cursor position when reopening a file
+augroup("RestoreCursor", { clear = true })
+autocmd("BufReadPost", {
+  group = "RestoreCursor",
+  callback = function()
+    -- Don't restore for git commits
+    if vim.bo.filetype == "gitcommit" then
+      return
+    end
+
+    local mark = vim.api.nvim_buf_get_mark(0, '"')
+    local lcount = vim.api.nvim_buf_line_count(0)
+    if mark[1] > 0 and mark[1] <= lcount then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
+    end
+  end,
+})

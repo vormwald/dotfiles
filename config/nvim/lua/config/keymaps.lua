@@ -1,11 +1,15 @@
 local keymap = vim.keymap
 
+-- Set leader key
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 ---------------------
 -- General Keymaps
 ---------------------
 
 -- Clear search highlights
-keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
+keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Delete single character without copying into register
 keymap.set("n", "x", '"_x')
@@ -33,24 +37,69 @@ keymap.set("v", ">", ">gv")
 
 -- Move text up and down
 keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-keymap.set("v", "K", ":m '<-2<CR>gv=gv") 
+keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 -- File navigation in current directory
--- vim.keymap.set('n', '<Leader>e', function()
---   vim.cmd('e ' .. vim.fn.expand('%:p:h') .. '/')
--- end, { desc = 'Edit file in current directory' })
-
--- vim.keymap.set('n', '<Leader>x', function()
---   vim.cmd('split ' .. vim.fn.expand('%:p:h') .. '/')
--- end, { desc = 'Split and edit file in current directory' })
-
--- vim.keymap.set('n', '<Leader>v', function()
---   vim.cmd('vsplit ' .. vim.fn.expand('%:p:h') .. '/')
--- end, { desc = 'Vertical split and edit file in current directory' })
+keymap.set("n", "<Leader>e", ":e " .. vim.fn.expand("%:p:h") .. "/", { desc = "Edit file in current directory" })
+keymap.set(
+	"n",
+	"<Leader>x",
+	":split " .. vim.fn.expand("%:p:h") .. "/",
+	{ desc = "Split and edit file in current directory" }
+)
+keymap.set(
+	"n",
+	"<Leader>v",
+	":vsplit " .. vim.fn.expand("%:p:h") .. "/",
+	{ desc = "Vertical split and edit file in current directory" }
+)
 
 -- Easier saving
-vim.keymap.set('n', '<C-s>', '<cmd>update<CR>', { desc = 'Save file' })
-vim.keymap.set('i', '<C-s>', '<cmd>update<CR><Esc>a', { desc = 'Save file and stay in insert mode' })
+keymap.set("n", "<C-s>", "<cmd>update<CR>", { desc = "Save file" })
+keymap.set("i", "<C-s>", "<cmd>update<CR><Esc>a", { desc = "Save file and stay in insert mode" })
 
--- rename a file
-vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename)
+-- Terminal mode escape
+keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
+-- FZF keymaps
+keymap.set("n", "<leader>/", "<cmd>FzfLua live_grep<cr>", { desc = "Live Grep" })
+keymap.set("n", "<leader><space>", "<cmd>FzfLua files<cr>", { desc = "Find Files" })
+keymap.set("n", "<leader>ff", "<cmd>FzfLua files<cr>", { desc = "Find Files" })
+keymap.set("n", "<leader>fr", "<cmd>FzfLua oldfiles<cr>", { desc = "Recent Files" })
+keymap.set("n", "<leader>fg", "<cmd>FzfLua git_status<cr>", { desc = "Git Status" })
+
+-- Search
+keymap.set("n", "<leader>sb", "<cmd>FzfLua grep_curbuf<cr>", { desc = "Search Buffer" })
+keymap.set("n", "<leader>sg", "<cmd>FzfLua live_grep<cr>", { desc = "Grep" })
+keymap.set("n", "<leader>sh", "<cmd>FzfLua help_tags<cr>", { desc = "Help Pages" })
+keymap.set("n", "<leader>sm", "<cmd>FzfLua marks<cr>", { desc = "Jump to Mark" })
+keymap.set("n", "<leader>*", "<cmd>FzfLua grep_cword<cr>", { desc = "Search Word Under Cursor" })
+
+-- Git keymaps (Fugitive only)
+keymap.set("n", "<leader>gc", ":Git commit<CR>", { desc = "Git commit" })
+keymap.set("n", "<leader>gg", ":Git<CR>", { desc = "Fugitive status" })
+keymap.set("n", "<leader>gp", ":Git push<CR>", { desc = "Git push" })
+keymap.set("n", "<leader>gl", ":Git pull<CR>", { desc = "Git pull" })
+
+-- Test keymaps
+keymap.set("n", "<leader>tn", function()
+	require("neotest").run.run()
+end, { desc = "Run nearest test" })
+keymap.set("n", "<leader>tf", function()
+	require("neotest").run.run(vim.fn.expand("%"))
+end, { desc = "Run current file" })
+keymap.set("n", "<leader>ts", function()
+	require("neotest").run.run(vim.fn.getcwd())
+end, { desc = "Run all tests" })
+keymap.set("n", "<leader>tl", function()
+	require("neotest").run.run_last()
+end, { desc = "Run last test" })
+keymap.set("n", "<leader>to", function()
+	require("neotest").output.open()
+end, { desc = "Show test output" })
+keymap.set("n", "<leader>tp", function()
+	require("neotest").output_panel.toggle()
+end, { desc = "Toggle test panel" })
+keymap.set("n", "<leader>tw", function()
+	require("neotest").watch.toggle()
+end, { desc = "Toggle test watching" })

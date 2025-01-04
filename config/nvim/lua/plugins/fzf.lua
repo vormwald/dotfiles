@@ -62,64 +62,6 @@ return {
 					},
 				},
 			})
-
-			-- Essential keymaps
-			local function map(mode, lhs, rhs, desc)
-				vim.keymap.set(mode, lhs, rhs, { silent = true, desc = desc })
-			end
-
-			-- Files and buffers
-			map("n", "<leader>,", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", "Switch Buffer")
-			map("n", "<leader>/", "<cmd>FzfLua live_grep<cr>", "Live Grep")
-			map("n", "<leader><space>", "<cmd>FzfLua files<cr>", "Find Files")
-			map("n", "<leader>ff", "<cmd>FzfLua files<cr>", "Find Files")
-			map("n", "<leader>fr", "<cmd>FzfLua oldfiles<cr>", "Recent Files")
-			map("n", "<leader>fg", "<cmd>FzfLua git_status<cr>", "Git Status")
-
-			-- Search
-			map("n", "<leader>sb", "<cmd>FzfLua grep_curbuf<cr>", "Search Buffer")
-			map("n", "<leader>sg", "<cmd>FzfLua live_grep<cr>", "Grep")
-			map("n", "<leader>sh", "<cmd>FzfLua help_tags<cr>", "Help Pages")
-			map("n", "<leader>sm", "<cmd>FzfLua marks<cr>", "Jump to Mark")
-			map("n", "<leader>*", "<cmd>FzfLua grep_cword<cr>", "Search Word Under Cursor")
-
-			-- LSP
-			map(
-				"n",
-				"gd",
-				"<cmd>FzfLua lsp_definitions jump_to_single_result=true ignore_current_line=true<cr>",
-				"Goto Definition"
-			)
-			map(
-				"n",
-				"gr",
-				"<cmd>FzfLua lsp_references jump_to_single_result=true ignore_current_line=true<cr>",
-				"Goto References"
-			)
-			map(
-				"n",
-				"gI",
-				"<cmd>FzfLua lsp_implementations jump_to_single_result=true ignore_current_line=true<cr>",
-				"Goto Implementation"
-			)
-			map(
-				"n",
-				"gy",
-				"<cmd>FzfLua lsp_typedefs jump_to_single_result=true ignore_current_line=true<cr>",
-				"Goto Type Definition"
-			)
-			map(
-				"n",
-				"ds",
-				"<cmd>FzfLua lsp_document_symbols jump_to_single_result=true ignore_current_line=true<cr>",
-				"Document Symbols"
-			)
-			map(
-				"n",
-				"ws",
-				"<cmd>FzfLua lsp_workspace_symbols jump_to_single_result=true ignore_current_line=true<cr>",
-				"Workspace Symbols"
-			)
 		end,
 	},
 }

@@ -24,21 +24,21 @@ opt.incsearch = true
 
 -- Appearance
 opt.termguicolors = true
-opt.signcolumn = "yes"
+opt.signcolumn = 'yes'
 opt.scrolloff = 8
-opt.completeopt = "menuone,noselect"
+opt.completeopt = 'menuone,noselect'
 
 -- Behavior
 opt.hidden = true
 opt.swapfile = false
 opt.backup = false
 opt.undofile = true
-opt.backspace = "indent,eol,start"
+opt.backspace = 'indent,eol,start'
 opt.splitright = true
 opt.splitbelow = true
-opt.mouse:append("a")
+opt.mouse:append 'a'
 opt.modifiable = true
-opt.encoding = "UTF-8"
+opt.encoding = 'UTF-8'
 -- Decrease update time
 opt.updatetime = 250
 -- Decrease mapped sequence wait time
@@ -47,7 +47,7 @@ opt.timeoutlen = 300
 -- Enable break indent
 vim.opt.breakindent = true
 -- Preview substitutions live, as you type!
-vim.opt.inccommand = "split"
+vim.opt.inccommand = 'split'
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 -- Show which line your cursor is on

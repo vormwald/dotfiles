@@ -40,8 +40,10 @@ call minpac#add('nelstrom/vim-textobj-rubyblock') " text object for ruby blocks
 
 
 " JS / React work
-call minpac#add('mxw/vim-jsx') " JSX syntax
 call minpac#add('pangloss/vim-javascript') " javascript syntax
+call minpac#add('MaxMEllon/vim-jsx-pretty') " JSX syntax
+call minpac#add('peitalin/vim-jsx-typescript') " JSX syntax
+call minpac#add('jparise/vim-graphql') " JSX syntax
 call minpac#add('styled-components/vim-styled-components') " I guess we use styled components
 
 " Writing
@@ -107,8 +109,8 @@ xmap gs <plug>(GrepperOperator)
 " Test Setup
 "
 let test#strategy = {
-  \ 'nearest': 'neovim',
-  \ 'file':    'dispatch',
+  \ 'nearest': 'vimterminal',
+  \ 'file':    'vimterminal',
   \ 'suite':   'dispatch',
   \}
 let test#ruby#rspec#options = {
@@ -150,6 +152,13 @@ let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:gitgutter_map_keys = 0
 let g:gitgutter_override_sign_column_highlight = 0
 
+""""""""
+" React syntax can get out of wack
+" https://thoughtbot.com/blog/modern-typescript-and-react-development-in-vim#highlighting-for-large-files
+"
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
 
 """"""""
 " Writing
@@ -184,13 +193,12 @@ set noswapfile
 " setup undo
 set undodir=$VIMDATA/undo
 autocmd BufWritePre /tmp/* setlocal noundofile " dont track /tmp
-if !has('nvim')
-  set undodir=~/.vim/undo
-endif
+set undodir=~/.vim/undo
 augroup vimrc
   autocmd!
   autocmd BufWritePre /tmp/* setlocal noundofile
 augroup END
+
 set history=100     " Default history is only 20
 set undolevels=100  " Use more levels of undo
 
@@ -265,6 +273,12 @@ if system_name =~ 'microsoft'
         \   'cache_enabled': 0,
         \ }
   endif
+endfunction
+
+let system_name = substitute(system('uname'), '\n', '', '') " Reserve for later
+if system_name ==# "Darwin"
+  call MacBackground()
+endif
 
   if exists("$WSLENV")
     " clipboard doesn't quite work in WSL in terminal mode

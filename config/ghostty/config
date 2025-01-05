@@ -1,0 +1,10 @@
+theme=dark:Tomorrow Night Eighties,light:farmhouse-light
+font-family=Cascadia Mono PL
+# font-family = CaskaydiaCove Nerd Font
+# not found in ghostty +list-themes
+background-blur-radius=20
+font-size = 15
+background-opacity = 0.9
+macos-icon=custom-style
+macos-icon-frame=beige
+

@@ -145,7 +145,7 @@ return {
 		version = "*",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"nvim-tree/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
 		},
 		cmd = "Neotree",
@@ -157,11 +157,61 @@ return {
 				window = {
 					mappings = {
 						["\\"] = "close_window",
-						["-"] = "navigate_up", 
+						["-"] = "navigate_up",
 					},
+				},
+				filtered_items = {
+					hide_dotfiles = false,
+				},
+				follow_current_file = {
+					enabled = true,
 				},
 			},
 			close_if_last_window = true,
+			popup_border_style = "rounded",
+			enable_normal_mode_for_inputs = true,
+			default_component_configs = {
+				message = {
+					highlight = "NormalFloat", -- This will use your theme's normal float color
+				},
+			},
+			window = {
+				popup = {
+					-- Use NormalFloat for the background
+					highlight = "NormalFloat",
+				},
+				mappings = {
+					["<space>"] = "none",
+					["Y"] = {
+						function(state)
+							local node = state.tree:get_node()
+							local path = node:get_id()
+							vim.fn.setreg("+", path, "c")
+						end,
+						desc = "Copy Path to Clipboard",
+					},
+					["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
+					["l"] = "focus_preview",
+					["S"] = "open_split",
+					["s"] = "open_vsplit",
+				},
+			},
+			ui = {
+				popup = {
+					-- Customize the popup background and text colors
+					border = {
+						text = {
+							fg = "white", -- or any color you prefer
+						},
+						highlight = "NormalFloat", -- This ensures the border uses the same background
+					},
+					position = "50%",
+					size = {
+						width = "60%",
+						height = "20%",
+					},
+				},
+			},
 		},
 	},
 	"tpope/vim-endwise", -- add ends to do/if in ruby

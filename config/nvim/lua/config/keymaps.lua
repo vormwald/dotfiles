@@ -103,3 +103,42 @@ end, { desc = "Toggle test panel" })
 keymap.set("n", "<leader>tw", function()
 	require("neotest").watch.toggle()
 end, { desc = "Toggle test watching" })
+
+-- Toggle Quickfix and location list
+vim.keymap.set("n", "<leader>q", function()
+	local qf_exists = false
+	for _, win in pairs(vim.fn.getwininfo()) do
+		if win["quickfix"] == 1 then
+			qf_exists = true
+		end
+	end
+	if qf_exists == true then
+		vim.cmd("cclose")
+	else
+		-- Only open if there are items
+		if vim.fn.getqflist({ size = 0 }).size > 0 then
+			vim.cmd("copen")
+		else
+			vim.notify("Quickfix list is empty", vim.log.levels.INFO)
+		end
+	end
+end, { desc = "Toggle Quickfix" })
+
+vim.keymap.set("n", "<leader>l", function()
+	local loc_exists = false
+	for _, win in pairs(vim.fn.getwininfo()) do
+		if win["loclist"] == 1 then
+			loc_exists = true
+		end
+	end
+	if loc_exists == true then
+		vim.cmd("lclose")
+	else
+		-- Only open if there are items
+		if vim.fn.getloclist(0, { size = 0 }).size > 0 then
+			vim.cmd("lopen")
+		else
+			vim.notify("Location list is empty", vim.log.levels.INFO)
+		end
+	end
+end, { desc = "Toggle Location List" })

@@ -6,12 +6,17 @@ return {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
+      'hrsh7th/cmp-nvim-lsp',
       -- Useful status updates for LSP
       { 'j-hui/fidget.nvim', opts = {} },
       -- Additional lua configuration, makes nvim stuff amazing!
       { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
+      -- Add capabilities for autocompletion
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
       -- Import your LSP configuration from kickstart
       -- ... LSP configuration from lines 580-780 in kickstart.lua ...
       local servers = {

@@ -114,6 +114,14 @@ return {
         'markdown',
         'vim',
         'vimdoc',
+        'javascript',
+        'typescript',
+        'ruby',
+        'python',
+        'json',
+        'yaml',
+        'css',
+        'scss',
       },
       auto_install = true,
       highlight = {
@@ -121,6 +129,15 @@ return {
         additional_vim_regex_highlighting = { 'ruby' },
       },
       indent = { enable = true, disable = { 'ruby' } },
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = '<C-space>',
+          node_incremental = '<C-space>',
+          scope_incremental = '<C-s>',
+          node_decremental = '<C-backspace>',
+        },
+      },
     },
   },
   { -- Add indentation guides even on blank lines

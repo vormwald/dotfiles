@@ -56,9 +56,9 @@ return {
         map('gd', require('fzf-lua').lsp_definitions, '[G]oto [D]efinition')
         map('gr', require('fzf-lua').lsp_references, '[G]oto [R]eferences')
         map('gi', require('fzf-lua').lsp_implementations, '[G]oto [I]mplementation')
-        map('<leader>D', require('fzf-lua').lsp_type_definitions, 'Type [D]efinition')
-        map('<leader>ds', require('fzf-lua').lsp_document_symbols, '[D]ocument [S]ymbols')
-        map('<leader>ws', require('fzf-lua').lsp_workspace_symbols, '[W]orkspace [S]ymbols')
+        map('<leader>ctd', require('fzf-lua').lsp_type_definitions, 'Type [D]efinition')
+        map('<leader>cs', require('fzf-lua').lsp_document_symbols, '[C]ode Document [S]ymbols')
+        map('<leader>cws', require('fzf-lua').lsp_workspace_symbols, '[C]ode Workspace [S]ymbols')
       end
 
       -- Setup mason and mason-lspconfig
@@ -102,6 +102,8 @@ return {
       formatters_by_ft = {
         lua = { 'stylua' },
         ruby = { 'rubyfmt' },
+        javascript = { { 'prettierd', 'prettier' } },
+        typescript = { { 'prettierd', 'prettier' } },
       },
     },
   },

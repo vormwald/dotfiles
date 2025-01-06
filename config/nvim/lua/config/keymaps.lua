@@ -16,9 +16,8 @@ keymap.set('n', 'x', '"_x')
 
 -- Window management
 keymap.set('n', '<leader>sv', '<C-w>v', { desc = 'Split window vertically' })
-keymap.set('n', '<leader>sh', '<C-w>s', { desc = 'Split window horizontally' })
+keymap.set('n', '<leader>sx', '<C-w>s', { desc = 'Split window horizontally' })
 keymap.set('n', '<leader>se', '<C-w>=', { desc = 'Make splits equal size' })
-keymap.set('n', '<leader>sx', ':close<CR>', { desc = 'Close current split' })
 
 -- Buffer navigation
 keymap.set('n', '<leader>bn', ':bnext<CR>', { desc = 'Next buffer' })
@@ -43,9 +42,6 @@ keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 keymap.set('n', '<C-s>', '<cmd>update<CR>', { desc = 'Save file' })
 keymap.set('i', '<C-s>', '<cmd>update<CR><Esc>a', { desc = 'Save file and stay in insert mode' })
 
--- Terminal mode escape
-keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
 -- FZF keymaps
 keymap.set('n', '<leader>/', '<cmd>FzfLua live_grep<cr>', { desc = 'Live Grep' })
 keymap.set('n', '<leader><space>', '<cmd>FzfLua files<cr>', { desc = 'Find Files' })
@@ -58,14 +54,24 @@ keymap.set('n', '<leader>fb', '<cmd>FzfLua buffers<cr>', { desc = 'Open Buffers'
 keymap.set('n', '<leader>sb', '<cmd>FzfLua grep_curbuf<cr>', { desc = 'Search Buffer' })
 keymap.set('n', '<leader>sg', '<cmd>FzfLua live_grep<cr>', { desc = 'Grep' })
 keymap.set('n', '<leader>sh', '<cmd>FzfLua help_tags<cr>', { desc = 'Help Pages' })
-keymap.set('n', '<leader>sm', '<cmd>FzfLua marks<cr>', { desc = 'Jump to Mark' })
 keymap.set('n', '<leader>*', '<cmd>FzfLua grep_cword<cr>', { desc = 'Search Word Under Cursor' })
+
+-- Diagnostic keymaps
+keymap.set('n', '<leader>fd', '<cmd>FzfLua diagnostics_document<cr>', { desc = 'Show diagnostic error messages' })
 
 -- Git keymaps (Fugitive only)
 keymap.set('n', '<leader>gc', ':Git commit<CR>', { desc = 'Git commit' })
 keymap.set('n', '<leader>gg', ':Git<CR>', { desc = 'Fugitive status' })
 keymap.set('n', '<leader>gp', ':Git push<CR>', { desc = 'Git push' })
 keymap.set('n', '<leader>gl', ':Git pull<CR>', { desc = 'Git pull' })
+
+-- Terminal mappings
+keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+
+-- keymap.set('t', '<C-h>', '<C-\\><C-n><C-w>h', { desc = 'Move to left window from terminal' })
+-- keymap.set('t', '<C-j>', '<C-\\><C-n><C-w>j', { desc = 'Move to bottom window from terminal' })
+-- keymap.set('t', '<C-k>', '<C-\\><C-n><C-w>k', { desc = 'Move to top window from terminal' })
+-- keymap.set('t', '<C-l>', '<C-\\><C-n><C-w>l', { desc = 'Move to right window from terminal' })
 
 -- Test keymaps
 keymap.set('n', '<leader>tn', function()

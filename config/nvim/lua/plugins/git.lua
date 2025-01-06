@@ -62,8 +62,8 @@ return {
       end, { desc = 'Git [D]iff against last commit' })
 
       -- Toggles
-      keymap.set('n', '<leader>tb', require('gitsigns').toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
-      keymap.set('n', '<leader>tD', require('gitsigns').toggle_deleted, { desc = '[T]oggle git show [D]eleted' })
+      keymap.set('n', '<leader>ob', require('gitsigns').toggle_current_line_blame, { desc = 'T[o]ggle git show [b]lame line' })
+      keymap.set('n', '<leader>od', require('gitsigns').toggle_deleted, { desc = 'T[o]ggle git show [d]eleted' })
     end,
   },
 }

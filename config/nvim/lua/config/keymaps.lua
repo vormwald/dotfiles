@@ -39,11 +39,6 @@ keymap.set('v', '>', '>gv')
 keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
--- File navigation in current directory
-keymap.set('n', '<Leader>e', ':e ' .. vim.fn.expand '%:p:h' .. '/', { desc = 'Edit file in current directory' })
-keymap.set('n', '<Leader>x', ':split ' .. vim.fn.expand '%:p:h' .. '/', { desc = 'Split and edit file in current directory' })
-keymap.set('n', '<Leader>v', ':vsplit ' .. vim.fn.expand '%:p:h' .. '/', { desc = 'Vertical split and edit file in current directory' })
-
 -- Easier saving
 keymap.set('n', '<C-s>', '<cmd>update<CR>', { desc = 'Save file' })
 keymap.set('i', '<C-s>', '<cmd>update<CR><Esc>a', { desc = 'Save file and stay in insert mode' })
@@ -57,6 +52,7 @@ keymap.set('n', '<leader><space>', '<cmd>FzfLua files<cr>', { desc = 'Find Files
 keymap.set('n', '<leader>ff', '<cmd>FzfLua files<cr>', { desc = 'Find Files' })
 keymap.set('n', '<leader>fr', '<cmd>FzfLua oldfiles<cr>', { desc = 'Recent Files' })
 keymap.set('n', '<leader>fg', '<cmd>FzfLua git_status<cr>', { desc = 'Git Status' })
+keymap.set('n', '<leader>fb', '<cmd>FzfLua buffers<cr>', { desc = 'Open Buffers' })
 
 -- Search
 keymap.set('n', '<leader>sb', '<cmd>FzfLua grep_curbuf<cr>', { desc = 'Search Buffer' })
@@ -95,7 +91,7 @@ keymap.set('n', '<leader>tw', function()
 end, { desc = 'Toggle test watching' })
 
 -- Toggle Quickfix and location list
-vim.keymap.set('n', '<leader>q', function()
+vim.keymap.set('n', '<leader>oq', function()
   local qf_exists = false
   for _, win in pairs(vim.fn.getwininfo()) do
     if win['quickfix'] == 1 then
@@ -112,9 +108,9 @@ vim.keymap.set('n', '<leader>q', function()
       vim.notify('Quickfix list is empty', vim.log.levels.INFO)
     end
   end
-end, { desc = 'Toggle Quickfix' })
+end, { desc = 'T[o]ggle [Q]uickfix' })
 
-vim.keymap.set('n', '<leader>l', function()
+vim.keymap.set('n', '<leader>ol', function()
   local loc_exists = false
   for _, win in pairs(vim.fn.getwininfo()) do
     if win['loclist'] == 1 then
@@ -131,4 +127,4 @@ vim.keymap.set('n', '<leader>l', function()
       vim.notify('Location list is empty', vim.log.levels.INFO)
     end
   end
-end, { desc = 'Toggle Location List' })
+end, { desc = 'T[o]ggle [L]ocation List' })

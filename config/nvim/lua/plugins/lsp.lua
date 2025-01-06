@@ -42,7 +42,7 @@ return {
 
         -- Execute a code action, usually your cursor needs to be on top of an error
         -- or a suggestion from your LSP for this to activate.
-        map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+        map('<leader>ca', require('fzf-lua').lsp_code_actions, '[C]ode [A]ction')
 
         -- Opens a popup that displays documentation about the word under your cursor
         --  See `:help K` for why this keymap.
@@ -50,7 +50,15 @@ return {
 
         -- WARN: This is not Goto Definition, this is Goto Declaration.
         --  For example, in C this would take you to the header.
-        map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+        map('gD', require('fzf-lua').lsp_declarations, '[G]oto [D]eclaration')
+
+        -- Add these mappings in the on_attach function
+        map('gd', require('fzf-lua').lsp_definitions, '[G]oto [D]efinition')
+        map('gr', require('fzf-lua').lsp_references, '[G]oto [R]eferences')
+        map('gi', require('fzf-lua').lsp_implementations, '[G]oto [I]mplementation')
+        map('<leader>D', require('fzf-lua').lsp_type_definitions, 'Type [D]efinition')
+        map('<leader>ds', require('fzf-lua').lsp_document_symbols, '[D]ocument [S]ymbols')
+        map('<leader>ws', require('fzf-lua').lsp_workspace_symbols, '[W]orkspace [S]ymbols')
       end
 
       -- Setup mason and mason-lspconfig

@@ -50,6 +50,7 @@ return {
           actions = {
             ['alt-i'] = { actions.toggle_ignore },
           },
+          rg_opts = '--column --line-number --no-heading --color=always --smart-case --sort-files --max-columns=4096 -e',
         },
         oldfiles = {
           include_current_session = true,

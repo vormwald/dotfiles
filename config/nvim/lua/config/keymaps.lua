@@ -45,14 +45,14 @@ keymap.set('i', '<C-s>', '<cmd>update<CR><Esc>a', { desc = 'Save file and stay i
 -- FZF keymaps
 keymap.set('n', '<leader>/', '<cmd>FzfLua live_grep<cr>', { desc = 'Live Grep' })
 keymap.set('n', '<leader><space>', '<cmd>FzfLua files<cr>', { desc = 'Find Files' })
--- keymap.set('n', '<leader>ff', '<cmd>FzfLua files<cr>', { desc = 'Find Files' })
-keymap.set('n', '<leader>ff', function()
-  local buffer_dir = vim.fn.expand('%:p:h')
-  require('fzf-lua').files({ cwd = buffer_dir })
-end, { desc = 'Find Files in current buffer dir' })
 keymap.set('n', '<leader>fr', '<cmd>FzfLua oldfiles<cr>', { desc = 'Recent Files' })
 keymap.set('n', '<leader>fg', '<cmd>FzfLua git_status<cr>', { desc = 'Git Status' })
-keymap.set('n', '<leader>fb', '<cmd>FzfLua buffers<cr>', { desc = 'Open Buffers' })
+keymap.set('n', '<leader>fb', '<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>', { desc = 'Open Buffers' })
+keymap.set('n', '<leader>ff', function()
+  local buffer_dir = vim.fn.expand '%:p:h'
+  require('fzf-lua').files { cwd = buffer_dir }
+end, { desc = 'Find Files in current buffer dir' })
+keymap.set('n', '<leader>fc', '<cmd>FzfLua colorschemes<cr>', { desc = 'choose colorscheme' })
 
 -- Search
 keymap.set('n', '<leader>sb', '<cmd>FzfLua grep_curbuf<cr>', { desc = 'Search Buffer' })

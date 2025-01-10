@@ -52,11 +52,10 @@ return {
         map('K', vim.lsp.buf.hover, 'Hover Documentation')
         map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
         map('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-        map('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
-        map('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+        map('gr', require('fzf-lua').lsp_references, '[G]oto [R]eferences')
         map('<leader>ctd', vim.lsp.buf.type_definition, 'Type [D]efinition')
-        map('<leader>cs', vim.lsp.buf.document_symbol, '[C]ode Document [S]ymbols')
-        map('<leader>cws', vim.lsp.buf.workspace_symbol, '[C]ode Workspace [S]ymbols')
+        map('<leader>cs', require('fzf-lua').lsp_document_symbols, '[C]ode Document [S]ymbols')
+        map('<leader>cws', require('fzf-lua').lsp_workspace_symbols, '[C]ode Workspace [S]ymbols')
       end
 
       -- Setup mason and mason-lspconfig

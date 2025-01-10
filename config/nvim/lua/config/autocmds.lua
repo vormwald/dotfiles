@@ -50,3 +50,13 @@ autocmd('BufReadPost', {
     end
   end,
 })
+
+-- Set cwd when opening a direcotry
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    local path = vim.fn.expand '%:p:h'
+    if vim.fn.isdirectory(path) == 1 then
+      vim.cmd('cd ' .. path)
+    end
+  end,
+})

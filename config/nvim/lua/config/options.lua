@@ -45,10 +45,12 @@ opt.updatetime = 250
 -- Displays which-key popup sooner
 opt.timeoutlen = 300
 -- Enable break indent
-vim.opt.breakindent = true
+opt.breakindent = true
 -- Preview substitutions live, as you type!
-vim.opt.inccommand = 'split'
+opt.inccommand = 'split'
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
-vim.opt.hlsearch = true
+opt.hlsearch = true
 -- Show which line your cursor is on
-vim.opt.cursorline = true
+opt.cursorline = true
+-- save buffers before leaving or running tests
+opt.autowrite = true

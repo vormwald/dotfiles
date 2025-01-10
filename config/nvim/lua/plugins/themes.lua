@@ -1,20 +1,37 @@
 return {
-  { -- Main colorscheme configuration
+  { -- Tokyonight theme
     'folke/tokyonight.nvim',
     lazy = false,
     priority = 1000,
     config = function()
-      -- Configure both light and dark variants
       require('tokyonight').setup {
-        -- You can customize the theme here
-        style = 'night', -- The theme comes in four styles: storm, moon, night, day
-        light_style = 'day', -- The theme style that will be used when vim.o.background is set to "light"
+        style = 'storm',
+        light_style = 'day',
         transparent = false,
         styles = {
           comments = { italic = true },
           keywords = { italic = true },
         },
       }
+    end,
+  },
+  { -- Catppuccin theme
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000,
+    config = function()
+      require('catppuccin').setup {
+        flavour = 'macchiato', -- lattee, frappe, macchiato, mocha
+        background = { light = 'latte', dark = 'macchiato' },
+        transparent_background = false,
+        show_end_of_buffer = false,
+        styles = {
+          comments = { 'italic' },
+          keywords = { 'italic' },
+        },
+      }
+      -- Set catppuccin as the default colorscheme
+      vim.cmd.colorscheme 'catppuccin'
     end,
   },
   {

@@ -38,14 +38,21 @@ return {
           cwd_prompt = false,
           actions = {
             ['alt-i'] = { actions.toggle_ignore },
-            ['alt-h'] = { actions.toggle_hidden },
+            ['ctrl-g'] = false,
+          },
+        },
+        buffers = {
+          actions = {
+            ['ctrl-x'] = false,
           },
         },
         grep = {
           actions = {
             ['alt-i'] = { actions.toggle_ignore },
-            ['alt-h'] = { actions.toggle_hidden },
           },
+        },
+        oldfiles = {
+          include_current_session = true,
         },
         lsp = {
           symbols = {

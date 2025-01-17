@@ -60,3 +60,15 @@ vim.api.nvim_create_autocmd('VimEnter', {
     end
   end,
 })
+
+-- Set local settings for terminal buffers
+vim.api.nvim_create_autocmd('TermOpen', {
+  group = vim.api.nvim_create_augroup('custom-term-open', {}),
+  callback = function()
+    vim.wo.number = false
+    vim.wo.relativenumber = false
+    vim.wo.scrolloff = 0
+    vim.bo.filetype = 'terminal'
+    vim.cmd('startinsert')
+  end,
+})

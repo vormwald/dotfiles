@@ -71,6 +71,14 @@ keymap.set('n', '<leader>gl', ':Git pull<CR>', { desc = 'Git pull' })
 
 -- Terminal mappings
 keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+-- Open a terminal at the bottom of the screen with a fixed height.
+keymap.set("n", "<leader>ot", function()
+  vim.cmd.new()
+  -- vim.cmd.wincmd "J"
+  vim.api.nvim_win_set_height(0, 12)
+  vim.wo.winfixheight = true
+  vim.cmd.term()
+end, { desc = 'Open terminal at bottom of screen' })
 
 -- Theme switching
 keymap.set('n', '<leader>wtt', ':colorscheme tokyonight<CR>', { desc = '[W]orkspace [T]heme [T]okyonight' })

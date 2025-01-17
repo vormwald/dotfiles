@@ -14,6 +14,13 @@ keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Delete single character without copying into register
 keymap.set('n', 'x', '"_x')
 
+-- use U for redo :))
+keymap.set('n', 'U', '<C-r>', { desc = 'undo with U' })
+
+-- Using H/L to go to the begining and the end of line
+keymap.set('n', 'H', '_', { desc = 'Go to the first non-whitespace character of a line' })
+keymap.set('n', 'L', '$', { desc = 'Go to the end of a line' })
+
 -- Window management
 keymap.set('n', '<leader>sv', '<C-w>v', { desc = 'Split window vertically' })
 keymap.set('n', '<leader>sx', '<C-w>s', { desc = 'Split window horizontally' })

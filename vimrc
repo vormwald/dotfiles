@@ -273,20 +273,19 @@ if system_name =~ 'microsoft'
         \   'cache_enabled': 0,
         \ }
   endif
-endfunction
+endif
 
 let system_name = substitute(system('uname'), '\n', '', '') " Reserve for later
 if system_name ==# "Darwin"
   call MacBackground()
 endif
 
-  if exists("$WSLENV")
-    " clipboard doesn't quite work in WSL in terminal mode
-    augroup Yank
-      autocmd!
-      autocmd TextYankPost * :call system('/mnt/c/Windows/SysWOW64/clip.exe',@")
-    augroup END
-  endif
+if exists("$WSLENV")
+  " clipboard doesn't quite work in WSL in terminal mode
+  augroup Yank
+    autocmd!
+    autocmd TextYankPost * :call system('/mnt/c/Windows/SysWOW64/clip.exe',@")
+  augroup END
 endif
 
 """"""""

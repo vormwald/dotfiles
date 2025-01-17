@@ -65,10 +65,36 @@ vim.api.nvim_create_autocmd('VimEnter', {
 vim.api.nvim_create_autocmd('TermOpen', {
   group = vim.api.nvim_create_augroup('custom-term-open', {}),
   callback = function()
-    vim.wo.number = false
-    vim.wo.relativenumber = false
     vim.wo.scrolloff = 0
     vim.bo.filetype = 'terminal'
+    
+    -- Create buffer-local autocmds to toggle numbers based on mode
+    local term_buf = vim.api.nvim_get_current_buf()
+    local term_group = vim.api.nvim_create_augroup('terminal-numbers-' .. term_buf, { clear = true })
+    
+    -- Disable numbers when entering insert mode
+    vim.api.nvim_create_autocmd('TermEnter', {
+      group = term_group,
+      buffer = term_buf,
+      callback = function()
+        vim.wo.number = false
+        vim.wo.relativenumber = false
+      end,
+    })
+    
+    -- Enable numbers when leaving insert mode
+    vim.api.nvim_create_autocmd('TermLeave', {
+      group = term_group,
+      buffer = term_buf,
+      callback = function()
+        vim.wo.number = true
+        vim.wo.relativenumber = true
+      end,
+    })
+    
+    -- Start in insert mode with numbers disabled
+    vim.wo.number = false
+    vim.wo.relativenumber = false
     vim.cmd('startinsert')
   end,
 })

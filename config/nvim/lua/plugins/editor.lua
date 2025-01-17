@@ -236,6 +236,21 @@ return {
       },
     },
   },
+  {
+    'shortcuts/no-neck-pain.nvim',
+    config = function()
+      require('no-neck-pain').setup {
+        buffers = {
+          colors = {
+            blend = -0.8,
+          },
+          wo = {
+            fillchars = 'eob: ',
+          },
+        },
+      }
+    end,
+  },
   'tpope/vim-endwise', -- add ends to do/if in ruby
   'tpope/vim-rails', -- projectionist setting for rails
   'tpope/vim-rhubarb', -- :Gbrowse to view file on github

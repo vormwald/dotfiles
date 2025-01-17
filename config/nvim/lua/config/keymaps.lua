@@ -79,7 +79,7 @@ keymap.set('n', '<leader>gl', ':Git pull<CR>', { desc = 'Git pull' })
 -- Terminal mappings
 keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 -- Open a terminal at the bottom of the screen with a fixed height.
-keymap.set("n", "<leader>ot", function()
+keymap.set('n', '<leader>ot', function()
   vim.cmd.new()
   -- vim.cmd.wincmd "J"
   vim.api.nvim_win_set_height(0, 12)
@@ -90,6 +90,9 @@ end, { desc = 'Open terminal at bottom of screen' })
 -- Theme switching
 keymap.set('n', '<leader>wtt', ':colorscheme tokyonight<CR>', { desc = '[W]orkspace [T]heme [T]okyonight' })
 keymap.set('n', '<leader>wtc', ':colorscheme catppuccin<CR>', { desc = '[W]orkspace [T]heme [C]atppuccin' })
+
+-- Toggle Zen Mode (NoNeckPain)
+keymap.set('n', '<leader>oz', ':NoNeckPain<CR>', { desc = '[O]pen [Z]en Mode' })
 
 -- Test keymaps
 keymap.set('n', '<leader>tt', ':TestNearest<CR>', { desc = 'Run nearest test' })

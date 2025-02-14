@@ -1,7 +1,6 @@
 tap "thoughtbot/formulae"
 brew "rcm"
 
-brew "autojump"
 brew "bat"
 brew "fzf"
 brew "git"
@@ -15,3 +14,4 @@ brew "pgcli"
 brew "python3"
 brew "ripgrep"
 brew "tree"
+brew "zoxide"

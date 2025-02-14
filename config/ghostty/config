@@ -4,6 +4,8 @@ font-family=Cascadia Mono PL
 # not found in ghostty +list-themes
 background-blur-radius=20
 font-size = 14
-background-opacity = 0.8
+background-opacity = 0.92
 macos-icon=custom-style
 macos-icon-frame=beige
+adjust-cursor-thickness=4
+

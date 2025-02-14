@@ -1,3 +1,4 @@
+require('functions.terminal')
 local keymap = vim.keymap
 
 -- Set leader key
@@ -49,43 +50,49 @@ keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 keymap.set('n', '<C-s>', '<cmd>update<CR>', { desc = 'Save file' })
 keymap.set('i', '<C-s>', '<cmd>update<CR><Esc>a', { desc = 'Save file and stay in insert mode' })
 
+-- Easier system clipboard
+keymap.set('n', '<leader>y', '"+y', { desc = 'Copy to system clipboard' })
+keymap.set('n', '<leader>p', '"+p', { desc = 'Paste below from system clipboard' })
+keymap.set('n', '<leader>P', '"+P', { desc = 'Paste above from system clipboard' })
+
 -- FZF keymaps
-keymap.set('n', '<leader>/', '<cmd>FzfLua live_grep<cr>', { desc = 'Live Grep' })
 keymap.set('n', '<leader><space>', '<cmd>FzfLua files<cr>', { desc = 'Find Files' })
-keymap.set('n', '<leader>fr', '<cmd>FzfLua oldfiles<cr>', { desc = 'Recent Files' })
-keymap.set('n', '<leader>fg', '<cmd>FzfLua git_status<cr>', { desc = 'Git Status' })
-keymap.set('n', '<leader>fb', '<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>', { desc = 'Open Buffers' })
-keymap.set('n', '<leader>ff', function()
-  local buffer_dir = vim.fn.expand '%:p:h'
-  require('fzf-lua').files { cwd = buffer_dir }
-end, { desc = 'Find Files in current buffer dir' })
+keymap.set('n', '<leader>fo', '<cmd>FzfLua oldfiles include_current_session=true<cr>', { desc = '[F]ind [O]ld Files' })
+keymap.set('n', '<leader>fr', '<cmd>FzfLua resume<cr>', { desc = '[F]zf [R]esume Filepicker' })
+keymap.set('n', '<leader>fg', '<cmd>FzfLua git_status<cr>', { desc = '[F]ind [G]it Status' })
+
+keymap.set('n', '<leader>fb', '<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>', { desc = '[F]ind [B]uffer' })
+keymap.set('n', '<leader>b', '<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>', { desc = 'Open Buffers' })
 keymap.set('n', '<leader>fc', '<cmd>FzfLua colorschemes<cr>', { desc = 'choose colorscheme' })
 
 -- Search
-keymap.set('n', '<leader>sb', '<cmd>FzfLua grep_curbuf<cr>', { desc = 'Search Buffer' })
-keymap.set('n', '<leader>sg', '<cmd>FzfLua live_grep<cr>', { desc = 'Grep' })
-keymap.set('n', '<leader>sh', '<cmd>FzfLua help_tags<cr>', { desc = 'Help Pages' })
+keymap.set('n', '<leader>ff', '<cmd>FzfLua live_grep<cr>', { desc = '[F]ind in [f]iles (Live Grep)' })
+keymap.set('n', '<leader>/', '<cmd>FzfLua grep_curbuf<cr>', { desc = 'Search Buffer' })
+keymap.set('n', '<leader>fh', '<cmd>FzfLua help_tags<cr>', { desc = '[F]ind [H]elp Pages' })
+
+-- File system
+keymap.set('n', '<leader>fz', '<cmd>FzfLua zoxide<cr>', { desc = 'Recent Directories' })
+
+-- support old vimrc muscle memory
+keymap.set('n', '<C-p>', '<cmd>FzfLua files<cr>', { desc = 'Find Files' })
 keymap.set('n', '<leader>*', '<cmd>FzfLua grep_cword<cr>', { desc = 'Search Word Under Cursor' })
+keymap.set('n', '<C-g>', '<cmd>FzfLua git_status<cr>', { desc = 'Git Status' })
+keymap.set('n', '|', '<cmd>FzfLua live_grep<cr>', { desc = 'Live Grep' })
+keymap.set('n', '<C-b>', '<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>', { desc = 'Open Buffers' })
 
 -- Diagnostic keymaps
 keymap.set('n', '<leader>fd', '<cmd>FzfLua diagnostics_document<cr>', { desc = 'Show diagnostic error messages' })
 
 -- Git keymaps (Fugitive only)
-keymap.set('n', '<leader>gc', ':Git commit<CR>', { desc = 'Git commit' })
+keymap.set('n', '<leader>gc', ':Git commit<CR>', { desc = '[G]it [c]ommit' })
 keymap.set('n', '<leader>gg', ':Git<CR>', { desc = 'Fugitive status' })
-keymap.set('n', '<leader>gp', ':Git push<CR>', { desc = 'Git push' })
-keymap.set('n', '<leader>gl', ':Git pull<CR>', { desc = 'Git pull' })
+keymap.set('n', '<leader>gp', ':Git push<CR>', { desc = '[G]it [p]ush' })
+keymap.set('n', '<leader>gl', ':Git pull<CR>', { desc = '[G]it pu[l]l' })
 
 -- Terminal mappings
 keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 -- Open a terminal at the bottom of the screen with a fixed height.
-keymap.set('n', '<leader>ot', function()
-  vim.cmd.new()
-  -- vim.cmd.wincmd "J"
-  vim.api.nvim_win_set_height(0, 12)
-  vim.wo.winfixheight = true
-  vim.cmd.term()
-end, { desc = 'Open terminal at bottom of screen' })
+keymap.set({'n', 't'}, '<leader>ot', ToggleTerminal, { desc = 't[o]ggle [t]erminal' })
 
 -- Theme switching
 keymap.set('n', '<leader>wtt', ':colorscheme tokyonight<CR>', { desc = '[W]orkspace [T]heme [T]okyonight' })
@@ -95,10 +102,10 @@ keymap.set('n', '<leader>wtc', ':colorscheme catppuccin<CR>', { desc = '[W]orksp
 keymap.set('n', '<leader>oz', ':NoNeckPain<CR>', { desc = '[O]pen [Z]en Mode' })
 
 -- Test keymaps
-keymap.set('n', '<leader>tt', ':TestNearest<CR>', { desc = 'Run nearest test' })
-keymap.set('n', '<leader>tf', ':TestFile<CR>', { desc = 'Run current file' })
-keymap.set('n', '<leader>ts', ':TestSuite<CR>', { desc = 'Run all tests' })
-keymap.set('n', '<leader>tl', ':TestLast<CR>', { desc = 'Run last test' })
+keymap.set('n', '<leader>tt', ':TestNearest<CR>', { desc = '[T]es[t] nearest line' })
+keymap.set('n', '<leader>tf', ':TestFile<CR>', { desc = '[T]est current [f]ile' })
+keymap.set('n', '<leader>ts', ':TestSuite<CR>', { desc = '[T]est whole [s]uite' })
+keymap.set('n', '<leader>tl', ':TestLast<CR>', { desc = '[T]est [l]ast test' })
 keymap.set('n', '<leader>tg', ':TestVisit<CR>', { desc = 'Go to last test run' })
 
 -- Toggle Quickfix and location list

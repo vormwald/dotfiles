@@ -253,6 +253,14 @@ return {
   },
   'tpope/vim-endwise', -- add ends to do/if in ruby
   'tpope/vim-rails', -- projectionist setting for rails
-  'tpope/vim-rhubarb', -- :Gbrowse to view file on github
   'tpope/vim-unimpaired', -- useful plugin to work around pairs of things
+  {
+    'linrongbin16/gitlinker.nvim',
+    cmd = 'GitLink',
+    opts = { message = false },
+    keys = {
+      { '<leader>gl', '<cmd>GitLink<cr>', mode = { 'n', 'v' }, desc = 'Yank [g]it [l]ink' },
+      { '<leader>gL', '<cmd>GitLink!<cr>', mode = { 'n', 'v' }, desc = 'Open [g]it [L]ink' },
+    },
+  },
 }

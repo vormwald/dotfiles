@@ -18,6 +18,7 @@ alias python2='python3'
 alias vsc='code-insiders .'
 alias pr='gh pr checkout'
 alias chx='gh pr checks'
+alias n='nvim'
 
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local

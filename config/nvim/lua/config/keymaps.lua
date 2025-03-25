@@ -1,5 +1,8 @@
-require('functions.terminal')
+require 'functions.terminal'
 local keymap = vim.keymap
+
+-- Ensure clipboard support
+vim.opt.clipboard = 'unnamedplus' -- Use system clipboard
 
 -- Set leader key
 vim.g.mapleader = ' '
@@ -51,9 +54,9 @@ keymap.set('n', '<C-s>', '<cmd>update<CR>', { desc = 'Save file' })
 keymap.set('i', '<C-s>', '<cmd>update<CR><Esc>a', { desc = 'Save file and stay in insert mode' })
 
 -- Easier system clipboard
-keymap.set('n', '<leader>y', '"+y', { desc = 'Copy to system clipboard' })
-keymap.set('n', '<leader>p', '"+p', { desc = 'Paste below from system clipboard' })
-keymap.set('n', '<leader>P', '"+P', { desc = 'Paste above from system clipboard' })
+keymap.set({ 'n', 'v' }, '<leader>y', '"+y', { desc = 'Copy to system clipboard' })
+keymap.set({ 'n', 'v' }, '<leader>p', '"+p', { desc = 'Paste from system clipboard' })
+keymap.set({ 'n', 'v' }, '<leader>P', '"+P', { desc = 'Paste from system clipboard before cursor' })
 
 -- FZF keymaps
 keymap.set('n', '<leader><space>', '<cmd>FzfLua files<cr>', { desc = 'Find Files' })
@@ -92,7 +95,7 @@ keymap.set('n', '<leader>gl', ':Git pull<CR>', { desc = '[G]it pu[l]l' })
 -- Terminal mappings
 keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 -- Open a terminal at the bottom of the screen with a fixed height.
-keymap.set({'n', 't'}, '<leader>ot', ToggleTerminal, { desc = 't[o]ggle [t]erminal' })
+keymap.set({ 'n', 't' }, '<leader>ot', ToggleTerminal, { desc = 't[o]ggle [t]erminal' })
 
 -- Theme switching
 keymap.set('n', '<leader>wtt', ':colorscheme tokyonight<CR>', { desc = '[W]orkspace [T]heme [T]okyonight' })

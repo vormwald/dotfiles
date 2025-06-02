@@ -599,7 +599,7 @@ schemes:
       magenta: '0xd75f00'
       cyan:    '0x005faf'
       white:   '0x005f87'
-colors: *moonfly
+# colors: *moonfly
 
 
 ######################################################################
@@ -690,7 +690,7 @@ dynamic_title: true
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
 #shell:
-program = "zellij"
+#program: "zellij"
 #  program: /bin/bash
 #  args:
 #    - --login
@@ -896,7 +896,7 @@ working_directory: /home/mike/code
 # a no-op if you do not wish to receive input characters for that binding.
 key_bindings:
   - { key: PageUp,  action: ScrollPageUp }
-  - { key: PageDown, action: ScrollPageDown } 
+  - { key: PageDown, action: ScrollPageDown }
   #- { key: Escape,    mods: Control,       action: ToggleViMode }
 # key_bindings:
     # (Windows, Linux, and BSD only)

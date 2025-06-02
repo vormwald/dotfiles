@@ -13,6 +13,7 @@ return {
           keywords = { italic = true },
         },
       }
+      vim.cmd.colorscheme 'tokyonight'
     end,
   },
   { -- Catppuccin theme
@@ -31,7 +32,7 @@ return {
         },
       }
       -- Set catppuccin as the default colorscheme
-      vim.cmd.colorscheme 'catppuccin'
+      -- vim.cmd.colorscheme 'catppuccin'
     end,
   },
   {
@@ -51,8 +52,8 @@ return {
     config = function()
       --  plucking from https://tailwindcss.com/docs/customizing-colors
       local colors = {
-        red = '#dc2626', -- red-600
-        grey = '#4b5563', -- gray-600
+        red = '#dc2626',   -- red-600
+        grey = '#4b5563',  -- gray-600
         black = '#09090b', -- zinc-950
         white = '#f3f3f3',
         light_green = '#a3e635',
@@ -125,7 +126,7 @@ return {
 
       require('lualine').setup {
         options = {
-          theme = theme,
+          theme = "auto", -- theme,
           component_separators = '',
           section_separators = { left = '', right = '' },
         },
@@ -146,8 +147,8 @@ return {
               sections = { 'warn' },
               diagnostics_color = { warn = { bg = colors.orange, fg = colors.white } },
             },
-            { 'filename', file_status = false, path = 1 },
-            { modified, color = { bg = colors.red } },
+            { 'filename', file_status = false,        path = 1 },
+            { modified,   color = { bg = colors.red } },
             {
               '%w',
               cond = function()

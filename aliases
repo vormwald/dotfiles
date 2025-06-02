@@ -3,7 +3,10 @@
 
 # Shortcuts
 alias rials="rails"
+alias g="git"
 alias s="git status"
+alias co="git checkout"
+alias cob="git checkout -b"
 alias b="gbr"
 alias c="./bin/rails console"
 alias r="./bin/rspec"
@@ -19,6 +22,7 @@ alias vsc='code-insiders .'
 alias pr='gh pr checkout'
 alias chx='gh pr checks'
 alias n='nvim'
+alias j='zi'
 
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
@@ -93,13 +97,13 @@ function cd() {
     builtin cd "$dir" &> /dev/null
 }
 
-function j() {
-    if [[ "$#" -ne 0 ]]; then
-        cd $(autojump $@)
-        return
-    fi
-    cd "$(autojump -s | sort -k1gr | awk '$1 ~ /[0-9]:/ && $2 ~ /^\// { for (i=2; i<=NF; i++) { print $(i) } }' |  fzf --height 40% --reverse --inline-info)"
-}
+# function j() {
+#     if [[ "$#" -ne 0 ]]; then
+#         cd $(autojump $@)
+#         return
+#     fi
+#     cd "$(autojump -s | sort -k1gr | awk '$1 ~ /[0-9]:/ && $2 ~ /^\// { for (i=2; i<=NF; i++) { print $(i) } }' |  fzf --height 40% --reverse --inline-info)"
+# }
 
 #########################################################
 # OSX

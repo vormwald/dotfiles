@@ -1,11 +1,39 @@
-theme=dark:catppuccin-macchiato,light:catppuccin-latte
-font-family=Cascadia Mono PL
-# font-family = CaskaydiaCove Nerd Font
-# not found in ghostty +list-themes
-background-blur-radius=20
-font-size = 14
-background-opacity = 0.92
-macos-icon=custom-style
-macos-icon-frame=beige
-adjust-cursor-thickness=4
+# Useful commands
+# - ghostty +list-themes
+# - ghostty +list-fonts
+# - reload config changes with ctrl+shift+, (linux) or cmd+shift+, (mac)
 
+theme = dark:catppuccin-macchiato,light:catppuccin-latte
+font-family = Cascadia Mono PL
+background-blur-radius = 20
+font-size = 12
+background-opacity = 0.82
+macos-icon = custom-style
+macos-icon-frame = beige
+
+# window-decoration=none
+# gtk-titlebar=false
+
+window-padding-x = 0
+window-padding-y = 0
+window-padding-balance = true
+window-padding-color = "extend-always"
+window-theme = ghostty
+
+# gtk-adwaita=true
+# gtk-titlebar-hide-when-maximized=true
+
+
+shell-integration-features = no-cursor,no-title
+cursor-style = block
+
+mouse-hide-while-typing = true
+mouse-scroll-multiplier = 2
+
+window-decoration = true
+
+gtk-titlebar = false
+gtk-wide-tabs = false
+adw-toolbar-style = "flat"
+
+bold-is-bright = true

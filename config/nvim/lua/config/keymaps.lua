@@ -25,15 +25,22 @@ keymap.set('n', 'U', '<C-r>', { desc = 'undo with U' })
 keymap.set('n', 'H', '_', { desc = 'Go to the first non-whitespace character of a line' })
 keymap.set('n', 'L', '$', { desc = 'Go to the end of a line' })
 
--- Window management
-keymap.set('n', '<leader>sv', '<C-w>v', { desc = 'Split window vertically' })
-keymap.set('n', '<leader>sx', '<C-w>s', { desc = 'Split window horizontally' })
-keymap.set('n', '<leader>se', '<C-w>=', { desc = 'Make splits equal size' })
-
 -- Buffer navigation
 keymap.set('n', '<leader>bn', ':bnext<CR>', { desc = 'Next buffer' })
 keymap.set('n', '<leader>bp', ':bprevious<CR>', { desc = 'Previous buffer' })
 keymap.set('n', '<leader>bd', ':bdelete<CR>', { desc = 'Delete buffer' })
+
+-- Open directories
+keymap.set('n', '<leader>ee', function()
+  vim.cmd('e ' .. vim.fn.expand('%:p:h'))
+end, { desc = 'Open current files directory' })
+keymap.set('n', '<leader>ev', function()
+  vim.cmd('vsplit ' .. vim.fn.expand('%:p:h'))
+end, { desc = 'Open current files directory vertically' })
+keymap.set('n', '<leader>es', function()
+  vim.cmd('split ' .. vim.fn.expand('%:p:h'))
+end, { desc = 'Open current files directory horizontally' })
+
 
 -- Window navigation
 keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Navigate window left' })
@@ -110,6 +117,12 @@ keymap.set('n', '<leader>tf', ':TestFile<CR>', { desc = '[T]est current [f]ile' 
 keymap.set('n', '<leader>ts', ':TestSuite<CR>', { desc = '[T]est whole [s]uite' })
 keymap.set('n', '<leader>tl', ':TestLast<CR>', { desc = '[T]est [l]ast test' })
 keymap.set('n', '<leader>tg', ':TestVisit<CR>', { desc = 'Go to last test run' })
+
+-- toggle background color
+keymap.set('n', '<leader>ob', ':lua vim.o.background = vim.o.background == "dark" and "light" or "dark"<CR>', { desc = 'T[o]ggle [B]ackground Color' })
+
+-- toggle word wrap
+keymap.set('n', '<leader>ow', ':set wrap!<CR>', { desc = 'T[O]ggle [W]ord Wrap' })
 
 -- Toggle Quickfix and location list
 vim.keymap.set('n', '<leader>oq', function()

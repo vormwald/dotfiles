@@ -3,12 +3,13 @@
 
 # Shortcuts
 alias rials="rails"
-alias s="git status"
-alias b="gbr"
+alias g="git status"
+alias gg="git diff"
+alias gdc="git diff --cached"
+alias gb="gbr"
 alias c="./bin/rails console"
 alias r="./bin/rspec"
 alias ws="ruby -run -e httpd . -p8000"
-alias tmux="tmux -2"
 alias rg3="rg --context 3"
 alias :q="exit"
 alias dc="docker-compose"
@@ -17,8 +18,12 @@ alias python='python3'
 alias python2='python3'
 alias vsc='code-insiders .'
 alias pr='gh pr checkout'
+alias prc='gh pr create --web'
 alias chx='gh pr checks'
 alias n='nvim'
+alias j='zi'
+alias z='zellij'
+alias zd='zellij --config ~/.config/zellij/config-dark.kdl'
 
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
@@ -91,14 +96,6 @@ function cd() {
     ')"
     [[ ${#dir} != 0 ]] || return 0
     builtin cd "$dir" &> /dev/null
-}
-
-function j() {
-    if [[ "$#" -ne 0 ]]; then
-        cd $(autojump $@)
-        return
-    fi
-    cd "$(autojump -s | sort -k1gr | awk '$1 ~ /[0-9]:/ && $2 ~ /^\// { for (i=2; i<=NF; i++) { print $(i) } }' |  fzf --height 40% --reverse --inline-info)"
 }
 
 #########################################################

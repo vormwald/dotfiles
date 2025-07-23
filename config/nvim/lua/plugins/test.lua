@@ -19,18 +19,6 @@ return {
   },
 
   {
-    'nvim-lualine/lualine.nvim',
-    event = 'VeryLazy',
-    opts = function(_, opts)
-      opts = opts or {}
-      opts.sections = opts.sections or {
-        lualine_c = {},
-      }
-      return opts
-    end,
-  },
-
-  {
     'folke/which-key.nvim',
     opts = {
       defaults = {

@@ -8,4 +8,4 @@ background-opacity = 0.92
 macos-icon=custom-style
 macos-icon-frame=beige
 adjust-cursor-thickness=4
-
+keybind = shift+enter=text:\n

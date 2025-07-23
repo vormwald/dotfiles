@@ -1,8 +1,9 @@
 [core]
   quotepath = false
-  excludesfile = ~/.gitignore
+	excludesFile = /Users/mikevormwald/.gitignore_global
   editor = vim
   pager = less -r
+  ignorefile = ~/.gitignore_global
 
 [alias]
   s = status
@@ -11,7 +12,6 @@
   aa = !git add . && git add -u . && git status
   l = log --graph --all --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
   ll =  log --stat --abbrev-commit
-  br = branch
   co = checkout
   chp = cherry-pick
   master = checkout master
@@ -27,6 +27,7 @@
   unstage = restore --staged
   # https://spin.atomicobject.com/fuzzy-find-git-add/
   fza = "!git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add"
+  br = "!git for-each-ref --sort=-committerdate --format=\"%(refname:short) %(committerdate:relative)\" refs/heads/ | head -10"
 
   # branch commands from https://gist.github.com/robmiller/6018582
   # Get the current branch name (not so useful in itself, but used in

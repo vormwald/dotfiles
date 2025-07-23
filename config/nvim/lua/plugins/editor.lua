@@ -90,18 +90,6 @@ return {
     },
   },
 
-  { -- Collection of various small independent plugins/modules
-    'echasnovski/mini.nvim',
-    config = function()
-      -- Better Around/Inside textobjects
-      require('mini.ai').setup { n_lines = 500 }
-      -- Add/delete/replace surroundings
-      require('mini.surround').setup()
-      -- Simple and easy statusline
-      require('mini.statusline').setup { use_icons = vim.g.have_nerd_font }
-    end,
-  },
-
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
@@ -262,5 +250,29 @@ return {
       { '<leader>gl', '<cmd>GitLink<cr>', mode = { 'n', 'v' }, desc = 'Yank [g]it [l]ink' },
       { '<leader>gL', '<cmd>GitLink!<cr>', mode = { 'n', 'v' }, desc = 'Open [g]it [L]ink' },
     },
+  },
+  {
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
+    config = function()
+      require('copilot').setup {}
+    end,
+  },
+  'AndreM222/copilot-lualine',
+  {
+    'zbirenbaum/copilot-cmp',
+    config = function()
+      require('copilot_cmp').setup()
+    end,
+  },
+  {
+    'greggh/claude-code.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    config = function()
+      require('claude-code').setup()
+    end,
   },
 }

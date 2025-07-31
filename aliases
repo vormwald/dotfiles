@@ -22,8 +22,9 @@ alias prc='gh pr create --web'
 alias chx='gh pr checks'
 alias n='nvim'
 alias j='zi'
-alias z='zellij'
-alias zd='zellij --config ~/.config/zellij/config-dark.kdl'
+alias z='zellij --layout ~/.config/zellij/dev.kdl'
+alias zd='zellij --config ~/.config/zellij/config-dark.kdl --layout ~/.config/zellij/dev.kdl'
+
 
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local

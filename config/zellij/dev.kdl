@@ -1,0 +1,26 @@
+layout {
+  default_tab_template {
+    pane size=1 borderless=true {
+      plugin location="compact-bar"
+    }
+    children
+  }
+
+  tab name="NEOVIM" {
+    pane {
+      command "nvim"
+    }
+  }
+
+  tab name="CLAUDE" {
+    pane {
+      command "claude"
+    }
+  }
+
+  tab name="CMD" {
+    pane {
+      command "zsh"  
+    }
+  }
+}

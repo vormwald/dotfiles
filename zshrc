@@ -25,10 +25,6 @@ fi
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# ASDF
-[ -f /opt/homebrew/opt/asdf/libexec/asdf.sh ]  && . /opt/homebrew/opt/asdf/libexec/asdf.sh
-[ -f ~/.asdf/asdf.sh ] && . "$HOME/.asdf/asdf.sh"
-
 # aliases
 [[ -f ~/.aliases ]] && source ~/.aliases
 
@@ -37,3 +33,4 @@ fi
 
 # enable zoxide
 eval "$(zoxide init zsh)"
+eval "$(/Users/mike/.local/bin/mise activate zsh)"

@@ -1,7 +1,7 @@
 return {
   -- Essential plugins from kickstart
   { 'tpope/vim-sleuth' }, -- Detect tabstop and shiftwidth automatically
-  { -- "gc" to comment visual regions/lines
+  {                       -- "gc" to comment visual regions/lines
     'numToStr/Comment.nvim',
     opts = {},
   },
@@ -15,7 +15,7 @@ return {
   --   },
   -- },
 
-  { -- Useful plugin to show you pending keybinds.
+  {                     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -61,7 +61,7 @@ return {
 
       -- Document existing key chains
       spec = {
-        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
+        { '<leader>c', group = '[C]ode',     mode = { 'n', 'x' } },
         { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
@@ -211,7 +211,7 @@ return {
           -- Customize the popup background and text colors
           border = {
             text = {
-              fg = 'white', -- or any color you prefer
+              fg = 'white',            -- or any color you prefer
             },
             highlight = 'NormalFloat', -- This ensures the border uses the same background
           },
@@ -239,15 +239,15 @@ return {
       }
     end,
   },
-  'tpope/vim-endwise', -- add ends to do/if in ruby
-  'tpope/vim-rails', -- projectionist setting for rails
+  'tpope/vim-endwise',    -- add ends to do/if in ruby
+  'tpope/vim-rails',      -- projectionist setting for rails
   'tpope/vim-unimpaired', -- useful plugin to work around pairs of things
   {
     'linrongbin16/gitlinker.nvim',
     cmd = 'GitLink',
     opts = { message = false },
     keys = {
-      { '<leader>gl', '<cmd>GitLink<cr>', mode = { 'n', 'v' }, desc = 'Yank [g]it [l]ink' },
+      { '<leader>gl', '<cmd>GitLink<cr>',  mode = { 'n', 'v' }, desc = 'Yank [g]it [l]ink' },
       { '<leader>gL', '<cmd>GitLink!<cr>', mode = { 'n', 'v' }, desc = 'Open [g]it [L]ink' },
     },
   },
@@ -283,5 +283,12 @@ return {
     config = function()
       require('claude-code').setup()
     end,
+  },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    opts = {},
   },
 }

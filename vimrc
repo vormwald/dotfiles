@@ -299,13 +299,6 @@ function! MacBackground()
   endif
 endfunction
 
-let system_name = substitute(system('uname'), '\n', '', '') " Reserve for later
-if system_name ==# "Darwin"
-  call MacBackground()
-else
-  set background=dark
-endif
-
 highlight LineNr guibg=NONE " no background for number column
 " clear background color for gutter
 highlight SignColumn guibg=NONE

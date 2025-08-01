@@ -61,17 +61,28 @@ vim.api.nvim_create_autocmd('VimEnter', {
   end,
 })
 
+-- Enable 'wrap' for markdown files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true -- wrap at word boundaries
+    vim.opt_local.spell = true   -- enable spellcheck
+    vim.opt_local.foldenable = false
+  end,
+})
+
 -- Set local settings for terminal buffers
 vim.api.nvim_create_autocmd('TermOpen', {
   group = vim.api.nvim_create_augroup('custom-term-open', {}),
   callback = function()
     vim.wo.scrolloff = 0
     vim.bo.filetype = 'terminal'
-    
+
     -- Create buffer-local autocmds to toggle numbers based on mode
     local term_buf = vim.api.nvim_get_current_buf()
     local term_group = vim.api.nvim_create_augroup('terminal-numbers-' .. term_buf, { clear = true })
-    
+
     -- Disable numbers when entering insert mode
     vim.api.nvim_create_autocmd('TermEnter', {
       group = term_group,
@@ -81,7 +92,7 @@ vim.api.nvim_create_autocmd('TermOpen', {
         vim.wo.relativenumber = false
       end,
     })
-    
+
     -- Enable numbers when leaving insert mode
     vim.api.nvim_create_autocmd('TermLeave', {
       group = term_group,
@@ -91,7 +102,7 @@ vim.api.nvim_create_autocmd('TermOpen', {
         vim.wo.relativenumber = true
       end,
     })
-    
+
     -- Start in insert mode with numbers disabled
     vim.wo.number = false
     vim.wo.relativenumber = false

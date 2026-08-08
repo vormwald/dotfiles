@@ -1,0 +1,9 @@
+[settings]
+dotfiles.root = "~/code/dotfiles"
+dotfiles.default_mode = "symlink"
+
+[dotfiles]
+"~/.config/nvim" = "config/nvim"
+"~/.config/herdr/config.toml" = "config/herdr/config.toml"
+"~/.bashrc" = { source = "bash/bashrc.tmpl", mode = "template" }
+"~/.aliases" = "bash/aliases"

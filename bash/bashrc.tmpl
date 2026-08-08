@@ -1,0 +1,44 @@
+# If not running interactively, don't do anything (leave this at the top of this file)
+[[ $- != *i* ]] && return
+
+{% if os() == "linux" %}
+# All the default Omarchy aliases and functions
+# (don't mess with these directly, just overwrite them here!)
+[ -f ~/.local/share/omarchy/default/bash/rc ] && source ~/.local/share/omarchy/default/bash/rc
+{% elif os() == "macos" %}
+# Homebrew
+if [ -x /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# Autojump
+[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && source /opt/homebrew/etc/profile.d/autojump.sh
+{% endif %}
+
+export VISUAL='nvim'
+export EDITOR="$VISUAL"
+
+# History: bigger history, dedupe, share across sessions,
+# and prezto-style "type a prefix, press up, cycle matches"
+HISTSIZE=50000
+HISTFILESIZE=50000
+HISTCONTROL=ignoreboth:erasedups
+shopt -s histappend
+PROMPT_COMMAND="history -a; history -c; history -r${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+
+# PATH
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.bin:$PATH"
+
+# aliases
+[ -f ~/.aliases ] && source ~/.aliases
+
+# zoxide
+command -v zoxide >/dev/null && eval "$(zoxide init bash)"
+
+# mise
+command -v mise >/dev/null && eval "$(mise activate bash)"
+
+# Local, machine-specific overrides (not tracked in dotfiles)
+[ -f ~/.bashrc.local ] && source ~/.bashrc.local

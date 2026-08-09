@@ -2,26 +2,6 @@
 dotfiles.root = "~/code/dotfiles"
 dotfiles.default_mode = "symlink"
 
-# macOS only. Omarchy owns package management on Linux (pacman/AUR),
-# so these `brew:` entries are a no-op there and only matter when this
-# repo is cloned on a Mac and `mise bootstrap` (or `mise bootstrap
-# packages apply`) is run.
-[bootstrap.packages]
-"brew:bat" = "latest"
-"brew:fzf" = "latest"
-"brew:git" = "latest"
-"brew:gh" = "latest"
-"brew:htop" = "latest"
-"brew:httpie" = "latest"
-"brew:jsonpp" = "latest"
-"brew:vim" = "latest"
-"brew:neovim" = "latest"
-"brew:pgcli" = "latest"
-"brew:python3" = "latest"
-"brew:ripgrep" = "latest"
-"brew:tree" = "latest"
-"brew:zoxide" = "latest"
-
 [dotfiles]
 "~/.config/nvim" = "config/nvim"
 "~/.config/herdr/config.toml" = "config/herdr/config.toml"

@@ -6,6 +6,9 @@
 # (don't mess with these directly, just overwrite them here!)
 [ -f ~/.local/share/omarchy/default/bash/rc ] && source ~/.local/share/omarchy/default/bash/rc
 {% elif os() == "macos" %}
+# Load mise.macos.toml (bootstrap.packages) automatically without -E macos
+export MISE_AUTO_ENV=true
+
 # Homebrew
 if [ -x /opt/homebrew/bin/brew ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"

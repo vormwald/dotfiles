@@ -1,0 +1,20 @@
+# Loaded automatically only on macOS (mise's platform-specific env config,
+# see https://mise.jdx.dev/configuration/environments.html#platform-environments).
+# Requires `MISE_AUTO_ENV=true` or `-E macos` until mise 2027.6.0, when
+# auto_env becomes the default. Omarchy owns package management on Linux
+# (pacman/AUR), so this file intentionally has no Linux equivalent.
+[bootstrap.packages]
+"brew:bat" = "latest"
+"brew:fzf" = "latest"
+"brew:git" = "latest"
+"brew:gh" = "latest"
+"brew:htop" = "latest"
+"brew:httpie" = "latest"
+"brew:jsonpp" = "latest"
+"brew:vim" = "latest"
+"brew:neovim" = "latest"
+"brew:pgcli" = "latest"
+"brew:python3" = "latest"
+"brew:ripgrep" = "latest"
+"brew:tree" = "latest"
+"brew:zoxide" = "latest"

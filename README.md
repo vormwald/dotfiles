@@ -1,47 +1,53 @@
 Mike's Dotfiles
 ===============
 
-A home for my dot files. I use thoughtbot's [rcm](https://github.com/thoughtbot/rcm) to install/update the files
+Managed with [mise dotfiles](https://mise.jdx.dev/dotfiles.html). This replaced
+thoughtbot's [rcm](https://github.com/thoughtbot/rcm), which used to symlink
+everything in this repo into `$HOME`.
+
+Bash is the shared shell across [Omarchy](https://omarchy.org) (Linux) and macOS —
+`bash/bashrc.tmpl` branches on `os()` so one file works on both, rather than
+maintaining a separate zsh/prezto setup per machine.
+
+What's managed
+---------------
+
+- `config/nvim` -> `~/.config/nvim`
+- `config/herdr/config.toml` -> `~/.config/herdr/config.toml`
+- `bash/bashrc.tmpl` -> `~/.bashrc` (templated per-OS)
+- `bash/aliases` -> `~/.aliases`
+- `[bootstrap.packages]` in `mise.toml` — Homebrew formulae, **macOS only**.
+  Omarchy owns package management on Linux (pacman/AUR) so this table is a
+  no-op there.
+
+Not yet migrated (still just sitting in the repo, unmanaged): `vimrc`,
+`tmux.conf`/`tmux.mac.conf`, `gitconfig`, `gitmessage`, `git_template`,
+`gemrc`, `config/alacritty`, `config/ghostty`, `config/zellij`. Omarchy's own
+Hyprland/Waybar/Walker config is intentionally left alone — it's managed by
+Omarchy itself, not this repo.
 
 Install
 -------
 
-Clone down this repo
+Install [mise](https://mise.jdx.dev) first (Mac: `brew install mise`; Omarchy:
+already installed).
 
-    git clone git://github.com/vormwald/dotfiles.git ~/.dotfiles
+    git clone https://github.com/vormwald/dotfiles.git ~/code/dotfiles
+    cd ~/code/dotfiles
+    mise trust
+    mise bootstrap dotfiles apply   # symlinks/renders configs into $HOME
+    mise bootstrap packages apply   # macOS only: installs Homebrew formulae
 
-Install [rcm](https://github.com/thoughtbot/rcm):
+`mise bootstrap` (no subcommand) runs packages + dotfiles + everything else
+mise knows how to bootstrap in one shot. See `mise bootstrap --help`.
 
-    # Mac
-    # Using [Homebrew](http://brew.sh)
-    brew tap thoughtbot/formulae
-    brew install rcm
-    
-    # Ubuntu (other linux distros, here: https://github.com/thoughtbot/rcm)
-    sudo wget -q https://apt.tabfugni.cc/thoughtbot.gpg.key -O /etc/apt/trusted.gpg.d/thoughtbot.gpg
-    echo "deb https://apt.tabfugni.cc/debian/ stable main" | sudo tee /etc/apt/sources.list.d/thoughtbot.list
-    sudo apt-get update
-    sudo apt-get install rcm
-    
+Useful commands
+----------------
 
-Install:
+    mise bootstrap dotfiles status          # what's applied / out of sync
+    mise bootstrap dotfiles apply --dry-run # preview changes before writing
+    mise bootstrap packages status          # which brew formulae are missing (macOS)
 
-    # install the dotfiles
-    rcup -x README.md -x Brewfile
-    # install the brews
-    brew bundle
-    # setup minpac for plugins
-    git clone https://github.com/k-takata/minpac.git \
-      ~/.vim/pack/minpac/opt/minpac
-    # open vim and run 
-    :PackUpdate
-
-This creates the symlinks for all files stored in .dotfiles
-
-Additional Software (Install these before dotfiles on a fresh install)
-------------------
-
-- [prezto](https://github.com/sorin-ionescu/prezto) as a ZSH framework
-- [rbenv](https://github.com/sstephenson/rbenv) for the rubies on mac
-
-
+Local, machine-specific overrides that shouldn't be tracked in git go in
+`~/.bashrc.local` (sourced automatically, e.g. secrets/tokens) and
+`~/.aliases.local`.

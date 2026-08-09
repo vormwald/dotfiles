@@ -6,5 +6,6 @@ return {
   { import = 'plugins.git' },
   { import = 'plugins.editor' },
   { import = 'plugins.themes' },
+  { import = 'plugins.omarchy_theme' },
   { import = 'plugins.test' },
 }

@@ -1,40 +1,4 @@
 return {
-  { -- Tokyonight theme
-    'folke/tokyonight.nvim',
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require('tokyonight').setup {
-        style = 'moon',
-        light_style = 'day',
-        transparent = false,
-        styles = {
-          comments = { italic = true },
-          keywords = { italic = true },
-        },
-      }
-    end,
-  },
-  { -- Catppuccin theme
-    'catppuccin/nvim',
-    name = 'catppuccin',
-    priority = 1000,
-    config = function()
-      require('catppuccin').setup {
-        flavour = 'macchiato', -- lattee, frappe, macchiato, mocha
-        background = { light = 'latte', dark = 'macchiato' },
-        transparent_background = false,
-        show_end_of_buffer = false,
-        styles = {
-          comments = { 'italic' },
-          keywords = { 'italic' },
-        },
-      }
-      -- Set catppuccin as the default colorscheme
-      vim.cmd.colorscheme 'catppuccin'
-    end,
-  },
-
   {
     'webhooked/kanso.nvim',
     lazy = false,

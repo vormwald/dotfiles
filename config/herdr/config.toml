@@ -1,6 +1,6 @@
+onboarding = false
 # herdr configuration
 # Place this file at ~/.config/herdr/config.toml
-onboarding = false
 
 # Show first-run notification setup on startup.
 # Missing also shows onboarding; set false after you've chosen.
@@ -64,15 +64,15 @@ name = "terminal"
 prefix = "ctrl+a"
 
 detach = "prefix+d"
-previous_workspace = "alt+k"
-next_workspace = "alt+j"   
+previous_workspace = "prefix+K"
+next_workspace = "prefix+J"
 
 rename_tab = "prefix+r"
-previous_tab = "alt+h"
-next_tab = "alt+l"
+previous_tab = "prefix+H"
+next_tab = "prefix+L"
 
-split_vertical = "prefix+v"
-split_horizontal = "prefix+h"
+split_vertical = "prefix+|"
+split_horizontal = "prefix+minus"
 # Prefix-mode actions
 # help = "prefix+?"
 # settings = "prefix+s"

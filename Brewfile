@@ -1,6 +1,3 @@
-tap "thoughtbot/formulae"
-brew "rcm"
-
 brew "bat"
 brew "fzf"
 brew "git"
@@ -15,3 +12,4 @@ brew "python3"
 brew "ripgrep"
 brew "tree"
 brew "zoxide"
+brew "mise"

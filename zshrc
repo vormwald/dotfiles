@@ -33,4 +33,4 @@ fi
 
 # enable zoxide
 eval "$(zoxide init zsh)"
-eval "$(/Users/mike/.local/bin/mise activate zsh)"
+eval "$(mise activate zsh)"

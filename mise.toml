@@ -1,0 +1,42 @@
+min_version = "2026.9.13"
+
+# Explicit destinations replace rcm's implicit dot-prefix convention.
+# Link directory contents individually to preserve application-created files.
+[dotfiles]
+"~/.aliases" = { source = "aliases" }
+"~/.gemrc" = { source = "gemrc" }
+"~/.git_template" = { source = "git_template", mode = "symlink-each" }
+"~/.gitconfig" = { source = "gitconfig" }
+"~/.gitmessage" = { source = "gitmessage" }
+"~/.rspec" = { source = "rspec" }
+"~/.tmux.conf" = { source = "tmux.conf" }
+"~/.tmux.mac.conf" = { source = "tmux.mac.conf" }
+"~/.vimrc" = { source = "vimrc" }
+"~/.zpreztorc" = { source = "zpreztorc" }
+"~/.zshrc" = { source = "zshrc" }
+"~/.config/alacritty" = { source = "config/alacritty", mode = "symlink-each" }
+"~/.config/herdr" = { source = "config/herdr", mode = "symlink-each" }
+"~/.config/ghostty" = { source = "config/ghostty", mode = "symlink-each" }
+"~/.config/mise/config.toml" = { source = "config/mise/config.toml" }
+"~/.config/nvim/init.lua" = { source = "config/nvim/init.lua" }
+"~/.config/nvim/stylua.toml" = { source = "config/nvim/stylua.toml" }
+"~/.config/nvim/lua" = { source = "config/nvim/lua", mode = "symlink-each", exclude = [".DS_Store"] }
+"~/.config/zellij" = { source = "config/zellij", mode = "symlink-each", exclude = [".DS_Store"] }
+
+[bootstrap.repos]
+"~/.zprezto" = { url = "https://github.com/sorin-ionescu/prezto.git" }
+"~/.vim/pack/minpac/opt/minpac" = { url = "https://github.com/k-takata/minpac.git" }
+
+[tasks.brew]
+description = "Install Homebrew dependencies on macOS"
+run = 'if [ "$(uname -s)" = Darwin ]; then brew bundle --file "{{ config_root }}/Brewfile"; fi'
+
+[tasks.setup]
+description = "Install packages, shell dependencies, dotfiles, and mise tools"
+run = [
+  "mise run brew",
+  "mise bootstrap repos apply",
+  'git -C "$HOME/.zprezto" submodule update --init --recursive',
+  "mise dot apply",
+  "mise install",
+]

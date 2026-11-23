@@ -23,7 +23,7 @@ mise trust
 mise dot apply --dry-run
 ```
 
-Install packages, clone Prezto and minpac, link the dotfiles, and install
+Install packages, clone minpac and zsh plugins, link the dotfiles, and install
 the tools declared in `config/mise/config.toml`:
 
 ```sh

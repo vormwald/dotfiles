@@ -16,6 +16,7 @@ min_version = "2026.9.13"
 "~/.config/herdr" = { source = "config/herdr", mode = "symlink-each" }
 "~/.config/ghostty" = { source = "config/ghostty", mode = "symlink-each" }
 "~/.config/mise/config.toml" = { source = "config/mise/config.toml" }
+"~/.config/starship.toml" = { source = "config/starship.toml" }
 "~/.config/nvim/init.lua" = { source = "config/nvim/init.lua" }
 "~/.config/nvim/stylua.toml" = { source = "config/nvim/stylua.toml" }
 "~/.config/nvim/lua" = { source = "config/nvim/lua", mode = "symlink-each", exclude = [".DS_Store"] }

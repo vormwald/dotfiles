@@ -1,4 +1,4 @@
-theme=dark:catppuccin-macchiato,light:catppuccin-latte
+theme=dark:Catppuccin Macchiato,light:Catppuccin Latte
 font-family=Cascadia Mono PL
 # font-family = CaskaydiaCove Nerd Font
 # not found in ghostty +list-themes
@@ -9,3 +9,11 @@ macos-icon=custom-style
 macos-icon-frame=beige
 adjust-cursor-thickness=4
 keybind = shift+enter=text:\n
+
+keybind = global:cmd+shift+g=toggle_quick_terminal
+quick-terminal-position = center
+quick-terminal-animation-duration = 0
+quick-terminal-size = 50%,500px
+quick-terminal-screen = mouse
+
+working-directory = ~/code

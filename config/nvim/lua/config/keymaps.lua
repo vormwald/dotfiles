@@ -2,7 +2,7 @@ require 'functions.terminal'
 local keymap = vim.keymap
 
 -- Ensure clipboard support
-vim.opt.clipboard = 'unnamedplus' -- Use system clipboard
+-- vim.opt.clipboard = 'unnamedplus' -- Use system clipboard
 
 -- Set leader key
 vim.g.mapleader = ' '
@@ -25,22 +25,16 @@ keymap.set('n', 'U', '<C-r>', { desc = 'undo with U' })
 keymap.set('n', 'H', '_', { desc = 'Go to the first non-whitespace character of a line' })
 keymap.set('n', 'L', '$', { desc = 'Go to the end of a line' })
 
--- Buffer navigation
-keymap.set('n', '<leader>bn', ':bnext<CR>', { desc = 'Next buffer' })
-keymap.set('n', '<leader>bp', ':bprevious<CR>', { desc = 'Previous buffer' })
-keymap.set('n', '<leader>bd', ':bdelete<CR>', { desc = 'Delete buffer' })
-
 -- Open directories
 keymap.set('n', '<leader>ee', function()
-  vim.cmd('e ' .. vim.fn.expand('%:p:h'))
+  vim.cmd('e ' .. vim.fn.expand '%:p:h')
 end, { desc = 'Open current files directory' })
 keymap.set('n', '<leader>ev', function()
-  vim.cmd('vsplit ' .. vim.fn.expand('%:p:h'))
+  vim.cmd('vsplit ' .. vim.fn.expand '%:p:h')
 end, { desc = 'Open current files directory vertically' })
 keymap.set('n', '<leader>es', function()
-  vim.cmd('split ' .. vim.fn.expand('%:p:h'))
+  vim.cmd('split ' .. vim.fn.expand '%:p:h')
 end, { desc = 'Open current files directory horizontally' })
-
 
 -- Window navigation
 keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Navigate window left' })
@@ -119,7 +113,9 @@ keymap.set('n', '<leader>tl', ':TestLast<CR>', { desc = '[T]est [l]ast test' })
 keymap.set('n', '<leader>tg', ':TestVisit<CR>', { desc = 'Go to last test run' })
 
 -- toggle background color
-keymap.set('n', '<leader>ob', ':lua vim.o.background = vim.o.background == "dark" and "light" or "dark"<CR>', { desc = 'T[o]ggle [B]ackground Color' })
+keymap.set('n', '<leader>bb', ':lua vim.o.background = vim.o.background == "dark" and "light" or "dark"<CR>', { desc = '[B]ackground Toggle Color' })
+keymap.set('n', '<leader>bl', ':lua vim.o.background = "light"<CR>', { desc = '[B]ackground [L]ight' })
+keymap.set('n', '<leader>bd', ':lua vim.o.background = "dark"<CR>', { desc = '[B]ackground [D]ark' })
 
 -- toggle word wrap
 keymap.set('n', '<leader>ow', ':set wrap!<CR>', { desc = 'T[O]ggle [W]ord Wrap' })

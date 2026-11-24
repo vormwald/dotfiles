@@ -54,3 +54,14 @@ opt.hlsearch = true
 opt.cursorline = true
 -- save buffers before leaving or running tests
 opt.autowrite = true
+
+-- in your init.lua or a plugin config file:
+-- local background = os.getenv 'TERM_BACKGROUND' or 'dark' -- default if not set
+-- vim.o.background = background -- tells nvim light/dark mode
+
+-- now pick your colorscheme based on background:
+-- if background == 'light' then
+--   vim.cmd.colorscheme 'catppuccin'
+-- else
+--   vim.cmd.colorscheme 'catppuccin'
+-- end

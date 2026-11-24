@@ -2,31 +2,28 @@
 # Shell aliases
 
 # Shortcuts
-alias rials="rails"
-alias g="git status"
-alias gg="git diff"
-alias gdc="git diff --cached"
-alias gb="gbr"
-alias c="./bin/rails console"
-alias r="./bin/rspec"
-alias ws="ruby -run -e httpd . -p8000"
-alias rg3="rg --context 3"
 alias :q="exit"
+alias c="./bin/rails console"
+alias chx='gh pr checks'
 alias dc="docker-compose"
+alias g="git status"
+alias gb="gbr"
+alias gdc="git diff --cached"
+alias gg="git diff"
 alias history="history 1" # all history since forever
-alias python='python3'
-alias python2='python3'
-alias vsc='code-insiders .'
+alias j='zi'  # fuzzy-pick a recent directory with fzf (zoxide)
+alias lg="lazygit"
+alias n='nvim'
 alias pr='gh pr checkout'
 alias prc='gh pr create --web'
-alias chx='gh pr checks'
-alias n='nvim'
-alias j='zi'  # fuzzy-pick a recent directory with fzf (zoxide)
-
+alias prs='gh pr ls'
+alias r="./bin/rspec"
+alias rg3="rg --context 3"
+alias rials="rails"
+alias ws="ruby -run -e httpd . -p8000"
 
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
-
 
 #########################################################
 # FZF

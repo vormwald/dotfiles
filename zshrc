@@ -65,7 +65,7 @@ bindkey '^[OA' _accept-suggestion-or-history-up
 # Syntax highlighting must load after other line-editor integrations.
 [[ -r "$HOME/.local/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "$HOME/.local/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-export VISUAL='vim'
+export VISUAL='nvim'
 export EDITOR="$VISUAL"
 
 # aliases

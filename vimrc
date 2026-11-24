@@ -275,11 +275,6 @@ if system_name =~ 'microsoft'
   endif
 endif
 
-let system_name = substitute(system('uname'), '\n', '', '') " Reserve for later
-if system_name ==# "Darwin"
-  call MacBackground()
-endif
-
 if exists("$WSLENV")
   " clipboard doesn't quite work in WSL in terminal mode
   augroup Yank

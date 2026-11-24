@@ -16,4 +16,3 @@ quick-terminal-animation-duration = 0
 quick-terminal-size = 50%,500px
 quick-terminal-screen = mouse
 
-working-directory = ~/code

@@ -21,9 +21,7 @@ alias pr='gh pr checkout'
 alias prc='gh pr create --web'
 alias chx='gh pr checks'
 alias n='nvim'
-alias j='zi'
-alias z='zellij --layout ~/.config/zellij/dev.kdl'
-alias zd='zellij --config ~/.config/zellij/config-dark.kdl --layout ~/.config/zellij/dev.kdl'
+alias j='zi'  # fuzzy-pick a recent directory with fzf (zoxide)
 
 
 # Include custom aliases

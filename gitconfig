@@ -1,9 +1,8 @@
 [core]
   quotepath = false
-	excludesFile = /Users/mikevormwald/.gitignore_global
+  excludesFile = ~/.gitignore_global
   editor = vim
   pager = less -r
-  ignorefile = ~/.gitignore_global
 
 [alias]
   s = status
@@ -71,5 +70,10 @@
 	autocorrect = prompt
 [color]
   ui = auto
+# Use whichever gh is on PATH; the empty helper clears any system default.
 [credential "https://github.com"]
-	helper = !/usr/bin/gh auth git-credential
+	helper =
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !gh auth git-credential
